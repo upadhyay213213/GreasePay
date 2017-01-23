@@ -45,4 +45,17 @@ public class InputSanitation {
     public String getError() {
         return ERROR_MSG;
     }
+
+    public boolean chekSignupInput(String fn, String ln, String email, String phone, String pass) {
+        if (fn.equals("") && ln.equals("") && email.equals("") && phone.equals("") && pass.equals("")) {
+            setError(0);
+            return false;
+        } else if (pass.length() < 8) {
+            setError(1);
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            setError(2);
+            return false;
+        }
+        return true;
+    }
 }

@@ -1,5 +1,6 @@
 package com.ladse.greasepay.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         mGoogleLoginButton.setOnClickListener(this);
         Button mLoginButton = (Button) findViewById(R.id.login_button_loginBtn);
         mLoginButton.setOnClickListener(this);
+        Button mSignUpButton = (Button) findViewById(R.id.login_button_signUp);
+        mSignUpButton.setOnClickListener(this);
     }
 
     @Override
@@ -44,7 +47,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             case R.id.login_button_loginBtn:
                 loginAction();
                 break;
-
+            case R.id.login_button_signUp:
+                startActivity(new Intent(this, SignUpScreen.class));
+                finish();
         }
     }
 

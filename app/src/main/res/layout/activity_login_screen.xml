@@ -60,4 +60,22 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/button_rounded"
         android:textColor="@color/colorButtonText" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="Click here to SignUp"
+        android:textAlignment="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/login_button_signUp"
+        android:background="@drawable/button_rounded"
+        android:text="@string/sign_up"
+        android:textColor="@color/colorButtonText"
+        android:layout_marginTop="@dimen/activity_vertical_margin" />
 </LinearLayout>
+

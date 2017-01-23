@@ -18,4 +18,8 @@
     <string name="cd_fb_sign_in">Facebook Sign in</string>
     <string name="cd_google_sign_in">Google sign in</string>
     <string name="or">OR</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="prompt_phone">Phone</string>
 </resources>
