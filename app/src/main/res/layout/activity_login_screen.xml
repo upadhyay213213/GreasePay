@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login_screen"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.ladse.greasepay.view.LoginScreen">
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_button_fbLogin"
+        android:contentDescription="@string/cd_fb_sign_in" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_button_googleLogin"
+        android:contentDescription="@string/cd_google_sign_in" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/or"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="@dimen/cast_libraries_material_featurehighlight_text_header_size"
+        android:textAlignment="center" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_edit_username"
+        android:hint="@string/prompt_email"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:padding="@dimen/place_autocomplete_button_padding"
+        android:background="@drawable/edit_rounded"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_edit_password"
+        android:hint="@string/prompt_password"
+        android:padding="@dimen/place_autocomplete_button_padding"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_rounded"
+        android:inputType="textPassword" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_button_loginBtn"
+        android:text="@string/prompt_log_in"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/button_rounded"
+        android:textColor="@color/colorButtonText" />
+</LinearLayout>
