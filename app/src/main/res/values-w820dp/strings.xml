@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="prompt_log_in">LOG IN</string>
+    <string name="cd_fb_sign_in">Facebook Sign in</string>
+    <string name="cd_google_sign_in">Google sign in</string>
+    <string name="or">OR</string>
+</resources>
