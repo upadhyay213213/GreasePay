@@ -1,23 +1,30 @@
-package com.ladse.greasepay.view;
+package com.ladse.greasepay.sinup;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.ladse.greasepay.R;
+import com.ladse.greasepay.login.LoginActivity;
+import com.ladse.greasepay.sinup.model.LoginSinUpResponse;
 
-public class SignUpScreen extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener,SinUpView {
 
-    EditText mFname, mLname, mEmail, mPhone, mPass;
+    private EditText mFname, mLname, mEmail, mPhone, mPass;
+    private SinUpPresenterImpl sinUpPresenter;
+    private boolean isSocial=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_screen);
         initializeUI();
+        sinUpPresenter=new SinUpPresenterImpl(this);
     }
 
     private void initializeUI() {
@@ -44,7 +51,8 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
                 googleSignUpAction();
                 break;
             case R.id.signUp_button_signUp:
-                signUpAction();
+                sinUpPresenter.validateSignUpDate(mFname.getText().toString(),mLname.getText().toString(),mPhone.getText().toString(),mEmail.getText().toString(),mPass.getText().toString(),isSocial);
+                //signUpAction(mFname.getText().toString(),mLname.getText().toString(),mEmail.getText().toString(),mPass.getText().toString());
                 break;
         }
     }
@@ -55,6 +63,24 @@ public class SignUpScreen extends AppCompatActivity implements View.OnClickListe
     private void googleSignUpAction() {
     }
 
-    private void signUpAction() {
+
+
+    @Override
+    public void setValidationError() {
+
     }
+
+    @Override
+    public void onSinUpSuccessFull(LoginSinUpResponse loginSinUpResponse) {
+        Log.v("onSinUpSuccessFull",loginSinUpResponse.toString());
+        startActivity(new Intent(this, LoginActivity.class));
+
+    }
+
+    @Override
+    public void onSinUpError(LoginSinUpResponse loginSinUpResponse) {
+
+    }
+
+
 }

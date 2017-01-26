@@ -8,7 +8,7 @@ import android.util.Patterns;
 
 public class InputSanitation {
 
-    private String ERROR_MSG = "";
+    private static String ERROR_MSG = "";
 
     public boolean checkInput(String un, String pass) {
 
@@ -28,7 +28,7 @@ public class InputSanitation {
         return true;
     }
 
-    private void setError(int error_code) {
+    private static void setError(int error_code) {
         switch (error_code) {
             case 0:
                 ERROR_MSG = "Field can't be empty";
@@ -46,7 +46,7 @@ public class InputSanitation {
         return ERROR_MSG;
     }
 
-    public boolean chekSignupInput(String fn, String ln, String email, String phone, String pass) {
+    public static boolean chekSignupInput(String fn, String ln, String email, String phone, String pass) {
         if (fn.equals("") && ln.equals("") && email.equals("") && phone.equals("") && pass.equals("")) {
             setError(0);
             return false;

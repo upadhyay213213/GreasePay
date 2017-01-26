@@ -3,8 +3,8 @@ package com.ladse.greasepay.constants;
 
 public class UrlConstants {
 
-    public static final String LOGIN_API=" http://greasep.stage-servers.com/webservices/w_login";
-    public static final String SIGN_UP_API="webservices/w_sign_up";
+    public static final String LOGIN_API="webservices/w_login/";
+    public static final String SIGN_UP_API="webservices/w_sign_up/";
     public static final String  FORGOT_PASSWORD="http://greasep.stage-servers.com/webservices/w_forgot_password";
     public static final String LOGOUT=" http://greasep.stage-servers.com/webservices/w_logout";
     public static final String RESTAURANT_SEARCH ="http://greasep.stage-servers.com/webservices/w_nearby_restaurant_bar";
@@ -17,4 +17,5 @@ public class UrlConstants {
     public static final String SEND_TOKEN=" http://greasep.stage-servers.com/webservices/w_bar_booking";
 
     public static final String BASE_URL = "http://greasep.stage-servers.com/";
+
 }

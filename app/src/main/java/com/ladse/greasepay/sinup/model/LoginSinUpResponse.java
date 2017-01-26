@@ -2,19 +2,19 @@ package com.ladse.greasepay.sinup.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SinUpResponse {
+public class LoginSinUpResponse {
     @SerializedName("success")
     private  String success;
 
     @SerializedName("message")
     private String message;
 
-    @SerializedName("")
-    private String data;
+    @SerializedName("data")
+    private LoginSinUpData data;
 
     @Override
     public String toString() {
-        return "SinUpResponse{" +
+        return "LoginSinUpResponse{" +
                 "success='" + success + '\'' +
                 ", message='" + message + '\'' +
                 ", data='" + data + '\'' +
@@ -37,11 +37,11 @@ public class SinUpResponse {
         this.message = message;
     }
 
-    public String getData() {
+    public LoginSinUpData getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LoginSinUpData data) {
         this.data = data;
     }
 }
