@@ -1,8 +1,9 @@
-package com.ladse.greasepay.view;
+package com.ladse.greasepay.login;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,16 +11,21 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.ladse.greasepay.R;
-import com.ladse.greasepay.common.InputSanitation;
+import com.ladse.greasepay.common.AlertManager;
+import com.ladse.greasepay.sinup.SignUpActivity;
+import com.ladse.greasepay.sinup.model.LoginSinUpResponse;
 
-public class LoginScreen extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,LoginView {
     private EditText mUsername, mPassword;
+    private LoginPresenter loginPresenter;
+    private boolean isSocial=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         initializeUI();
+        loginPresenter=new LoginPresenterImpl(this);
     }
 
     private void initializeUI() {
@@ -45,10 +51,11 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             case R.id.login_button_googleLogin:
                 break;
             case R.id.login_button_loginBtn:
-                loginAction();
+                //loginAction();
+                loginPresenter.validateUserCredentialsToLogin(mUsername.getText().toString(),mPassword.getText().toString(),isSocial);
                 break;
             case R.id.login_button_signUp:
-                startActivity(new Intent(this, SignUpScreen.class));
+                startActivity(new Intent(this, SignUpActivity.class));
                 finish();
         }
     }
@@ -59,12 +66,26 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     private void googleLoginAction() {
     }
 
-    private void loginAction() {
-        InputSanitation sanitate = new InputSanitation();
-        if (sanitate.checkInput(mUsername.getText().toString(), mPassword.getText().toString())) {
-            Toast.makeText(this, "Input ok", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, sanitate.getError(), Toast.LENGTH_SHORT).show();
-        }
+
+    @Override
+    public void setCredentialsError() {
+        //show alert dialog validation credential fail
+    }
+
+    @Override
+    public void setLoginSuccessFull(LoginSinUpResponse loginSinUpResponse) {
+        //Start new activity
+        Log.v("onLoginSuccessFull",loginSinUpResponse.toString());
+    }
+
+    @Override
+    public void setLoginFail(String message) {
+        AlertManager.showErrorDialog(this,"Invalid username and password");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loginPresenter.toString();
     }
 }
