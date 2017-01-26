@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_sign_up_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.ladse.greasepay.view.SignUpScreen">
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUp_button_fbSignUp"
+        android:contentDescription="@string/cd_fb_sign_in" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUp_button_googleSignUp"
+        android:contentDescription="@string/cd_google_sign_in"
+        android:layout_below="@id/signUp_button_fbSignUp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/signUp_text_or"
+        android:layout_below="@id/signUp_button_googleSignUp"
+        android:text="@string/or"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="@dimen/cast_libraries_material_featurehighlight_text_header_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUp_layout_linear"
+        android:layout_below="@id/signUp_text_or"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/radius_size">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signUp_edit_fname"
+            android:hint="@string/first_name"
+            android:background="@drawable/edit_rounded"
+            android:inputType="text"
+            android:layout_weight="45"
+            android:padding="@dimen/place_autocomplete_button_padding" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/signUp_edit_lname"
+            android:hint="@string/last_name"
+            android:background="@drawable/edit_rounded"
+            android:inputType="text"
+            android:layout_weight="45"
+            android:padding="@dimen/place_autocomplete_button_padding"
+            android:layout_marginLeft="2dp" />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUp_edit_email"
+        android:hint="@string/prompt_email"
+        android:background="@drawable/edit_rounded"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="5dp"
+        android:padding="@dimen/place_autocomplete_button_padding"
+        android:layout_below="@id/signUp_layout_linear" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUp_edit_password"
+        android:background="@drawable/edit_rounded"
+        android:hint="@string/prompt_password"
+        android:inputType="textPassword"
+        android:layout_marginTop="5dp"
+        android:padding="@dimen/place_autocomplete_button_padding"
+        android:layout_below="@id/signUp_edit_email" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUp_edit_phone"
+        android:inputType="phone"
+        android:background="@drawable/edit_rounded"
+        android:hint="@string/prompt_phone"
+        android:layout_marginTop="5dp"
+        android:padding="@dimen/place_autocomplete_button_padding"
+        android:layout_below="@id/signUp_edit_password" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/signUp_button_signUp"
+        android:background="@drawable/button_rounded"
+        android:text="@string/sign_up"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textColor="@color/colorButtonText"
+        android:layout_below="@id/signUp_edit_phone" />
+</RelativeLayout>
