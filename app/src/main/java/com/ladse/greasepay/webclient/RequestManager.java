@@ -1,16 +1,15 @@
 package com.ladse.greasepay.webclient;
 
 
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.ladse.greasepay.appmanager.AppController;
-import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.constants.UrlConstants;
 import com.ladse.greasepay.model.BookingDetailModel;
+import com.ladse.greasepay.sinup.model.SignUpRequest;
 
 import org.json.JSONObject;
 
@@ -20,14 +19,19 @@ import java.util.Map;
 
 public class RequestManager {
 
-    public static RequestManager mRequestManager = new RequestManager();
+    public static RequestManager mRequestManager;
     public RequestResponseInterface responseInterface;
     private String TAG = "requesttag";
 
     private RequestManager() {
+
+
     }
 
     public static RequestManager getInstance() {
+        if(mRequestManager==null){
+            mRequestManager=new RequestManager();
+        }
         return mRequestManager;
     }
 
@@ -63,15 +67,15 @@ public class RequestManager {
         }
     }
 
-    public void SinUp(String firstName, String lastName, String email, String password) {
+    public void SinUp(SignUpRequest loginRequest) {
         try {
             /**URL */
             String url = UrlConstants.SIGN_UP_API ;
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("first_name", firstName);
-            jsonObject.put("last_name", lastName);
-            jsonObject.put("username",email);
-            jsonObject.put("password",password);
+            jsonObject.put("first_name", loginRequest.getFirstName());
+            jsonObject.put("last_name", loginRequest.getLastName());
+            jsonObject.put("username",loginRequest.getEmail());
+            jsonObject.put("password",loginRequest.getPassword());
             JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                     url, jsonObject,
                     new Response.Listener<JSONObject>() {
