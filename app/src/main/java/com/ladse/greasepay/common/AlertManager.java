@@ -7,7 +7,7 @@ import android.support.v7.app.AlertDialog;
 import com.ladse.greasepay.R;
 
 /**
- * Created by pkatya on 1/27/17.
+ * Created by Shrivats on 1/27/17.
  */
 public class AlertManager {
 

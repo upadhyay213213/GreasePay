@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@mipmap/ic_drawer_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_my_grease_pay"
+            android:icon="@mipmap/ic_drawer_greasepay"
+            android:title="My Grease Pay" />
+        <item
+            android:id="@+id/nav_favorite"
+            android:icon="@mipmap/ic_drawer_favoritesicon"
+            android:title="My Favorites" />
+        <item
+            android:id="@+id/nav_promocode"
+            android:icon="@mipmap/ic_drawer_promocode"
+            android:title="Promocode" />
+    </group>
+
+    <item android:title="More">
+        <menu>
+            <item
+                android:id="@+id/nav_payment"
+                android:icon="@mipmap/ic_drawer_payment"
+                android:title="Payment" />
+            <item
+                android:id="@+id/nav_send_feedback"
+                android:icon="@mipmap/ic_drawer_feedback"
+                android:title="Send Feedback" />
+            <item
+                android:id="@+id/nav_invite"
+                android:icon="@mipmap/ic_drawer_invite"
+                android:title="Invite a friend" />
+            <item
+                android:id="@+id/nav_faq"
+                android:icon="@mipmap/ic_drawer_faq"
+                android:title="FAQ" />
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@mipmap/ic_drawer_settings"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_signOut"
+                android:icon="@mipmap/ic_drawer_signout"
+                android:title="Sign Out" />
+        </menu>
+    </item>
+
+</menu>

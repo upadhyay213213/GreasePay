@@ -12,6 +12,7 @@ public class LoginSinUpResponse {
     @SerializedName("data")
     private LoginSinUpData data;
 
+
     @Override
     public String toString() {
         return "LoginSinUpResponse{" +

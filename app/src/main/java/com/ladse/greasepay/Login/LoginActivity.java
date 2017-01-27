@@ -18,7 +18,6 @@ import com.ladse.greasepay.sinup.model.LoginSinUpResponse;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,LoginView {
     private EditText mUsername, mPassword;
     private LoginPresenter loginPresenter;
-    private boolean isSocial=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,20 +51,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.login_button_loginBtn:
                 //loginAction();
-                loginPresenter.validateUserCredentialsToLogin(mUsername.getText().toString(),mPassword.getText().toString(),isSocial);
+                boolean isSocial = false;
+                loginPresenter.validateUserCredentialsToLogin(mUsername.getText().toString(), mPassword.getText().toString(), isSocial);
                 break;
             case R.id.login_button_signUp:
                 startActivity(new Intent(this, SignUpActivity.class));
                 finish();
         }
     }
-
-    private void fbLoginAction() {
-    }
-
-    private void googleLoginAction() {
-    }
-
 
     @Override
     public void setCredentialsError() {
