@@ -21,6 +21,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".sinup.SignUpActivity"/>
+        <activity android:name=".HomeScreen.HomeScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

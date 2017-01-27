@@ -1,6 +1,5 @@
 package com.ladse.greasepay.login;
 
-import com.ladse.greasepay.common.InputSanitation;
 import com.ladse.greasepay.sinup.model.LoginSinUpResponse;
 
 public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.LoginFinishedListener {
@@ -14,7 +13,6 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.Login
 
     @Override
     public void validateUserCredentialsToLogin(String userName, String password, boolean isSocial) {
-        InputSanitation sanitate = new InputSanitation();
         //if (sanitate.checkInput(userName, password)) {
         LoginRequest loginRequest = new LoginRequest(userName, password, isSocial);
         loginIntractor.login(loginRequest, this);
