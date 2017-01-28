@@ -13,4 +13,8 @@ public class LoginSinUpData {
     private String loggedInUser;
     @SerializedName("type_of_user")
     private String typeOfUser;
+
+    public String getAuthToken() {
+        return authToken;
+    }
 }

@@ -1,4 +1,4 @@
-package com.ladse.greasepay.utils;
+package com.ladse.greasepay.home.utils;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.ladse.greasepay.R;
-import com.ladse.greasepay.model.OutletModel;
+import com.ladse.greasepay.home.model.RestaurantData;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,11 +21,11 @@ import java.util.ArrayList;
  */
 
 public class OutletFragmentAdapter extends RecyclerView.Adapter<OutletFragmentAdapter.ViewHolder> {
-    private ArrayList<OutletModel> oModel;
+    private ArrayList<RestaurantData> oModel;
     private Context context;
     private OutletListChangeListener cListener;
 
-    public OutletFragmentAdapter(ArrayList<OutletModel> oModel, OutletListChangeListener cListener) {
+    public OutletFragmentAdapter(ArrayList<RestaurantData> oModel, OutletListChangeListener cListener) {
         this.oModel = oModel;
         this.cListener = cListener;
     }
@@ -39,10 +39,10 @@ public class OutletFragmentAdapter extends RecyclerView.Adapter<OutletFragmentAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.outletName.setText(oModel.get(position).getOutletName());
-        holder.outletAddress.setText(oModel.get(position).getOutletAddress());
-        holder.outletDistance.setText((oModel.get(position).getOutletDistance()) + "\n miles");
-        Picasso.with(context).load(oModel.get(position).getOutletImageUrl()).into(holder.outletImage);
+        holder.outletName.setText(oModel.get(position).getName());
+        holder.outletAddress.setText(oModel.get(position).getAddress());
+        holder.outletDistance.setText((oModel.get(position).getDistance()) + "\n miles");
+        Picasso.with(context).load(oModel.get(position).getImageUrl()).into(holder.outletImage);
         ToggleButton mFavBtn = holder.isFavorite;
         mFavBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

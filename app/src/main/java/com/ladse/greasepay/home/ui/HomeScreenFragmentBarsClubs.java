@@ -1,7 +1,8 @@
-package com.ladse.greasepay.HomeScreen;
+package com.ladse.greasepay.home.ui;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ladse.greasepay.R;
+import com.ladse.greasepay.constants.AppConstatnts;
+import com.ladse.greasepay.home.model.RestaurantData;
 import com.ladse.greasepay.model.OutletModel;
-import com.ladse.greasepay.utils.OutletFragmentAdapter;
-import com.ladse.greasepay.utils.OutletListTouchListener;
+import com.ladse.greasepay.home.utils.OutletFragmentAdapter;
+import com.ladse.greasepay.home.utils.OutletListTouchListener;
 
 import java.util.ArrayList;
 
@@ -22,8 +25,10 @@ import java.util.ArrayList;
  */
 public class HomeScreenFragmentBarsClubs extends Fragment {
     private RecyclerView outletList;
+    private ArrayList<RestaurantData> restaurantDataArrayList;
 
     public HomeScreenFragmentBarsClubs() {
+
         // Required empty public constructor
     }
 
@@ -34,14 +39,26 @@ public class HomeScreenFragmentBarsClubs extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_screen_fragment_bars_clubs, container, false);
         outletList = (RecyclerView) v.findViewById(R.id.home_fragment_bar_recyclerView);
+
         return v;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            restaurantDataArrayList= (ArrayList<RestaurantData>) bundle.getSerializable(AppConstatnts.RESTAURANT_LIST);
+        }
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
         outletList.setHasFixedSize(true);
-        ArrayList<OutletModel> outletListFetch = getOutLetList();
+
+        ArrayList<RestaurantData> outletListFetch = restaurantDataArrayList;
         OutletFragmentAdapter adapter = new OutletFragmentAdapter(outletListFetch, new OutletFragmentAdapter.OutletListChangeListener() {
             @Override
             public void OnFavChangeListener(boolean isFav) {
@@ -51,7 +68,7 @@ public class HomeScreenFragmentBarsClubs extends Fragment {
         RecyclerView.LayoutManager layout = new LinearLayoutManager(getContext());
 
         outletList.setLayoutManager(layout);
-        outletList.setAdapter(adapter);
+        //outletList.setAdapter(adapter);
         outletList.addOnItemTouchListener(new OutletListTouchListener(getContext(), new OutletListTouchListener.OnOutletTouchListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -60,15 +77,15 @@ public class HomeScreenFragmentBarsClubs extends Fragment {
         }));
     }
 
-    private ArrayList<OutletModel> getOutLetList() {
-        ArrayList<OutletModel> outletList = new ArrayList<>();
+    private ArrayList<RestaurantData> getOutLetList() {
+        ArrayList<RestaurantData> outletList = new ArrayList<>();
         OutletModel model = new OutletModel();
         model.setOutletName("Outlet 1");
         model.setOutletAddress();
         model.setIsFavorite(false);
         model.setOutletDistance(20);
         model.setOutletImageUrl("http://www.aiai.ed.ac.uk/project/coax/demo/2002/graphics/CoAX-Ship-Explosion-400x200.jpg");
-        outletList.add(model);
+        //outletList.add(model);
 
         model = new OutletModel();
         model.setOutletName("Outlet 2");
@@ -76,7 +93,7 @@ public class HomeScreenFragmentBarsClubs extends Fragment {
         model.setIsFavorite(true);
         model.setOutletDistance(30);
         model.setOutletImageUrl("http://gadgetultra.com/wp-content/uploads/2015/10/tomb-400x200.jpg");
-        outletList.add(model);
+       // outletList.add(model);
 
         model = new OutletModel();
         model.setOutletName("Outlet 2");
@@ -84,7 +101,7 @@ public class HomeScreenFragmentBarsClubs extends Fragment {
         model.setIsFavorite(false);
         model.setOutletDistance(40);
         model.setOutletImageUrl("http://shreefestival.com/wp-content/uploads/2014/07/CWG2014-400x200.jpg");
-        outletList.add(model);
+        //outletList.add(model);
 
         return outletList;
     }

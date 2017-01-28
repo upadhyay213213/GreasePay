@@ -7,6 +7,9 @@ import com.ladse.greasepay.sinup.model.LoginSinUpResponse;
 import com.ladse.greasepay.webclient_retro.ServerCall;
 import com.ladse.greasepay.webclient_retro.ServiceGenerator;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,7 +55,34 @@ public class LoginIntractorImpl implements LoginInteractor {
     }
 
     @Override
+
     public void login(LoginRequest loginRequest, final LoginFinishedListener listener) {
-       new LoginCall(loginRequest,listener).execute();
+       //new LoginCall(loginRequest,listener).execute();
+        loginUsingEventBus(loginRequest,listener);
     }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void loginUsingEventBus(LoginRequest loginRequest, final LoginFinishedListener loginFinishedListener) {
+        ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
+        Call<LoginSinUpResponse> si = retrofitInterface.login(loginRequest);
+        si.enqueue(new Callback<LoginSinUpResponse>() {
+            @Override
+            public void onResponse(Call<LoginSinUpResponse> call, Response<LoginSinUpResponse> response) {
+                LoginSinUpResponse loginSinUpResponse = response.body();
+                if (loginSinUpResponse.getSuccess().equalsIgnoreCase(AppConstatnts.ServerResponseConstants.LOGIN_SIGNUP_SUCCESS)) {
+                    loginFinishedListener.onSuccess(loginSinUpResponse);
+                } else {
+                    loginFinishedListener.onError(loginSinUpResponse);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LoginSinUpResponse> call, Throwable t) {
+                loginFinishedListener.onServerError();
+            }
+        });
+    }
+
+
 }

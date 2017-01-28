@@ -1,5 +1,6 @@
 package com.ladse.greasepay.login;
 
+import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.sinup.model.LoginSinUpResponse;
 
 public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.LoginFinishedListener {
@@ -29,6 +30,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.Login
 
     @Override
     public void onSuccess(LoginSinUpResponse loginSinUpResponse) {
+        AppSharedPreference.setAuthToken(loginSinUpResponse.getData().getAuthToken(),(LoginActivity)loginView);
         loginView.setLoginSuccessFull(loginSinUpResponse);
 
     }
