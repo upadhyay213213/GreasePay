@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ladse.greasepay" >
+    package="com.ladse.greasepay">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -20,14 +20,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".sinup.SignUpActivity"/>
-        <activity android:name=".HomeScreen.HomeScreen">
+        <activity android:name=".sinup.SignUpActivity" />
+        <activity android:name=".home.ui.HomeScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".upcomingevents.UpcomingEventsActivity"
+            android:label="@string/title_activity_main"></activity>
     </application>
 
 </manifest>

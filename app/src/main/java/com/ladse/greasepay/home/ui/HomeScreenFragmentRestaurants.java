@@ -1,7 +1,8 @@
-package com.ladse.greasepay.HomeScreen;
+package com.ladse.greasepay.home.ui;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ladse.greasepay.R;
-import com.ladse.greasepay.model.OutletModel;
-import com.ladse.greasepay.utils.OutletFragmentAdapter;
-import com.ladse.greasepay.utils.OutletListTouchListener;
+import com.ladse.greasepay.constants.AppConstatnts;
+import com.ladse.greasepay.home.model.RestaurantData;
+import com.ladse.greasepay.home.utils.OutletFragmentAdapter;
+import com.ladse.greasepay.home.utils.OutletListTouchListener;
 
 import java.util.ArrayList;
 
@@ -21,7 +23,8 @@ import java.util.ArrayList;
  */
 public class HomeScreenFragmentRestaurants extends Fragment {
     private RecyclerView restaurantList;
-    private ArrayList<OutletModel> outletList;
+    private ArrayList<RestaurantData> restaurantDataArrayList;
+
 
     public HomeScreenFragmentRestaurants() {
         // Required empty public constructor
@@ -34,15 +37,32 @@ public class HomeScreenFragmentRestaurants extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_screen_fragment_restaurants, container, false);
         restaurantList = (RecyclerView) v.findViewById(R.id.home_fragment_restaurant_recyclerView);
-        outletList = new ArrayList<>();
+
         return v;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            restaurantDataArrayList= (ArrayList<RestaurantData>) bundle.getSerializable(AppConstatnts.RESTAURANT_LIST);
+        }
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
 
     @Override
     public void onStart() {
         super.onStart();
         restaurantList.setHasFixedSize(true);
-        OutletFragmentAdapter oFA = new OutletFragmentAdapter(outletList, new OutletFragmentAdapter.OutletListChangeListener() {
+        OutletFragmentAdapter oFA = new OutletFragmentAdapter(restaurantDataArrayList, new OutletFragmentAdapter.OutletListChangeListener() {
             @Override
             public void OnFavChangeListener(boolean isFav) {
                 //Fav icon toogle handling code goes here
@@ -57,5 +77,8 @@ public class HomeScreenFragmentRestaurants extends Fragment {
                 //Handle outlet item click goes here
             }
         }));
+    }
+    interface FragmentRestaurantHandler{
+        void getRestaurantData();
     }
 }

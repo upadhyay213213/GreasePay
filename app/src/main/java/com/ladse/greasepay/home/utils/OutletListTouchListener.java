@@ -1,4 +1,4 @@
-package com.ladse.greasepay.utils;
+package com.ladse.greasepay.home.utils;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

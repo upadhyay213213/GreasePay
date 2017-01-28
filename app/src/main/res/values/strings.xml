@@ -20,5 +20,7 @@
     <string name="home_tab_heading_bars">Bar/Clubs</string>
     <string name="home_tab_heading_restaurants">Restaurants</string>
     <string name="edit_profile">edit profile</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="server_error">Some error occured while fetching data.Please try agin.</string>
     <!-- Strings for outlet details screen -->
 </resources>

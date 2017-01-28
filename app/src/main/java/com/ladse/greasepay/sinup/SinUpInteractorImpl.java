@@ -6,6 +6,9 @@ import com.ladse.greasepay.sinup.model.LoginSinUpResponse;
 import com.ladse.greasepay.webclient_retro.ServerCall;
 import com.ladse.greasepay.webclient_retro.ServiceGenerator;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,7 +16,9 @@ import retrofit2.Response;
 public class SinUpInteractorImpl implements SignUpInteractor {
 
 
+
     @Override
+    @Subscribe(threadMode = ThreadMode.ASYNC)
     public void sinup(SignUpRequest signUpRequest, final SignUpInteractor.OnSinUpResponseListener listener) {
 
         ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
