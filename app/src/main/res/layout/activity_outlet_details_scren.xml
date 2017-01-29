@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/app_bar_outlet_details_screen"
+    android:padding="@dimen/activity_padding_10">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/home_fragment_outlet_outletImage" />
-
-    <ToggleButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/home_fragment_outlet_button_fav"
-        android:background="@drawable/check_fav"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:textOn=""
-        android:textOff="" />
+        android:layout_height="200dp"
+        android:id="@+id/outlet_details_screen_outletImage" />
 
     <FrameLayout
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="120dp"
+        android:id="@+id/outlet_details_screen_layout_frame"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:padding="@dimen/radius_size"
@@ -31,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/home_fragment_outlet_outletName"
+            android:id="@+id/outlet_details_screen_outletName"
             android:text="Outlet name"
             android:textSize="@dimen/text_heading_small"
             android:layout_gravity="fill_vertical"
@@ -40,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/home_fragment_outlet_outletAddress"
+            android:id="@+id/outlet_details_screen_outletAddress"
             android:text="Address"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="@dimen/radius_size"
@@ -49,15 +42,27 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/home_fragment_outlet_outletDistance"
+            android:id="@+id/outlet_details_screen_outletDistance"
             android:layout_gravity="end"
             android:paddingTop="@dimen/radius_size"
             android:paddingLeft="@dimen/radius_size"
             android:paddingRight="@dimen/radius_size"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:text="50 \n miles"
             android:background="@drawable/distance_rounded_background" />
     </FrameLayout>
+
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/outlet_details_screen_tab"
+        android:layout_below="@id/outlet_details_screen_outletImage" />
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/outlet_details_screen_viewPager"
+        android:layout_below="@id/outlet_details_screen_tab" />
 </RelativeLayout>
