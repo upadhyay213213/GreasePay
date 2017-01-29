@@ -27,6 +27,11 @@ public class HomePresenterImpl implements HomePresenter, HomeInteractor.onRestau
     }
 
     @Override
+    public void onDestroy() {
+        homeView=null;
+    }
+
+    @Override
     public void onRestaurantResponseSuccess(ArrayList<RestaurantData> restaurantData) {
         homeView.onHomeScreenResponseSuccess(restaurantData);
     }

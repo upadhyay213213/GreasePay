@@ -8,4 +8,5 @@ import com.ladse.greasepay.home.model.RestaurantRequest;
 public interface HomePresenter {
 
     void getRestaurantData(RestaurantRequest restaurantRequest);
+    void onDestroy();
 }
