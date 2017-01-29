@@ -1,6 +1,7 @@
 package com.ladse.greasepay.home.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.ladse.greasepay.OutletDetails.OutletDetailsScreen;
 import com.ladse.greasepay.R;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.home.model.RestaurantData;
-import com.ladse.greasepay.model.OutletModel;
 import com.ladse.greasepay.home.utils.OutletFragmentAdapter;
 import com.ladse.greasepay.home.utils.OutletListTouchListener;
 
@@ -48,12 +49,12 @@ public class HomeScreenFragmentBarsClubs extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            restaurantDataArrayList= (ArrayList<RestaurantData>) bundle.getSerializable(AppConstatnts.RESTAURANT_LIST);
+            restaurantDataArrayList = (ArrayList<RestaurantData>) bundle.getSerializable(AppConstatnts.RESTAURANT_LIST);
         }
 
     }
 
-    @Override
+        @Override
     public void onStart() {
         super.onStart();
         outletList.setHasFixedSize(true);
@@ -68,41 +69,20 @@ public class HomeScreenFragmentBarsClubs extends Fragment {
         RecyclerView.LayoutManager layout = new LinearLayoutManager(getContext());
 
         outletList.setLayoutManager(layout);
-        //outletList.setAdapter(adapter);
+        outletList.setAdapter(adapter);
         outletList.addOnItemTouchListener(new OutletListTouchListener(getContext(), new OutletListTouchListener.OnOutletTouchListener() {
             @Override
             public void onItemClick(View v, int position) {
                 Toast.makeText(getContext(), "" + position, Toast.LENGTH_SHORT).show();
+                Bundle bundle=new Bundle();
+                bundle.putSerializable(AppConstatnts.CLUB_DATA,restaurantDataArrayList.get(position));
+                Intent intent=new Intent(getActivity(), OutletDetailsScreen.class);
+                intent.putExtra(AppConstatnts.BUNDLE,bundle);
+
+                startActivity(intent);
+
             }
         }));
     }
 
-    private ArrayList<RestaurantData> getOutLetList() {
-        ArrayList<RestaurantData> outletList = new ArrayList<>();
-        OutletModel model = new OutletModel();
-        model.setOutletName("Outlet 1");
-        model.setOutletAddress();
-        model.setIsFavorite(false);
-        model.setOutletDistance(20);
-        model.setOutletImageUrl("http://www.aiai.ed.ac.uk/project/coax/demo/2002/graphics/CoAX-Ship-Explosion-400x200.jpg");
-        //outletList.add(model);
-
-        model = new OutletModel();
-        model.setOutletName("Outlet 2");
-        model.setOutletAddress();
-        model.setIsFavorite(true);
-        model.setOutletDistance(30);
-        model.setOutletImageUrl("http://gadgetultra.com/wp-content/uploads/2015/10/tomb-400x200.jpg");
-       // outletList.add(model);
-
-        model = new OutletModel();
-        model.setOutletName("Outlet 2");
-        model.setOutletAddress();
-        model.setIsFavorite(false);
-        model.setOutletDistance(40);
-        model.setOutletImageUrl("http://shreefestival.com/wp-content/uploads/2014/07/CWG2014-400x200.jpg");
-        //outletList.add(model);
-
-        return outletList;
-    }
 }

@@ -38,6 +38,7 @@ public class HomeScreenFragmentRestaurants extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home_screen_fragment_restaurants, container, false);
         restaurantList = (RecyclerView) v.findViewById(R.id.home_fragment_restaurant_recyclerView);
 
+
         return v;
     }
 
