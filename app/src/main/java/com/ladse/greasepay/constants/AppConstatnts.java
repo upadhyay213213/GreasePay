@@ -4,6 +4,8 @@ package com.ladse.greasepay.constants;
 public class AppConstatnts {
 
 
+    public static final String CLUB_DATA = "ClubData";
+    public static final String BUNDLE = "bundle";
     public static String AUTH_TOKEN="auth_token";
     public static String RESTAURANT_LIST="restaurantList";
 

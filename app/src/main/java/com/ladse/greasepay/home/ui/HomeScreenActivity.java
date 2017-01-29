@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ladse.greasepay.R;
@@ -37,7 +38,7 @@ public class HomeScreenActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen1);
-
+        View v = findViewById(R.id.setDrawerLayout_mainContent);
         Toolbar toolbar = (Toolbar) findViewById(R.id.home_screen1_toolbar);
         setSupportActionBar(toolbar);
 
