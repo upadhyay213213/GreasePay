@@ -165,4 +165,10 @@ public class HomeScreenActivity extends AppCompatActivity
         super.onResume();
         homePresenter.getRestaurantData(new RestaurantRequest());
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        homePresenter.onDestroy();
+    }
 }

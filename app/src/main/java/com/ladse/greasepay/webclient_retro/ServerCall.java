@@ -1,5 +1,6 @@
 package com.ladse.greasepay.webclient_retro;
 
+import com.ladse.greasepay.booking.BookingListResponse;
 import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeRequest;
 import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeResponse;
 import com.ladse.greasepay.upcomingevents.EventRequest;
@@ -41,4 +42,8 @@ public interface ServerCall {
     @Headers({AppConstatnts.ApiHeader.CONTENT_TYPE_JSON})
     @POST(UrlConstants.CHECK_PROMO_CODE)
     Call<CheckPromoCodeResponse> checkPromoCode(@Header(AppConstatnts.ApiHeader.AUTHORIZATION_HEADER) String authToken, @Body CheckPromoCodeRequest jsonBody);
+
+    @Headers({AppConstatnts.ApiHeader.CONTENT_TYPE_JSON})
+    @POST(UrlConstants.LIST_OF_BOOKINGS)
+    Call<BookingListResponse> getBookingList(@Header(AppConstatnts.ApiHeader.AUTHORIZATION_HEADER) String authToken);
 }

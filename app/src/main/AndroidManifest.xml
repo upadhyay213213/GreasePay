@@ -30,7 +30,8 @@
         </activity>
         <activity
             android:name=".upcomingevents.UpcomingEventsActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_main" />
+        <activity android:name=".booking.BookingListActivity"></activity>
     </application>
 
 </manifest>
