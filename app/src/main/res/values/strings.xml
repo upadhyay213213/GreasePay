@@ -41,4 +41,8 @@
     <string name="no_of_women">No. of Women</string>
     <string name="payment_heading_greasepay_for">GreasePay for</string>
     <string name="entry_free">Entry for everyone is free</string>
+    <string name="entry_free_men">Entry for men is free</string>
+    <string name="entry_free_women">Entry for women is free</string>
+    <string name="payment_heading_greasepay_for_men">Greasepay for one men : </string>
+    <string name="payment_heading_greasepay_for_women">Greasepay for one women : </string>
 </resources>

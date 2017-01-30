@@ -1,4 +1,4 @@
-package com.ladse.greasepay.OutletDetails;
+package com.ladse.greasepay.restaurantdetails;
 
 
 import android.os.Bundle;
@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 
 import com.ladse.greasepay.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class OutletDetailsFragmentAbout extends Fragment {
 
 

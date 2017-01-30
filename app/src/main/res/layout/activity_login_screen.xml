@@ -12,15 +12,19 @@
 
     <ImageButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/login_button_fbLogin"
-        android:contentDescription="@string/cd_fb_sign_in" />
+        android:contentDescription="@string/cd_fb_sign_in"
+        android:background="@drawable/facebook_login"
+/>
 
     <ImageButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/login_button_googleLogin"
-        android:contentDescription="@string/cd_google_sign_in" />
+        android:contentDescription="@string/cd_google_sign_in"
+        android:background="@drawable/google_login"
+        android:layout_marginTop="20dp"
+        android:layout_height="50dp"/>
 
     <TextView
         android:layout_width="match_parent"

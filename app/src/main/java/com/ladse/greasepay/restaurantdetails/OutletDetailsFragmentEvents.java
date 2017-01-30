@@ -1,4 +1,4 @@
-package com.ladse.greasepay.OutletDetails;
+package com.ladse.greasepay.restaurantdetails;
 
 
 import android.os.Bundle;

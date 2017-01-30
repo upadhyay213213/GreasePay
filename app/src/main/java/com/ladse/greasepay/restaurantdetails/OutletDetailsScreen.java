@@ -1,4 +1,4 @@
-package com.ladse.greasepay.OutletDetails;
+package com.ladse.greasepay.restaurantdetails;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ladse.greasepay.R;
-import com.ladse.greasepay.OutletDetails.utils.OutletDetailsScreenAdapter;
+import com.ladse.greasepay.restaurantdetails.utils.OutletDetailsScreenAdapter;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.home.model.RestaurantData;
 import com.squareup.picasso.Picasso;
@@ -43,7 +43,9 @@ public class OutletDetailsScreen extends AppCompatActivity implements Navigation
         mOutletAddress = (TextView) findViewById(R.id.outlet_details_screen_outletAddress);
         mOutletDistance= (TextView) findViewById(R.id.outlet_details_screen_outletDistance);
         mOutletImage = (ImageView) findViewById(R.id.outlet_details_screen_outletImage);
+
         setOutletDetails(restaurantData);
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.home_screen1_toolbar);
         setSupportActionBar(myToolbar);
 
