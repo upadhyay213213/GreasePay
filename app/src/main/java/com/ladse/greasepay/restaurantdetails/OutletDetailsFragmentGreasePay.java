@@ -1,4 +1,4 @@
-package com.ladse.greasepay.OutletDetails;
+package com.ladse.greasepay.restaurantdetails;
 
 
 import android.os.Bundle;
@@ -102,7 +102,17 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
         if(restaurantData.getFemaleEntryFree()&&restaurantData.getMaleEntryFree()){
             mLabelPricingMale.setText(getString(R.string.entry_free));
             mLabelPricingFemale.setVisibility(View.GONE);
+        }else{
+            if(restaurantData.getMaleEntryFree()){
+                mLabelPricingMale.setText(getString(R.string.entry_free_men));
+                mLabelPricingFemale.setText(String.valueOf(restaurantData.getFemaleEntryFree())+" "+"for female entry");
+            }
+            else if(restaurantData.getFemaleEntryFree()){
+                mLabelPricingMale.setText(getString(R.string.entry_free_women));
+                mLabelPricingMale.setText(String.valueOf(restaurantData.getMaleEntryFree())+" "+"for male entry");
+            }
         }
+
     }
 
     @Override

@@ -143,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/outlet_details_fragment_greasepay_label_pricingMen"
-            android:text="@string/payment_heading_greasepay_for"
+            android:text="@string/payment_heading_greasepay_for_men"
             android:padding="@dimen/activity_padding_5"
             android:textColor="@color/colorTextBlack" />
 

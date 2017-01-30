@@ -13,4 +13,5 @@
     <dimen name="activity_padding_10">10dp</dimen>
     <dimen name="activity_padding_15">15dp</dimen>
     <dimen name="activity_padding_5">5dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

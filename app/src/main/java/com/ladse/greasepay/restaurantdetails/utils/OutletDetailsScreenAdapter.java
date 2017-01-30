@@ -1,19 +1,16 @@
-package com.ladse.greasepay.OutletDetails.utils;
+package com.ladse.greasepay.restaurantdetails.utils;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.ladse.greasepay.OutletDetails.OutletDetailsFragmentAbout;
-import com.ladse.greasepay.OutletDetails.OutletDetailsFragmentEvents;
-import com.ladse.greasepay.OutletDetails.OutletDetailsFragmentGreasePay;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.home.model.RestaurantData;
+import com.ladse.greasepay.restaurantdetails.OutletDetailsFragmentAbout;
+import com.ladse.greasepay.restaurantdetails.OutletDetailsFragmentEvents;
+import com.ladse.greasepay.restaurantdetails.OutletDetailsFragmentGreasePay;
 
-/**
- * Created by Shrivats on 1/27/2017.
- */
 
 public class OutletDetailsScreenAdapter extends FragmentStatePagerAdapter {
     int numOfTabs;

@@ -135,7 +135,7 @@ public class HomeScreenActivity extends AppCompatActivity
     @Override
     public void onHomeScreenResponseSuccess(ArrayList<RestaurantData> restaurantData) {
 
-        final HomePagerAdapter adapter = new HomePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),restaurantData);
+        final HomePagerAdapter adapter = new HomePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),restaurantData,homePresenter);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

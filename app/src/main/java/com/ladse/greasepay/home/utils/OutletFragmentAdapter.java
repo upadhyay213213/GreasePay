@@ -72,9 +72,9 @@ public class OutletFragmentAdapter extends RecyclerView.Adapter<OutletFragmentAd
         public ViewHolder(View itemView) {
             super(itemView);
             outletImage = (ImageView) itemView.findViewById(R.id.home_fragment_outlet_outletImage);
-            outletName = (TextView) itemView.findViewById(R.id.home_fragment_outlet_outletName);
-            outletAddress = (TextView) itemView.findViewById(R.id.home_fragment_outlet_outletAddress);
-            outletDistance = (TextView) itemView.findViewById(R.id.home_fragment_outlet_outletDistance);
+            outletName = (TextView) itemView.findViewById(R.id.outlet_details_screen_outletName);
+            outletAddress = (TextView) itemView.findViewById(R.id.outlet_details_screen_outletAddress);
+            outletDistance = (TextView) itemView.findViewById(R.id.outlet_details_screen_outletDistance);
             isFavorite = (ToggleButton) itemView.findViewById(R.id.home_fragment_outlet_button_fav);
         }
     }

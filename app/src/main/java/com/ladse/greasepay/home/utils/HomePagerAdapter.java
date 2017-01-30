@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.ladse.greasepay.constants.AppConstatnts;
+import com.ladse.greasepay.home.HomePresenter;
 import com.ladse.greasepay.home.model.RestaurantData;
 import com.ladse.greasepay.home.ui.HomeScreenFragmentBarsClubs;
 import com.ladse.greasepay.home.ui.HomeScreenFragmentRestaurants;
@@ -19,11 +20,13 @@ import java.util.ArrayList;
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
     private int numOfTabs;
 private ArrayList<RestaurantData>restaurantDataArrayList;
+    private HomePresenter homePresenter;
 
-    public HomePagerAdapter(FragmentManager fm, int numOfTabs, ArrayList<RestaurantData> restaurantDatas) {
+    public HomePagerAdapter(FragmentManager fm, int numOfTabs, ArrayList<RestaurantData> restaurantDatas, HomePresenter presenter) {
         super(fm);
         this.numOfTabs = numOfTabs;
         this.restaurantDataArrayList=restaurantDatas;
+        homePresenter=presenter;
     }
 
     @Override
@@ -32,7 +35,7 @@ private ArrayList<RestaurantData>restaurantDataArrayList;
             case 0:
                 HomeScreenFragmentBarsClubs homeScreenFragmentBarsClubs=new HomeScreenFragmentBarsClubs();
                 Bundle bundle=new Bundle();
-                bundle.putSerializable(AppConstatnts.RESTAURANT_LIST,restaurantDataArrayList);
+                bundle.putSerializable(AppConstatnts.RESTAURANT_LIST,homePresenter.getClubBarData(restaurantDataArrayList));
                 homeScreenFragmentBarsClubs.setArguments(bundle);
                 return homeScreenFragmentBarsClubs;
             case 1:

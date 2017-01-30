@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.ladse.greasepay.OutletDetails.OutletDetailsScreen;
+import com.ladse.greasepay.restaurantdetails.OutletDetailsScreen;
 import com.ladse.greasepay.R;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.home.model.RestaurantData;

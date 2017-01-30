@@ -1,4 +1,4 @@
-package com.ladse.greasepay.OutletDetails;
+package com.ladse.greasepay.restaurantdetails;
 
 
 import android.os.Bundle;
@@ -9,20 +9,18 @@ import android.view.ViewGroup;
 
 import com.ladse.greasepay.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class OutletDetailsFragmentEvents extends Fragment {
+
+public class OutletDetailsFragmentAbout extends Fragment {
 
 
-    public OutletDetailsFragmentEvents() {
+    public OutletDetailsFragmentAbout() {
         // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.outlet_details_tab_upcomingevents, container, false);
+        View v = inflater.inflate(R.layout.outlet_details_tab_about, container, false);
         return v;
     }
 
