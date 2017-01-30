@@ -40,6 +40,8 @@
     <string name="no_of_men">No. of Men</string>
     <string name="no_of_women">No. of Women</string>
     <string name="payment_heading_greasepay_for">GreasePay for</string>
+    <string name="title_activity_event_screen">EventScreen</string>
+    <string name="title_activity_card_details">CardDetails</string>
     <string name="entry_free">Entry for everyone is free</string>
     <string name="entry_free_men">Entry for men is free</string>
     <string name="entry_free_women">Entry for women is free</string>

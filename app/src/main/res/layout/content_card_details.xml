@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_card_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.ladse.greasepay.cardUi.CardDetails"
+    tools:showIn="@layout/activity_card_details"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Card Number"
+        android:textColor="@color/colorButtonText" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_padding_5"
+        android:id="@+id/card_details_edit_cardNumber"
+        android:hint="Card Number"
+        android:padding="@dimen/activity_padding_5"
+        android:background="@drawable/card_details_edit_bg"
+        android:inputType="number" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/activity_padding_15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_details_label_expiryDate"
+            android:text="Exp Date"
+            android:textColor="@color/colorButtonText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CVV"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorButtonText" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_details_edit_expiryDate"
+            android:layout_marginTop="@dimen/activity_padding_5"
+            android:layout_below="@id/card_details_label_expiryDate"
+            android:hint="MM/YYYY"
+            android:padding="@dimen/activity_padding_5"
+            android:background="@drawable/card_details_edit_bg"
+            android:inputType="date" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_details_edit_cvv"
+            android:layout_marginTop="@dimen/activity_padding_5"
+            android:layout_below="@id/card_details_label_expiryDate"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/activity_padding_5"
+            android:text="CVV"
+            android:background="@drawable/card_details_edit_bg"
+            android:inputType="number" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_padding_15"
+        android:text="Name on the card"
+        android:textColor="@color/colorButtonText" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_details_edit_cardName"
+        android:layout_marginTop="@dimen/activity_padding_5"
+        android:hint="Enter name on the card"
+        android:padding="@dimen/activity_padding_5"
+        android:background="@drawable/card_details_edit_bg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_padding_15"
+        android:text="Zip Code"
+        android:textColor="@color/colorButtonText" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_details_edit_zipCode"
+        android:layout_marginTop="@dimen/activity_padding_5"
+        android:text="Enter Zip code"
+        android:padding="@dimen/activity_padding_5"
+        android:background="@drawable/card_details_edit_bg" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_details_check_defaultCard"
+        android:text="Make it Default for all payments"
+        android:layout_marginTop="@dimen/activity_padding_15" />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_details_check_saveCard"
+        android:text="Save this card for future transactions" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_details_button_proceed"
+        android:layout_marginTop="@dimen/activity_padding_10"
+        android:background="@drawable/button_rounded"
+        android:textColor="@color/colorButtonText"
+        android:text="Proceed" />
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/event_list_eventImage"
+        android:src="@color/colorEdittextBackground" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="@dimen/activity_padding_5"
+        android:orientation="vertical"
+        android:background="@color/colorTransparentBlack">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/event_list_eventName"
+            android:textSize="@dimen/text_heading_medium"
+            android:padding="@dimen/activity_padding_5"
+            android:text="Event Name"
+            android:textColor="@color/colorButtonText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/event_list_eventDate"
+            android:textSize="@dimen/text_heading_small"
+            android:text="Event Date"
+            android:textColor="@color/colorButtonText" />
+    </LinearLayout>
+</FrameLayout>

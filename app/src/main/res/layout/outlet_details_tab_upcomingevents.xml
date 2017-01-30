@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_padding_15">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/outlet_details_fragment_events_icon_cal"
+        android:src="@drawable/ic_calendar_disp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/outlet_details_fragment_events_label_date"
+        android:layout_toLeftOf="@id/outlet_details_fragment_events_icon_cal"
+        android:text="date"
+        android:layout_marginRight="@dimen/activity_padding_5"
+        android:padding="@dimen/activity_padding_5" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/outlet_details_fragment_events_icon_cal"
+        android:layout_marginTop="@dimen/activity_padding_15"
+        android:id="@+id/outlet_details_fragment_events_recyclerEvent"
+        android:padding="@dimen/activity_padding_10"
+        android:orientation="horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_padding_10"
+        android:background="@drawable/payment_detail_bg"
+        android:layout_below="@id/outlet_details_fragment_events_recyclerEvent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/outlet_details_fragment_events_detailBox_eventName"
+            android:text="Event Name"
+            android:textSize="@dimen/text_heading_medium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/outlet_details_fragment_events_detailBox_eventDate"
+            android:layout_gravity="end"
+            android:text="Event Date" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/outlet_details_fragment_events_detailBox_eventAddress"
+            android:layout_gravity="bottom"
+            android:text="address" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/outlet_details_fragment_events_detailBox_eventCost"
+            android:text="Cost" />
+    </LinearLayout>
 </RelativeLayout>
