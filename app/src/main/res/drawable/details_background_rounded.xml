@@ -3,4 +3,10 @@
     android:shape="rectangle">
     <solid android:color="@color/colorTransparentBlack" />
     <corners android:radius="@dimen/activity_horizontal_margin" />
+    <padding
+        android:left="@dimen/activity_padding_5"
+        android:right="@dimen/activity_padding_5"
+        android:top="@dimen/activity_padding_10"
+        android:bottom="@dimen/activity_padding_10"
+        />
 </shape>
