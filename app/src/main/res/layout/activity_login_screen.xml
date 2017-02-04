@@ -32,7 +32,7 @@
         android:text="@string/or"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:textSize="@dimen/text_heading_large"
+        android:textSize="16sp"
         android:textAlignment="center" />
 
     <EditText
@@ -42,7 +42,6 @@
         android:hint="@string/prompt_email"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:padding="@dimen/activity_padding_15"
-        android:background="@drawable/edit_rounded"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -52,7 +51,6 @@
         android:hint="@string/prompt_password"
         android:padding="@dimen/activity_padding_15"
         android:layout_marginTop="5dp"
-        android:background="@drawable/edit_rounded"
         android:inputType="textPassword" />
 
     <Button
