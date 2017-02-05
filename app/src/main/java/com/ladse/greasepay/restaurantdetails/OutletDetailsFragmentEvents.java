@@ -14,6 +14,11 @@ import android.widget.TextView;
 
 import com.ladse.greasepay.R;
 import com.ladse.greasepay.model.EventModel;
+import com.ladse.greasepay.upcomingevents.EventData;
+import com.ladse.greasepay.upcomingevents.EventPresenter;
+import com.ladse.greasepay.upcomingevents.EventPresenterImpl;
+import com.ladse.greasepay.upcomingevents.EventRequest;
+import com.ladse.greasepay.upcomingevents.EventView;
 import com.ladse.greasepay.utils.EventAdapter;
 
 import java.util.ArrayList;
@@ -21,16 +26,17 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OutletDetailsFragmentEvents extends Fragment {
+public class OutletDetailsFragmentEvents extends Fragment implements EventView{
 
     private RecyclerView eventList;
     private TextView mLabelDate, mDetailBoxName, mDetailBoxDate, mDetailBoxAddress, mDetailBoxCost;
-
+    EventPresenter eventPresenter;
     ImageView mCalIcon;
-    private ArrayList<EventModel> eventDetailsList;
-
+    private ArrayList<EventData> eventDetailsList;
+    private TextView labelMessage;
     public OutletDetailsFragmentEvents() {
         // Required empty public constructor
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,21 +50,45 @@ public class OutletDetailsFragmentEvents extends Fragment {
         mDetailBoxDate = (TextView) v.findViewById(R.id.outlet_details_fragment_events_detailBox_eventDate);
         mDetailBoxCost = (TextView) v.findViewById(R.id.outlet_details_fragment_events_detailBox_eventCost);
         mDetailBoxAddress = (TextView) v.findViewById(R.id.outlet_details_fragment_events_detailBox_eventAddress);
+        labelMessage = (TextView) v.findViewById(R.id.outlet_details_fragment_events_label_message);
+        eventPresenter = new EventPresenterImpl(this, getActivity());
         return v;
     }
 
     @Override
-    public void onStart() {
+    public void onStart()
+    {
+        eventPresenter.getUpcomingEventsList(new EventRequest());
         super.onStart();
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        EventAdapter eveAd = new EventAdapter(eventDetailsList);
 
+    }
+
+    @Override
+    public void onUpcomingEventsSuccess(ArrayList<EventData> eventDataArrayList) {
+            eventDetailsList = eventDataArrayList;
+            setDetails();
+    }
+
+    @Override
+    public void onUpcomingEventsError(String message) {
+
+    }
+
+    @Override
+    public void onUpcomingEventServerError() {
+
+    }
+    private void setDetails(){
+        EventAdapter eveAd = new EventAdapter(eventDetailsList);
         RecyclerView.LayoutManager lMan = new LinearLayoutManager(getContext());
         eventList.setLayoutManager(lMan);
         eventList.setAdapter(eveAd);
+        //labelMessage.setText("success");
     }
 }

@@ -1,6 +1,7 @@
 package com.ladse.greasepay.restaurantdetails;
 
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,11 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.ladse.greasepay.R;
+import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.home.model.RestaurantData;
 
@@ -30,41 +35,76 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
     private TextView mLabelPricingPromo;
     private TextView mLabelPricingTax;
     private TextView mLabelPricingTotal;
-    private EditText mPromoCode, mNoOfMen, mNoOfWomen;
+    private EditText mPromoCode;
     private Button mPayBtn;
     private ImageView mCalender;
     private RestaurantData restaurantData;
     private TextView mLabelPricingMale;
     private TextView mLabelPricingFemale;
-
+    private ImageButton incrementMen, decrementMen, incrementWomen, decrementWomen;
+    private TextView mNumberMen, mNumberWomen;
     public OutletDetailsFragmentGreasePay() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.outlet_details_tab_greasepay, container, false);
         mLabelPricingMale = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_pricing_male);
         mLabelPricingFemale = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_pricing_female);
         mLabelDate = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_date);
         mCalender = (ImageView) v.findViewById(R.id.outlet_details_fragment_greasePay_icon_calendar);
-
-        mNoOfMen = (EditText) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_men);
-        mNoOfWomen = (EditText) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_women);
-        mNoOfMen.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        incrementMen = (ImageButton) v.findViewById(R.id.outlet_details_fragment_greasePay_button_menIncrement);
+        decrementMen = (ImageButton) v.findViewById(R.id.outlet_details_fragment_greasePay_button_menDecrement);
+        incrementWomen = (ImageButton) v.findViewById(R.id.outlet_details_fragment_greasePay_button_womenIncrement);
+        decrementWomen = (ImageButton) v.findViewById(R.id.outlet_details_fragment_greasePay_button_womenDecrement);
+        mNumberMen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_men);
+        mNumberWomen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_women);
+        AppSharedPreference.setAuthToken("585d520a59a67", getContext());
+        mCalender.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    //todo update no of men in below payment details as soon as focus is lost
+            public void onClick(View view) {/*
+                DatePickerDialog dialog = new DatePickerDialog(getActivity().getBaseContext());
+                dialog.setTitle("Select Date");
+                dialog.show();
+                dialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+                    }
+                });*/
+            }
+        });
+        incrementMen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int no = Integer.parseInt(mNumberMen.getText().toString()) + 1;
+                mNumberMen.setText(no+"");
+            }
+        });
+        incrementWomen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int no = Integer.parseInt(mNumberWomen.getText().toString()) + 1;
+                mNumberWomen.setText(no+"");
+            }
+        });
+        decrementMen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!mNumberMen.getText().toString().equals("0")){
+                    int no = Integer.parseInt(mNumberMen.getText().toString()) - 1;
+                    mNumberMen.setText(no+"");
                 }
             }
         });
-        mNoOfWomen.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        decrementWomen.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    //todo update no of women in below payment details as soon as focus is lost
+            public void onClick(View view) {
+                if(!mNumberWomen.getText().toString().equals("0")){
+                    int no = Integer.parseInt(mNumberWomen.getText().toString()) - 1;
+                    mNumberWomen.setText(no+"");
                 }
             }
         });
@@ -86,10 +126,14 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
         return v;
     }
 
+    private void setDate(int i, int i1, int i2) {
+        mLabelDate.setText(i + "/" + i1 + "/" + i2);
+    }
+
     @Override
     public void onStart() {
         super.onStart();
-        setValues(restaurantData);
+        //setValues(restaurantData);
     }
 
     private void setValues(RestaurantData restaurantData) {

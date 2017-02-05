@@ -3,6 +3,8 @@ package com.ladse.greasepay.webclient_retro;
 import com.ladse.greasepay.booking.BookingListResponse;
 import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeRequest;
 import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeResponse;
+import com.ladse.greasepay.stripe.StripeRequest;
+import com.ladse.greasepay.stripe.StripeResponse;
 import com.ladse.greasepay.upcomingevents.EventRequest;
 import com.ladse.greasepay.upcomingevents.EventResponse;
 import com.ladse.greasepay.constants.AppConstatnts;
@@ -46,4 +48,8 @@ public interface ServerCall {
     @Headers({AppConstatnts.ApiHeader.CONTENT_TYPE_JSON})
     @POST(UrlConstants.LIST_OF_BOOKINGS)
     Call<BookingListResponse> getBookingList(@Header(AppConstatnts.ApiHeader.AUTHORIZATION_HEADER) String authToken);
+
+    @Headers({AppConstatnts.ApiHeader.CONTENT_TYPE_JSON})
+    @POST(UrlConstants.SEND_STRIPE_TOKEN)
+    Call<StripeResponse> sendToken(@Body StripeRequest jsonBody);
 }

@@ -32,8 +32,6 @@ public class OutletDetailsScreen extends AppCompatActivity implements Navigation
         Bundle bundle=getIntent().getBundleExtra(AppConstatnts.BUNDLE);
         restaurantData= (RestaurantData) bundle.getSerializable(AppConstatnts.CLUB_DATA);
         initializeUI(restaurantData);
-
-
     }
 
     private void initializeUI(RestaurantData restaurantData) {
@@ -41,12 +39,9 @@ public class OutletDetailsScreen extends AppCompatActivity implements Navigation
         mOutletAddress = (TextView) findViewById(R.id.outlet_details_screen_outletAddress);
         mOutletDistance= (TextView) findViewById(R.id.outlet_details_screen_outletDistance);
         mOutletImage = (ImageView) findViewById(R.id.outlet_details_screen_outletImage);
-
         setOutletDetails(restaurantData);
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.home_screen1_toolbar);
         setSupportActionBar(myToolbar);
-
       /*  DrawerLayout navDrawer = (DrawerLayout) findViewById(R.id.outlet_details_screen_drawer);
         ActionBarDrawerToggle abdToggle = new
                 ActionBarDrawerToggle(this, navDrawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

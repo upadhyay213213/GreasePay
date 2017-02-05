@@ -38,7 +38,11 @@
         android:layout_below="@id/outlet_details_fragment_events_recyclerEvent"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/activity_vertical_margin">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/outlet_details_fragment_events_label_message"
+        />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

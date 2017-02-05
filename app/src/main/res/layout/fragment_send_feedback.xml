@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ladse.greasepay.fragments.SendFeedbackFragment"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_padding_10"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Share what you love about this app, or what we can do better"
+        android:textSize="16sp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/fragment_feedback_edit_feedback"
+        android:background="@color/colorButtonText"
+        android:layout_marginTop="@dimen/activity_padding_10"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_feedback_button_submit"
+        android:layout_marginTop="@dimen/activity_padding_10"
+        android:background="@drawable/button_rounded"
+        android:textColor="@color/colorButtonText"
+        android:text="Submit"
+        />
+
+</LinearLayout>

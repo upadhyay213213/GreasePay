@@ -16,7 +16,7 @@ private EventPresenter eventPresenter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upcoming_events);
-        eventPresenter=new EventPresenterImpl(this);
+        eventPresenter=new EventPresenterImpl(this, this);
         ////getDataFromServer
 
 

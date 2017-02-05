@@ -47,4 +47,7 @@
     <string name="entry_free_women">Entry for women is free</string>
     <string name="payment_heading_greasepay_for_men">Greasepay for one men : </string>
     <string name="payment_heading_greasepay_for_women">Greasepay for one women : </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

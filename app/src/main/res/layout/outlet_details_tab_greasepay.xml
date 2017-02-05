@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_padding_10"
     android:paddingRight="@dimen/activity_padding_10">
@@ -19,7 +21,6 @@
         android:padding="@dimen/radius_size"
         android:textSize="18sp"
         android:text="Entry fee"
-
         android:textColor="@color/colorButtonText" />
         <TextView
             android:layout_width="wrap_content"
@@ -67,16 +68,34 @@
             android:layout_weight="1"
             android:textColor="@color/colorTextBlack" />
 
-        <EditText
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/outlet_details_fragment_greasePay_no_of_men"
-            android:layout_marginLeft="@dimen/radius_size"
-            android:layout_weight="1"
-            android:background="@drawable/edit_rounded"
-            android:hint="0"
-            android:gravity="center"
-            android:inputType="number" />
+            android:orientation="horizontal"
+            android:background="@drawable/promo_bg"
+            android:padding="@dimen/activity_padding_5"
+            >
+            <ImageButton
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/outlet_details_fragment_greasePay_button_menDecrement"
+                android:src="@drawable/ic_icon_decrement"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/outlet_details_fragment_greasePay_no_of_men"
+                android:text="0"
+                android:layout_marginLeft="@dimen/activity_padding_5"
+                android:layout_marginRight="@dimen/activity_padding_5"
+                />
+            <ImageButton
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/outlet_details_fragment_greasePay_button_menIncrement"
+                android:src="@drawable/ic_icon_increment"
+                />
+        </LinearLayout>
 
         <Space
             android:layout_width="@dimen/activity_horizontal_margin"
@@ -90,15 +109,37 @@
             android:layout_weight="1"
             android:textColor="@color/colorTextBlack" />
 
-        <EditText
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/outlet_details_fragment_greasePay_no_of_women"
-            android:background="@drawable/edit_rounded"
-            android:hint="0"
-            android:gravity="center"
-            android:inputType="number" />
+            android:orientation="horizontal"
+            android:background="@drawable/promo_bg"
+            android:padding="@dimen/activity_padding_5"
+            >
+            <ImageButton
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:id="@+id/outlet_details_fragment_greasePay_button_womenDecrement"
+                android:src="@drawable/ic_icon_decrement"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/outlet_details_fragment_greasePay_no_of_women"
+                android:text="0"
+                android:layout_marginLeft="@dimen/activity_padding_5"
+                android:layout_marginRight="@dimen/activity_padding_5"
+                />
+            <ImageButton
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+
+                android:id="@+id/outlet_details_fragment_greasePay_button_womenIncrement"
+                android:src="@drawable/ic_icon_increment"
+
+                />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -122,8 +163,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/outlet_details_fragment_greasePay_layout_nofopeople"
-            android:background="@drawable/edit_rounded"
+
+            android:background="@drawable/promo_bg"
             android:padding="@dimen/radius_size"
             android:gravity="end"
             android:id="@+id/outlet_details_fragment_greasepay_edit_promo" />

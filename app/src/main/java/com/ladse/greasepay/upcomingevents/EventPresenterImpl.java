@@ -1,6 +1,9 @@
 package com.ladse.greasepay.upcomingevents;
 
+import android.content.Context;
+
 import com.ladse.greasepay.common.AppSharedPreference;
+import com.ladse.greasepay.restaurantdetails.OutletDetailsFragmentEvents;
 
 import java.util.ArrayList;
 
@@ -10,15 +13,17 @@ import java.util.ArrayList;
 public class EventPresenterImpl implements EventPresenter, EventInteractor.OnEventResponseReceived {
     private EventView eventView;
     private EventInteractor eventInteractor;
+    private Context context;
 
-    public EventPresenterImpl(EventView eventView) {
+    public EventPresenterImpl(EventView eventView, Context context) {
         this.eventView = eventView;
         eventInteractor = new EventInteractorImpl();
+        this.context = context;
     }
 
     @Override
     public void getUpcomingEventsList(EventRequest eventRequest) {
-        eventInteractor.getUpcomingEvents(AppSharedPreference.getAuthToken((UpcomingEventsActivity) eventView), eventRequest, this);
+        eventInteractor.getUpcomingEvents(AppSharedPreference.getAuthToken(context), eventRequest, this);
     }
 
     @Override
