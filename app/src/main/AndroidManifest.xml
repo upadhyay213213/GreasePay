@@ -33,6 +33,8 @@
             android:label="@string/title_activity_main" />
         <activity android:name=".booking.BookingListActivity"></activity>
         <activity android:name=".restaurantdetails.OutletDetailsScreen"/>
+        <activity android:name=".debitcard.CardDetailsActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 
 </manifest>

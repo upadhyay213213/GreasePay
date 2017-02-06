@@ -15,7 +15,12 @@ public class CheckPromoCodeRequest {
         @Expose
         private String promoCode;
 
-        public String getBarId() {
+    public CheckPromoCodeRequest(String barId, String promoCode) {
+        this.barId = barId;
+        this.promoCode = promoCode;
+    }
+
+    public String getBarId() {
             return barId;
         }
 

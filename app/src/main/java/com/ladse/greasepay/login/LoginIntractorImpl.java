@@ -55,7 +55,6 @@ public class LoginIntractorImpl implements LoginInteractor {
     }
 
     @Override
-
     public void login(LoginRequest loginRequest, final LoginFinishedListener listener) {
        //new LoginCall(loginRequest,listener).execute();
         loginUsingEventBus(loginRequest,listener);
