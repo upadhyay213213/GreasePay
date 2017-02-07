@@ -36,4 +36,7 @@ dependencies {
     compile 'com.android.support:design:24.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.greenrobot:eventbus:3.0.0'
+
+    compile 'com.stripe:stripe-android:2.0.2'
+
 }
