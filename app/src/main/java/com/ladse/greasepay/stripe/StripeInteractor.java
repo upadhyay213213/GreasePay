@@ -7,8 +7,10 @@ package com.ladse.greasepay.stripe;
 public interface StripeInteractor {
     interface StripeFinishedListener{
         void onSuccess(StripeResponse stripeResponse);
+        void onGetTokenSuccess(StripeTokenResponse stripeTokenResponse);
         void onError(StripeResponse stripeResponse);
         void onServerError();
     }
     void sendToken(StripeRequest stripeRequest, StripeFinishedListener stripeFinishedListener);
+    void getStripeToken(StripeRequest stripeRequest, StripeFinishedListener stripeFinishedListener);
 }

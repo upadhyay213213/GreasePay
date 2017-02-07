@@ -17,5 +17,5 @@ public class UrlConstants {
     public static final String SEND_TOKEN=" http://greasep.stage-servers.com/webservices/w_bar_booking";
     public static final String SEND_STRIPE_TOKEN = "http://greasep.stage-servers.com/webservices/w_send_token_to_server";
     public static final String BASE_URL = "http://greasep.stage-servers.com/webservices/";
-
+    public static final String GET_STRIPE_TOKEN = "http://greasep.stage-servers.com/webservices/w_retrieve_token_from_server/";
 }

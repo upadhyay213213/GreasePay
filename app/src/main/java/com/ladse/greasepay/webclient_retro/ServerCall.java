@@ -5,6 +5,7 @@ import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeRequest;
 import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeResponse;
 import com.ladse.greasepay.stripe.StripeRequest;
 import com.ladse.greasepay.stripe.StripeResponse;
+import com.ladse.greasepay.stripe.StripeTokenResponse;
 import com.ladse.greasepay.upcomingevents.EventRequest;
 import com.ladse.greasepay.upcomingevents.EventResponse;
 import com.ladse.greasepay.constants.AppConstatnts;
@@ -52,4 +53,8 @@ public interface ServerCall {
     @Headers({AppConstatnts.ApiHeader.CONTENT_TYPE_JSON})
     @POST(UrlConstants.SEND_STRIPE_TOKEN)
     Call<StripeResponse> sendToken(@Body StripeRequest jsonBody);
+
+    @Headers({AppConstatnts.ApiHeader.CONTENT_TYPE_JSON})
+    @POST(UrlConstants.GET_STRIPE_TOKEN)
+    Call<StripeTokenResponse> getStripeToken(@Body StripeRequest jsonBody);
 }

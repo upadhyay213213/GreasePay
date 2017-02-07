@@ -7,4 +7,5 @@ package com.ladse.greasepay.stripe;
 public interface StripeView {
     void setTokenSendSuccessful(StripeResponse stripeResponse);
     void setTokenSendFail(String message);
+    void getStripeTokenSuccessful(StripeTokenResponse stripeTokenResponse);
 }

@@ -20,6 +20,11 @@ public class StripePresenterImpl implements StripePresenter, StripeInteractor.St
     }
 
     @Override
+    public void onGetTokenSuccess(StripeTokenResponse stripeTokenResponse) {
+        view.getStripeTokenSuccessful(stripeTokenResponse);
+    }
+
+    @Override
     public void onError(StripeResponse stripeResponse) {
         view.setTokenSendFail(stripeResponse.getMessage());
     }
@@ -35,5 +40,12 @@ public class StripePresenterImpl implements StripePresenter, StripeInteractor.St
         stripeRequest.setStripe_token(stripeToken);
         stripeRequest.setCard_last_digit(card_last_digit);
         stripeInteractor.sendToken(stripeRequest, this);
+    }
+
+    @Override
+    public void getStripeToken(String card_last_digit) {
+        StripeRequest stripeRequest = new StripeRequest();
+        stripeRequest.setCard_last_digit(card_last_digit);
+        stripeInteractor.getStripeToken(stripeRequest, this);
     }
 }
