@@ -169,13 +169,13 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
     @Override
     public void onStart() {
         super.onStart();
-        //setValues(restaurantData);
+        setValues(restaurantData);
     }
 
     private void setValues(RestaurantData restaurantData) {
         //todo set values
         SimpleDateFormat sdf = new SimpleDateFormat("E, MMM d");
-        mLabelDate.setText(sdf.format(new Date()));
+      mLabelDate.setText(sdf.format(new Date()));
         mLabelPricingMen.setText(restaurantData.getMalePersonPerFees());
         mLabelPricingWomen.setText(restaurantData.getFemalePersonPerFees());
         mLabelPricingTax.setText(restaurantData.getTaxFees());
@@ -203,7 +203,7 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             restaurantData = (RestaurantData) bundle.getSerializable(AppConstatnts.CLUB_DATA);
-            setValues(restaurantData);
+
         }
 
     }
