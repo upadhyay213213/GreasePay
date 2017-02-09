@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:background="@color/colorDivider"
+                android:paddingBottom="@dimen/activity_padding_5"
+                android:layout_height="200dp">
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/favorites_adapter_restaurantImage"
+    android:src="@mipmap/ic_launcher"
+    />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/favorites_adapter_button_fav"
+        android:src="@mipmap/ic_icon_fav_yes"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        />
+    <RelativeLayout
+        android:layout_width="220dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="120dp"
+        android:id="@+id/outlet_details_screen_layout_frame"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_padding_5"
+        android:background="@drawable/details_background_rounded">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/favorites_adapter__outletName"
+            android:text="Outlet name"
+            android:textSize="@dimen/text_heading_small"
+            android:layout_gravity="fill_vertical"
+            android:textColor="@color/colorButtonText"
+            />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/favorites_adapter_outletAddress"
+            android:text="Address"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/radius_size"
+            android:textColor="@color/colorButtonText"
+            android:layout_below="@+id/outlet_details_screen_outletName"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/favorites_adapter_outletDistance"
+            android:layout_gravity="end"
+            android:paddingTop="@dimen/radius_size"
+            android:paddingLeft="@dimen/radius_size"
+            android:paddingRight="@dimen/radius_size"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="50 \n miles"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_toRightOf="@+id/outlet_details_screen_outletName"
+            android:background="@drawable/distance_rounded_background"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+</RelativeLayout>
