@@ -22,6 +22,11 @@ public class StripeInteractorImpl implements StripeInteractor {
             sendTokenUsingEventBus(stripeRequest, stripeFinishedListener);
     }
 
+    @Override
+    public void getStripeToken(StripeRequest stripeRequest, StripeFinishedListener stripeFinishedListener) {
+            getTokenUsingEventBus(stripeRequest, stripeFinishedListener);
+    }
+
     @Subscribe(threadMode = ThreadMode.ASYNC)
     void sendTokenUsingEventBus(final StripeRequest stripeRequest, final StripeFinishedListener finishedListener){
         ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
@@ -45,4 +50,26 @@ public class StripeInteractorImpl implements StripeInteractor {
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    void getTokenUsingEventBus(final StripeRequest stripeRequest, final StripeFinishedListener finishedListener){
+        ServerCall retro = ServiceGenerator.getRestWebService();
+        Call<StripeTokenResponse> cal = retro.getStripeToken(stripeRequest);
+        cal.enqueue(new Callback<StripeTokenResponse>() {
+            @Override
+            public void onResponse(Call<StripeTokenResponse> call, Response<StripeTokenResponse> response) {
+                StripeTokenResponse response1 = response.body();
+                if(response1.getMessage().equals(AppConstatnts.ServerResponseConstants.LOGIN_SIGNUP_SUCCESS)){
+                    finishedListener.onGetTokenSuccess(response1);
+                }
+                else{
+                    finishedListener.onError(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StripeTokenResponse> call, Throwable t) {
+                finishedListener.onServerError();
+            }
+        });
+    }
 }

@@ -2,6 +2,13 @@ package com.ladse.greasepay.webclient_retro;
 
 import com.ladse.greasepay.booking.AddRemoveFavoriteRequest;
 import com.ladse.greasepay.booking.BookingListResponse;
+import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeRequest;
+import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeResponse;
+import com.ladse.greasepay.stripe.StripeRequest;
+import com.ladse.greasepay.stripe.StripeResponse;
+import com.ladse.greasepay.stripe.StripeTokenResponse;
+import com.ladse.greasepay.upcomingevents.EventRequest;
+import com.ladse.greasepay.upcomingevents.EventResponse;
 import com.ladse.greasepay.booking.BookingRedemptionRequest;
 import com.ladse.greasepay.common.Model;
 import com.ladse.greasepay.constants.AppConstatnts;
@@ -106,4 +113,8 @@ public interface ServerCall {
 
     @POST(UrlConstants.SIGN_UP_API)
     Call<SocialLoginResponse> socialLogin(@Body SocialSinupRequest jsonBody);
+
+    @Headers({AppConstatnts.ApiHeader.CONTENT_TYPE_JSON})
+    @POST(UrlConstants.GET_STRIPE_TOKEN)
+    Call<StripeTokenResponse> getStripeToken(@Body StripeRequest jsonBody);
 }

@@ -5,6 +5,7 @@
     tools:context="com.ladse.greasepay.fragments.SendFeedbackFragment"
     android:orientation="vertical"
     android:padding="@dimen/activity_padding_10"
+    android:background="@color/colorBackground"
     >
 
     <TextView

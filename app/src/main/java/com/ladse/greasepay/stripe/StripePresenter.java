@@ -6,4 +6,5 @@ package com.ladse.greasepay.stripe;
 
 public interface StripePresenter {
     void sendStripeToken(String stripeToken, String card_last_digit);
+    void getStripeToken(String card_last_digit);
 }

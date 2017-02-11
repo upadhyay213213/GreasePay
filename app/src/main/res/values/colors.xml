@@ -12,4 +12,6 @@
     <color name="colorTransparentBlack">#85000000</color>
     <color name="colorTransparentWhite">#90FFFFFF</color>
     <color name="colorDrawer">#90A58859</color>
+    <color name="colorDivider">#cccccc</color>
+    <color name="colorRed">#ff0000</color>
 </resources>
