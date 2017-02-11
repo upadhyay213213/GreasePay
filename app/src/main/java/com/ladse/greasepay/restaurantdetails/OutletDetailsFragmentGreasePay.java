@@ -1,25 +1,32 @@
 package com.ladse.greasepay.restaurantdetails;
 
 
-import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.ladse.greasepay.R;
+import com.ladse.greasepay.common.AlertManager;
 import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.constants.AppConstatnts;
+import com.ladse.greasepay.debitcard.CardDetailsActivity;
 import com.ladse.greasepay.home.model.RestaurantData;
+import com.ladse.greasepay.promocode.checkpromocode.controler.CheckPromoCodePresenter;
+import com.ladse.greasepay.promocode.checkpromocode.controler.CheckPromoCodePresenterImpl;
+import com.ladse.greasepay.promocode.checkpromocode.controler.CheckPromoCodeView;
+import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeData;
+import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeRequest;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +34,7 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OutletDetailsFragmentGreasePay extends Fragment {
+public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPromoCodeView{
     private TextView mLabelPricing;
     private TextView mLabelDate;
     private TextView mLabelPricingMen;
@@ -41,10 +48,16 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
     private RestaurantData restaurantData;
     private TextView mLabelPricingMale;
     private TextView mLabelPricingFemale;
+    private CheckPromoCodePresenter checkPromoCodePresenter;
+    private boolean idEntryFree;
+    private int totalmenPrice;
+    private int totalwomenPrice;
+
     private ImageButton incrementMen, decrementMen, incrementWomen, decrementWomen;
     private TextView mNumberMen, mNumberWomen;
     public OutletDetailsFragmentGreasePay() {
         // Required empty public constructor
+        checkPromoCodePresenter=new CheckPromoCodePresenterImpl(this);
     }
 
 
@@ -62,6 +75,8 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
         mNumberMen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_men);
         mNumberWomen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_women);
         AppSharedPreference.setAuthToken("585d520a59a67", getContext());
+
+
         mCalender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {/*
@@ -77,10 +92,12 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
             }
         });
         incrementMen.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view) {
                 int no = Integer.parseInt(mNumberMen.getText().toString()) + 1;
                 mNumberMen.setText(no+"");
+                totalwomenPrice=Integer.parseInt(restaurantData.getMalePersonPerFees())*no;
+                mLabelPricingMen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees())*no));
+                mLabelPricingTotal.setText(calculateTotalPrice());
             }
         });
         incrementWomen.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +105,9 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
             public void onClick(View view) {
                 int no = Integer.parseInt(mNumberWomen.getText().toString()) + 1;
                 mNumberWomen.setText(no+"");
+                totalwomenPrice=Integer.parseInt(restaurantData.getFemalePersonPerFees())*no;
+                mLabelPricingWomen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees())*no));
+                mLabelPricingTotal.setText(calculateTotalPrice());
             }
         });
         decrementMen.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +116,9 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
                 if(!mNumberMen.getText().toString().equals("0")){
                     int no = Integer.parseInt(mNumberMen.getText().toString()) - 1;
                     mNumberMen.setText(no+"");
+                    totalwomenPrice=Integer.parseInt(restaurantData.getMalePersonPerFees())*no;
+                    mLabelPricingMen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees())*no));
+                    mLabelPricingTotal.setText(calculateTotalPrice());
                 }
             }
         });
@@ -105,6 +128,9 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
                 if(!mNumberWomen.getText().toString().equals("0")){
                     int no = Integer.parseInt(mNumberWomen.getText().toString()) - 1;
                     mNumberWomen.setText(no+"");
+                    totalwomenPrice=Integer.parseInt(restaurantData.getFemalePersonPerFees())*no;
+                    mLabelPricingWomen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees())*no));
+                    mLabelPricingTotal.setText(calculateTotalPrice());
                 }
             }
         });
@@ -119,7 +145,17 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
         mPayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo payment submit process
+                Intent intent=new Intent(getActivity(), CardDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+        mPromoCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    checkPromoCodePresenter.checkPromocodevalidation(getActivity(),new CheckPromoCodeRequest(restaurantData.getRestaurantId(),mPromoCode.getText().toString()));
+                }
+                return false;
+
             }
         });
 
@@ -133,19 +169,21 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        //setValues(restaurantData);
+        setValues(restaurantData);
     }
 
     private void setValues(RestaurantData restaurantData) {
         //todo set values
         SimpleDateFormat sdf = new SimpleDateFormat("E, MMM d");
-        mLabelDate.setText(sdf.format(new Date()));
-        mLabelPricingMen.setText(mLabelPricingMen.getText()+restaurantData.getMalePersonPerFees());
-        mLabelPricingWomen.setText(mLabelPricingWomen.getText()+restaurantData.getFemalePersonPerFees());
-        mLabelPricingTax.setText(mLabelPricingTax.getText()+restaurantData.getTaxFees());
+      mLabelDate.setText(sdf.format(new Date()));
+        mLabelPricingMen.setText(restaurantData.getMalePersonPerFees());
+        mLabelPricingWomen.setText(restaurantData.getFemalePersonPerFees());
+        mLabelPricingTax.setText(restaurantData.getTaxFees());
         if(restaurantData.getFemaleEntryFree()&&restaurantData.getMaleEntryFree()){
             mLabelPricingMale.setText(getString(R.string.entry_free));
             mLabelPricingFemale.setVisibility(View.GONE);
+            mLabelPricingTotal.setText("0");
+            idEntryFree=true;
         }else{
             if(restaurantData.getMaleEntryFree()){
                 mLabelPricingMale.setText(getString(R.string.entry_free_men));
@@ -165,7 +203,35 @@ public class OutletDetailsFragmentGreasePay extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             restaurantData = (RestaurantData) bundle.getSerializable(AppConstatnts.CLUB_DATA);
+
         }
 
+    }
+
+    @Override
+    public void onPromocodeValidate(CheckPromoCodeData data) {
+        AlertManager.showErrorDialog(getActivity(),"Promo-code Applied");
+        mLabelPricingPromo.setText(data.getDiscount());
+
+
+    }
+
+    @Override
+    public void onPromocodeValidateError(String message) {
+        AlertManager.showErrorDialog(getActivity(),message);
+        mLabelPricingPromo.setText(mLabelPricingPromo.getText()+" 0");
+
+    }
+
+    @Override
+    public void onPromocodeValidateServerError() {
+
+    }
+
+    private String calculateTotalPrice(){
+
+        String tax=mLabelPricingTax.getText().toString();
+        tax=tax.replace("%","");
+        return String.valueOf((totalmenPrice+totalwomenPrice)-Double.parseDouble(tax));
     }
 }

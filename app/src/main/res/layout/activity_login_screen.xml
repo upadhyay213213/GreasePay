@@ -11,55 +11,53 @@
     tools:context=".login.LoginActivity">
 
     <ImageButton
+        android:id="@+id/login_button_fbLogin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/login_button_fbLogin"
-        android:contentDescription="@string/cd_fb_sign_in"
         android:background="@drawable/facebook_login"
-/>
+        android:contentDescription="@string/cd_fb_sign_in" />
 
     <ImageButton
-        android:layout_width="match_parent"
         android:id="@+id/login_button_googleLogin"
-        android:contentDescription="@string/cd_google_sign_in"
-        android:background="@drawable/google_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:layout_height="50dp"/>
+        android:background="@drawable/google_login"
+        android:contentDescription="@string/cd_google_sign_in" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/or"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:textSize="16sp"
-        android:textAlignment="center" />
+        android:layout_marginTop="10dp"
+        android:text="@string/or"
+        android:textAlignment="center"
+        android:textSize="16sp" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/login_edit_username"
-        android:hint="@string/prompt_email"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:padding="@dimen/activity_padding_15"
-        android:inputType="textEmailAddress" />
-
-    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/prompt_email"
+        android:padding="@dimen/activity_padding_15"
+        style="@style/Widget.AppCompat.EditText"
+        />
+
+    <EditText
         android:id="@+id/login_edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/prompt_password"
         android:padding="@dimen/activity_padding_15"
-        android:layout_marginTop="5dp"
-        android:inputType="textPassword" />
+        style="@style/Base.Widget.AppCompat.EditText"/>
 
     <Button
+        android:id="@+id/login_button_loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/login_button_loginBtn"
-        android:text="@string/prompt_log_in"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/button_rounded"
+        android:text="@string/prompt_log_in"
         android:textColor="@color/colorButtonText" />
 
     <TextView
@@ -70,13 +68,13 @@
         android:textAlignment="center" />
 
     <Button
+        android:id="@+id/login_button_signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/login_button_signUp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/button_rounded"
         android:text="@string/sign_up"
-        android:textColor="@color/colorButtonText"
-        android:layout_marginTop="@dimen/activity_vertical_margin" />
+        android:textColor="@color/colorButtonText" />
 </LinearLayout>
 

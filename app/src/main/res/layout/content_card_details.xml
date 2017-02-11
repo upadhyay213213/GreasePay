@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.ladse.greasepay.cardUi.CardDetails"
+    tools:context=".debitcard.CardDetailsActivity"
     tools:showIn="@layout/activity_card_details"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
@@ -51,18 +51,36 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:textColor="@color/colorButtonText" />
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@id/card_details_label_expiryDate"
+    android:background="@android:drawable/editbox_background">
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/card_details_edit_expiryDate"
+            android:id="@+id/card_details_edit_expiryMonth"
             android:layout_marginTop="@dimen/activity_padding_5"
-            android:layout_below="@id/card_details_label_expiryDate"
-            android:hint="MM/YYYY"
-            android:padding="@dimen/activity_padding_5"
-            android:background="@drawable/card_details_edit_bg"
-            android:inputType="date" />
 
+            android:hint="MM"
+            android:paddingLeft="@dimen/activity_padding_5"
+
+            android:background="@drawable/card_details_edit_bg"
+            android:inputType="date"
+            android:backgroundTint="@android:color/transparent"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_details_edit_expiryYear"
+        android:layout_marginTop="@dimen/activity_padding_5"
+
+        android:hint="/YYYY"
+
+        android:background="@drawable/card_details_edit_bg"
+        android:inputType="date"
+        android:backgroundTint="@android:color/transparent"/>
+</LinearLayout>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,7 +90,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:padding="@dimen/activity_padding_5"
-            android:text="CVV"
+            android:hint="CVV"
             android:background="@drawable/card_details_edit_bg"
             android:inputType="number" />
     </RelativeLayout>
@@ -105,7 +123,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/card_details_edit_zipCode"
         android:layout_marginTop="@dimen/activity_padding_5"
-        android:text="Enter Zip code"
+        android:hint="Enter Zip code"
         android:padding="@dimen/activity_padding_5"
         android:background="@drawable/card_details_edit_bg" />
 
