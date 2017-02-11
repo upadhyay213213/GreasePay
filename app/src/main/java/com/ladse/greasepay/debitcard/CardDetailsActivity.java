@@ -10,7 +10,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.ladse.greasepay.R;
+import com.ladse.greasepay.booking.card_booking.BarBookingRequest;
 import com.ladse.greasepay.common.AlertManager;
+import com.ladse.greasepay.common.AppSharedPreference;
+import com.ladse.greasepay.common.Model;
+import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.debitcard.model.CardRequest;
 import com.ladse.greasepay.debitcard.model.CardResponse;
 import com.ladse.greasepay.webclient_retro.ServerCall;
@@ -34,6 +38,7 @@ public class CardDetailsActivity extends AppCompatActivity {
     private EditText mCardExpiryMonth;
     private EditText mCardExpiryYear;
     private String errorMessage;
+    private BarBookingRequest barBookingRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,9 @@ public class CardDetailsActivity extends AppCompatActivity {
         mDefaultCheck = (CheckBox) findViewById(R.id.card_details_check_defaultCard);
         mSaveCheck = (CheckBox) findViewById(R.id.card_details_check_saveCard);
         mProceed = (Button) findViewById(R.id.card_details_button_proceed);
+
+        Bundle bundle=getIntent().getExtras();
+        barBookingRequest= (BarBookingRequest) bundle.getSerializable(AppConstatnts.BAR_DATA);
         mProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +112,9 @@ public class CardDetailsActivity extends AppCompatActivity {
         protected void onPostExecute(Token token) {
             super.onPostExecute(token);
             if(token!=null) {
-                AlertManager.showErrorDialog(CardDetailsActivity.this,token.getId());
+                //AlertManager.showErrorDialog(CardDetailsActivity.this,token.getId());
+                 saveCardDetails(AppSharedPreference.getAuthToken(CardDetailsActivity.this), new CardRequest(mCardNumber.getText().toString(), mCardExpiry.getText().toString(), mCvv.getText().toString(), mDefaultCheck.getText().toString(), mName.getText().toString(), mZip.getText().toString()));
+
             }else{
                 AlertManager.showErrorDialog(CardDetailsActivity.this, String.valueOf(errorMessage));
             }
@@ -112,6 +122,7 @@ public class CardDetailsActivity extends AppCompatActivity {
 
 
     }
+
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void saveCardDetails(String authToken, CardRequest cardRequest) {
         ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
@@ -121,6 +132,11 @@ public class CardDetailsActivity extends AppCompatActivity {
             public void onResponse(Call<CardResponse> call, Response<CardResponse> response) {
 
                 AlertManager.showErrorDialog(CardDetailsActivity.this, response.message());
+                if(barBookingRequest!=null){
+
+                }
+
+
             }
 
             @Override
@@ -128,5 +144,11 @@ public class CardDetailsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void makeBarBooking(BarBookingRequest barBookingRequest){
+        ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
+        Call<Model> si = retrofitInterface.barBooking(AppSharedPreference.getAuthToken(CardDetailsActivity.this),barBookingRequest);
     }
 }

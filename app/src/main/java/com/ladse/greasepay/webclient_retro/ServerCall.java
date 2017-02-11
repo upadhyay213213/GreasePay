@@ -2,14 +2,8 @@ package com.ladse.greasepay.webclient_retro;
 
 import com.ladse.greasepay.booking.AddRemoveFavoriteRequest;
 import com.ladse.greasepay.booking.BookingListResponse;
-import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeRequest;
-import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeResponse;
-import com.ladse.greasepay.stripe.StripeRequest;
-import com.ladse.greasepay.stripe.StripeResponse;
-import com.ladse.greasepay.stripe.StripeTokenResponse;
-import com.ladse.greasepay.upcomingevents.EventRequest;
-import com.ladse.greasepay.upcomingevents.EventResponse;
 import com.ladse.greasepay.booking.BookingRedemptionRequest;
+import com.ladse.greasepay.booking.card_booking.BarBookingRequest;
 import com.ladse.greasepay.common.Model;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.constants.UrlConstants;
@@ -31,6 +25,7 @@ import com.ladse.greasepay.sinup.model.LoginSinUpResponse;
 import com.ladse.greasepay.sinup.model.SocialSinupRequest;
 import com.ladse.greasepay.stripe.StripeRequest;
 import com.ladse.greasepay.stripe.StripeResponse;
+import com.ladse.greasepay.stripe.StripeTokenResponse;
 import com.ladse.greasepay.upcomingevents.EventRequest;
 import com.ladse.greasepay.upcomingevents.EventResponse;
 
@@ -117,4 +112,8 @@ public interface ServerCall {
     @Headers({AppConstatnts.ApiHeader.CONTENT_TYPE_JSON})
     @POST(UrlConstants.GET_STRIPE_TOKEN)
     Call<StripeTokenResponse> getStripeToken(@Body StripeRequest jsonBody);
+
+    @Headers({AppConstatnts.ApiHeader.CONTENT_TYPE_JSON})
+    @POST(UrlConstants.BOOK_HOTEL_BAR)
+    Call<Model> barBooking(@Header(AppConstatnts.ApiHeader.AUTHORIZATION_HEADER) String authToken, @Body BarBookingRequest barBookingRequest);
 }
