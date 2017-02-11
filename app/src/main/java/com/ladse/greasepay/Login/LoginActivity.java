@@ -9,9 +9,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.ladse.greasepay.MainActivity;
 import com.ladse.greasepay.R;
 import com.ladse.greasepay.common.AlertManager;
-import com.ladse.greasepay.home.ui.HomeScreenActivity;
 import com.ladse.greasepay.sinup.SignUpActivity;
 import com.ladse.greasepay.sinup.model.LoginSinUpResponse;
 
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void setLoginSuccessFull(LoginSinUpResponse loginSinUpResponse) {
         //Start new activity
        // AppSharedPreference.setAuthToken(loginSinUpResponse.getData().getAuthToken(),this);
-        startActivity(new Intent(this,HomeScreenActivity.class));
+        startActivity(new Intent(this,MainActivity.class));
        // startActivity(new Intent(this,UpcomingEventsActivity.class));
 //        startActivity(new Intent(this,BookingListActivity.class));
     }

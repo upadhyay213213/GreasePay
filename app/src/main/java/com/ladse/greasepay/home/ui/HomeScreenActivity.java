@@ -164,7 +164,7 @@ public class HomeScreenActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        homePresenter.getRestaurantData(new RestaurantRequest());
+        homePresenter.getRestaurantData(HomeScreenActivity.this, new RestaurantRequest());
     }
 
     @Override

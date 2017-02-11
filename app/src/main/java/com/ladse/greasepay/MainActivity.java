@@ -1,6 +1,7 @@
 package com.ladse.greasepay;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -34,8 +32,8 @@ import com.ladse.greasepay.home.HomePresenter;
 import com.ladse.greasepay.home.HomePresenterImpl;
 import com.ladse.greasepay.home.HomeView;
 import com.ladse.greasepay.home.model.RestaurantData;
+import com.ladse.greasepay.home.model.RestaurantRequest;
 import com.ladse.greasepay.home.utils.HomePagerAdapter;
-import com.ladse.greasepay.webclient_retro.GetDataFromServer;
 import com.ladse.greasepay.webclient_retro.ServerCall;
 import com.ladse.greasepay.webclient_retro.ServiceGenerator;
 
@@ -255,5 +253,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        homePresenter.getRestaurantData(MainActivity.this,new RestaurantRequest());
     }
 }
