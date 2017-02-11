@@ -1,5 +1,7 @@
 package com.ladse.greasepay.home;
 
+import android.content.Context;
+
 import com.ladse.greasepay.home.model.RestaurantData;
 import com.ladse.greasepay.home.model.RestaurantRequest;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  */
 public interface HomePresenter {
 
-    void getRestaurantData(RestaurantRequest restaurantRequest);
+    void getRestaurantData(Context context, RestaurantRequest restaurantRequest);
     void onDestroy();
     ArrayList<RestaurantData> getClubBarData(ArrayList<RestaurantData>restaurantDatas);
 

@@ -175,7 +175,9 @@
                 android:maxLines="1"
                 android:padding="@dimen/radius_size"
                 android:singleLine="true"
-                android:textSize="@dimen/text_size_17" />
+                android:textSize="@dimen/text_size_17"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
         </LinearLayout>
 
         <LinearLayout
