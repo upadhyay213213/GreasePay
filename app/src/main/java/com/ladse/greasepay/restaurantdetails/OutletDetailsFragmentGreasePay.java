@@ -1,9 +1,13 @@
 package com.ladse.greasepay.restaurantdetails;
 
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -11,12 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ladse.greasepay.R;
+import com.ladse.greasepay.booking.card_booking.BarBookingRequest;
 import com.ladse.greasepay.common.AlertManager;
 import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.constants.AppConstatnts;
@@ -29,6 +35,7 @@ import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeData;
 import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeRequest;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -55,6 +62,10 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
 
     private ImageButton incrementMen, decrementMen, incrementWomen, decrementWomen;
     private TextView mNumberMen, mNumberWomen;
+    private String mPromoDiscount="";
+    private Context context;
+    private DatePickerDialog dialog;
+
     public OutletDetailsFragmentGreasePay() {
         // Required empty public constructor
         checkPromoCodePresenter=new CheckPromoCodePresenterImpl(this);
@@ -75,20 +86,14 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         mNumberMen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_men);
         mNumberWomen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_women);
         AppSharedPreference.setAuthToken("585d520a59a67", getContext());
+        context=getContext();
 
 
         mCalender.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {/*
-                DatePickerDialog dialog = new DatePickerDialog(getActivity().getBaseContext());
-                dialog.setTitle("Select Date");
-                dialog.show();
-                dialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-
-                    }
-                });*/
+            public void onClick(View view) {
+                DialogFragment dialogFragment = new StartDatePicker();
+                dialogFragment.show(getFragmentManager(), "start_date_picker");
             }
         });
         incrementMen.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +150,12 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         mPayBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                BarBookingRequest barBookingRequest=new BarBookingRequest(null,restaurantData.getRestaurantId(),"","",restaurantData.getMalePersonPerFees(),restaurantData.getFemalePersonPerFees(),
+                        mNumberWomen.getText().toString(),mNumberWomen.getText().toString(),mLabelPricingPromo.getText().toString(),String.valueOf(totalmenPrice),String.valueOf(totalwomenPrice),String.valueOf(mPromoDiscount),mLabelPricingTax.getText().toString(),String.valueOf(totalwomenPrice));
                 Intent intent=new Intent(getActivity(), CardDetailsActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable(AppConstatnts.BAR_DATA,barBookingRequest);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -164,6 +174,9 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
 
     private void setDate(int i, int i1, int i2) {
         mLabelDate.setText(i + "/" + i1 + "/" + i2);
+        if(dialog!=null){
+            dialog.dismiss();
+        }
     }
 
     @Override
@@ -212,6 +225,7 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
     public void onPromocodeValidate(CheckPromoCodeData data) {
         AlertManager.showErrorDialog(getActivity(),"Promo-code Applied");
         mLabelPricingPromo.setText(data.getDiscount());
+        mPromoDiscount=data.getDiscount();
 
 
     }
@@ -229,9 +243,36 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
     }
 
     private String calculateTotalPrice(){
-
         String tax=mLabelPricingTax.getText().toString();
         tax=tax.replace("%","");
         return String.valueOf((totalmenPrice+totalwomenPrice)-Double.parseDouble(tax));
     }
+
+    Calendar c = Calendar.getInstance();
+    int startYear = c.get(Calendar.YEAR);
+    int startMonth = c.get(Calendar.MONTH);
+    int startDay = c.get(Calendar.DAY_OF_MONTH);
+
+    class StartDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // TODO Auto-generated method stub
+            // Use the current date as the default date in the picker
+             dialog = new DatePickerDialog(context, this, startYear, startMonth, startDay);
+            return dialog;
+
+        }
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            // Do something with the date chosen by the user
+            startYear = year;
+            startMonth = monthOfYear;
+            startDay = dayOfMonth;
+
+            setDate(dayOfMonth,monthOfYear+1,year);
+
+        }
+    }
+
 }

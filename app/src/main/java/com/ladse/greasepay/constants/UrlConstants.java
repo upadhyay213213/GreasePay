@@ -14,7 +14,7 @@ public class UrlConstants {
     public static final String RETRIEVE_DEBIT_CARD="/w_retrieve_debit_card_from_server/";
     public static final String SET_FAVOURITE="w_add_remove_favorite/";
     public static final String GET_FAVOURITE ="w_favorite_listing/";
-    public static final String BOOK_HOTEL_BAR =" http://greasep.stage-servers.com/webservices/w_bar_booking";
+    public static final String BOOK_HOTEL_BAR ="w_bar_booking/";
     public static final String SEND_TOKEN=" http://greasep.stage-servers.com/webservices/w_bar_booking";
     public static final String SEND_STRIPE_TOKEN = "http://greasep.stage-servers.com/webservices/w_send_token_to_server";
     public static final String BASE_URL = "http://greasep.stage-servers.com/webservices/";
