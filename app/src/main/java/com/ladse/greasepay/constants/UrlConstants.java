@@ -21,15 +21,6 @@ public class UrlConstants {
 
     public static final String GET_STRIPE_TOKEN = "http://greasep.stage-servers.com/webservices/w_retrieve_token_from_server/";
 
-
-
-    public static final String DELETE_DEBIT_CARD = "w_delete_debit_card_from_server/";
-    public static final String BOOKING_REDEMPTION = "w_bar_booking_redemption/";
-    public static final String FAQ = "w_faq_list/";
-    public static final String EDIT_PROFILE = "w_edit_profile/";
-
-    public static final String SAVE_DEBIT_CARD ="w_send_debit_card_to_server/" ;
-
     public static final String DELETE_DEBIT_CARD = "w_delete_debit_card_from_server/";
     public static final String BOOKING_REDEMPTION = "w_bar_booking_redemption/";
     public static final String FAQ = "w_faq_list/";
