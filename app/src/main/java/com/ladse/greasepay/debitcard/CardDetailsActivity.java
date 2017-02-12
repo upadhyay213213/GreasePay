@@ -95,7 +95,7 @@ public class CardDetailsActivity extends AppCompatActivity {
         @Override
         protected Token doInBackground(Void... params) {
             Token token = null;
-            String publishableKey = "pk_test_xqXDj6OvYwoAbl4Jpit6hcbZ";
+            String publishableKey = AppConstatnts.STRIPE_PUBLIC_KEY;
             Card card = new Card(cardNo, month, year, cvv);
 
             Stripe stripe = new Stripe();
