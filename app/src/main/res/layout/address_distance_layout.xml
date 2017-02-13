@@ -27,7 +27,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginTop="@dimen/radius_size"
             android:textColor="@color/colorButtonText"
-            android:layout_below="@+id/outlet_details_screen_outletName"/>
+            android:layout_below="@+id/outlet_details_screen_outletName"
+            android:width="0dip" />
 
         <TextView
             android:layout_width="wrap_content"

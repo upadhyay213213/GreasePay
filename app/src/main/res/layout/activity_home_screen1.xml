@@ -23,5 +23,4 @@
         app:menu="@menu/activity_home_screen1_drawer"
         android:background="@color/colorDrawer"
         />
-
 </android.support.v4.widget.DrawerLayout>

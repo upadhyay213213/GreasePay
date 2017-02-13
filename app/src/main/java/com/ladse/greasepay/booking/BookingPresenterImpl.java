@@ -1,5 +1,7 @@
 package com.ladse.greasepay.booking;
 
+import android.content.Context;
+
 import com.ladse.greasepay.common.AppSharedPreference;
 
 import java.util.ArrayList;
@@ -10,15 +12,17 @@ import java.util.ArrayList;
 public class BookingPresenterImpl implements BookingPresenter,BookingInteractor.OnBookingListReceived {
     private BookingView bookingView;
     private BookingInteractor bookingInteractor;
+    private Context context;
 
-    public BookingPresenterImpl(BookingView bookingView) {
+    public BookingPresenterImpl(BookingView bookingView, Context context) {
         this.bookingView = bookingView;
+        this.context = context;
         bookingInteractor=new BookingInteractorImpl();
     }
 
     @Override
     public void getBookingList() {
-        bookingInteractor.getBookingList(AppSharedPreference.getAuthToken((BookingListActivity) bookingView),this);
+        bookingInteractor.getBookingList(AppSharedPreference.getAuthToken(context), this);
     }
 
     @Override

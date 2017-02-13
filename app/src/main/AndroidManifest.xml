@@ -22,17 +22,21 @@
         </activity>
         <activity android:name=".sinup.SignUpActivity" />
         <activity android:name=".home.ui.HomeScreenActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".upcomingevents.UpcomingEventsActivity"
-            android:label="@string/title_activity_main" />
-        <activity android:name=".booking.BookingListActivity"></activity>
+            android:label="@string/title_activity_main">
+
+        </activity>
+        <activity android:name=".booking.BookingListActivity" />
         <activity android:name=".restaurantdetails.OutletDetailsScreen"/>
+        <activity
+            android:name=".debitcard.CardDetailsActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".MainActivity">
+
+        </activity>
     </application>
 
 </manifest>

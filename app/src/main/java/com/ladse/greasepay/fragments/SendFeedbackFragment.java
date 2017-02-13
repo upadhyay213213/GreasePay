@@ -3,6 +3,7 @@ package com.ladse.greasepay.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.ladse.greasepay.R;
 public class SendFeedbackFragment extends Fragment {
     private EditText mFeedback;
     private Button mSubmit;
+    private Toolbar toolbar;
 
     public SendFeedbackFragment() {
         // Required empty public constructor
@@ -33,4 +35,9 @@ public class SendFeedbackFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 }

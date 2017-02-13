@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bookinglist_bg"
+    android:paddingBottom="@dimen/activity_padding_10">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mygreasepay_adapter_name"
+        android:background="@color/colorButton"
+        android:textAlignment="center"
+        android:text="Club Name"
+        android:textColor="@color/colorButtonText"
+        android:textSize="@dimen/text_heading_medium" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/greasepay_adapter_label_issued"
+        android:layout_below="@id/mygreasepay_adapter_name"
+        android:layout_marginTop="@dimen/activity_padding_15"
+        android:text="Issued: "
+        android:layout_marginLeft="@dimen/activity_padding_10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/greasepay_adapter_input_issuedDate"
+        android:layout_below="@id/mygreasepay_adapter_name"
+        android:layout_marginTop="@dimen/activity_padding_15"
+        android:text="Date"
+        android:layout_toEndOf="@id/greasepay_adapter_label_issued"
+        android:layout_toRightOf="@id/greasepay_adapter_label_issued" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/greasepay_adapter_label_expires"
+        android:layout_marginLeft="@dimen/activity_padding_10"
+        android:layout_below="@id/greasepay_adapter_label_issued"
+        android:text="Expires: " />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/greasepay_adapter_input_expiresDate"
+        android:layout_below="@id/greasepay_adapter_label_issued"
+        android:layout_toEndOf="@id/greasepay_adapter_label_expires"
+        android:layout_toRightOf="@id/greasepay_adapter_label_expires"
+        android:text="Date" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/greasepay_adapter_input_male"
+        android:layout_below="@id/mygreasepay_adapter_name"
+        android:layout_marginTop="@dimen/activity_padding_15"
+        android:layout_marginRight="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/greasepay_adapter_label_male"
+        android:layout_below="@id/mygreasepay_adapter_name"
+        android:layout_marginTop="@dimen/activity_padding_15"
+
+        android:layout_toLeftOf="@id/greasepay_adapter_input_male"
+        android:layout_toStartOf="@id/greasepay_adapter_input_male"
+        android:text="Male: " />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/greasepay_adapter_input_female"
+        android:layout_below="@id/greasepay_adapter_label_male"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="35dp"
+        android:text="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gresepay_adapter_label_female"
+        android:layout_toLeftOf="@id/greasepay_adapter_input_female"
+        android:layout_toStartOf="@id/greasepay_adapter_input_female"
+        android:layout_below="@id/greasepay_adapter_input_male"
+        android:text="Female:" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/greasepay_adapter_label_expires"
+        android:layout_marginTop="@dimen/activity_padding_15"
+        android:textSize="12sp"
+        android:text="*Not valid for cashback. Must use in one visit.\nBar/clubs have right to refuse entry if rules not followed" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/greasepay_adapter_button_redeem"
+        android:background="@drawable/button_rounded"
+        android:text="REDEEM"
+        android:textColor="@color/colorButtonText"
+        android:layout_below="@id/greasepay_adapter_label_expires"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/activity_padding_10"
+        android:layout_marginTop="@dimen/activity_padding_10" />
+</RelativeLayout>

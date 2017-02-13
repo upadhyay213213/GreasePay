@@ -15,4 +15,5 @@ public interface CheckPromoCodeInteracter {
         void onValidatePromoCodeServerError();
 
     }
+
 }

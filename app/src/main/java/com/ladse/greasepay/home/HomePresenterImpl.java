@@ -1,5 +1,7 @@
 package com.ladse.greasepay.home;
 
+import android.content.Context;
+
 import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.home.model.RestaurantData;
@@ -15,15 +17,17 @@ public class HomePresenterImpl implements HomePresenter, HomeInteractor.onRestau
 
     private HomeView homeView;
     private HomeInteractor homeInteractor;
+    private Context context;
 
-    public HomePresenterImpl(HomeView homeView) {
+    public HomePresenterImpl(HomeView homeView, Context context) {
         this.homeView = homeView;
+        this.context = context;
         homeInteractor = new HomeInteractorImpl();
     }
 
     @Override
     public void getRestaurantData(RestaurantRequest restaurantRequest) {
-        homeInteractor.getRestaurantData(AppSharedPreference.getAuthToken((HomeScreenActivity) homeView), restaurantRequest, this);
+        homeInteractor.getRestaurantData(AppSharedPreference.getAuthToken(context), restaurantRequest, this);
 
     }
 

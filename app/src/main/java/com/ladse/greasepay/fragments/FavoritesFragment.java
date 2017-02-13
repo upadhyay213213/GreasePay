@@ -40,8 +40,8 @@ public class FavoritesFragment extends Fragment {
         request = new RestaurantRequest();
 
         //todo set latitude and longitude for favorite list
-        request.setLatitude("");
-        request.setLongitude("");
+        request.setLatitude("98.25689");
+        request.setLongitude("-99.5874");
     }
 
     @Override

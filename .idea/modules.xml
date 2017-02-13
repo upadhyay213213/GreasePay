@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GreasePay.iml" filepath="$PROJECT_DIR$/GreasePay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GreasePayLatest.iml" filepath="$PROJECT_DIR$/GreasePayLatest.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

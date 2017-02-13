@@ -3,18 +3,23 @@ package com.ladse.greasepay.home.ui;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ladse.greasepay.R;
+import com.ladse.greasepay.fragments.SendFeedbackFragment;
 import com.ladse.greasepay.home.HomePresenter;
 import com.ladse.greasepay.home.HomePresenterImpl;
 import com.ladse.greasepay.home.HomeView;
@@ -33,16 +38,18 @@ public class HomeScreenActivity extends AppCompatActivity
     private TextView topLabel;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    private int FRAGMENT_CONTAINER;
+    private DrawerLayout drawer;
+    View include;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen1);
-        View v = findViewById(R.id.setDrawerLayout_mainContent);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.home_screen1_toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -51,7 +58,7 @@ public class HomeScreenActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         initializeUI();
-        homePresenter=new HomePresenterImpl(this);
+        // homePresenter=new HomePresenterImpl(this);
 
     }
 
@@ -67,12 +74,12 @@ public class HomeScreenActivity extends AppCompatActivity
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = (ViewPager) findViewById(R.id.home_screen1_viewPager);
-
+        //FRAGMENT_CONTAINER = R.id.home_screen_fragment_container;
+        include = findViewById(R.id.setDrawerLayout_mainContent);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -111,11 +118,14 @@ public class HomeScreenActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_favorite) {
 
+
         } else if (id == R.id.nav_promocode) {
 
         } else if (id == R.id.nav_payment) {
 
         } else if (id == R.id.nav_send_feedback) {
+            SendFeedbackFragment sendFeedbackFragment = new SendFeedbackFragment();
+            setFragment(sendFeedbackFragment);
 
         } else if (id == R.id.nav_invite) {
 
@@ -171,5 +181,14 @@ public class HomeScreenActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         homePresenter.onDestroy();
+    }
+
+    private void setFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        //transaction.replace(R.id.home_screen_container_fragment, fragment);
+        //transaction.addToBackStack("frag_list");
+        //transaction.commit();
     }
 }

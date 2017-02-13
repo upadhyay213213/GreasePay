@@ -38,5 +38,6 @@
         android:id="@+id/setDrawerLayout_mainContent"
         layout="@layout/activity_outlet_details_scren"
         />
+
 </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

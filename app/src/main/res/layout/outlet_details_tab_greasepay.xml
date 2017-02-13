@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -27,10 +29,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/outlet_details_fragment_greasePay_pricing_female"
             android:padding="@dimen/radius_size"
-            android:textSize="18sp"
             android:text="Entry fee"
 
-            android:textColor="@color/colorButtonText" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <ImageView
@@ -97,6 +98,7 @@
                 />
         </LinearLayout>
 
+
         <Space
             android:layout_width="@dimen/activity_horizontal_margin"
             android:layout_height="wrap_content"
@@ -108,7 +110,6 @@
             android:text="@string/no_of_women"
             android:layout_weight="1"
             android:textColor="@color/colorTextBlack" />
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -143,113 +144,202 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/outlet_details_fragment_greasePay_layout_promocode"
-        android:orientation="horizontal"
+        android:layout_width="match_parent"
+            android:layout_height="wrap_content"
         android:layout_below="@+id/outlet_details_fragment_greasePay_layout_nofopeople"
         android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="horizontal"
         android:padding="@dimen/radius_size">
 
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="Promo Code"
             android:gravity="left"
             android:paddingRight="@dimen/radius_size"
-            android:textColor="@color/colorTextBlack" />
+            android:text="Promo Code"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="18sp"
+            android:visibility="gone"
+
+            />
 
         <EditText
+            android:id="@+id/outlet_details_fragment_greasepay_edit_promo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:background="@drawable/promo_bg"
+            android:layout_below="@id/outlet_details_fragment_greasePay_layout_nofopeople"
+            android:background="@drawable/edit_rounded"
+            android:hint="Promo Code"
+            android:imeOptions="actionSend"
+            android:maxLines="1"
             android:padding="@dimen/radius_size"
-            android:gravity="end"
-            android:id="@+id/outlet_details_fragment_greasepay_edit_promo" />
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_17" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/outlet_fragment_greasePay_layout_paymentTotal"
-        android:layout_below="@id/outlet_details_fragment_greasePay_layout_promocode"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:orientation="vertical"
-        android:gravity="end"
-        android:background="@drawable/payment_detail_bg">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/outlet_details_fragment_greasepay_label_pricingMen"
-            android:text="@string/payment_heading_greasepay_for_men"
-            android:padding="@dimen/activity_padding_5"
-            android:textColor="@color/colorTextBlack" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/outlet_details_fragment_greasepay_label_pricingWomen"
-            android:text="@string/payment_heading_greasepay_for"
-            android:padding="@dimen/activity_padding_5"
-            android:textColor="@color/colorTextBlack" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/outlet_details_fragment_greasepay_label_promoDiscount"
-            android:text="Promo discount: "
-            android:padding="@dimen/activity_padding_5"
-            android:textColor="@color/colorTextBlack" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/outlet_details_fragment_greasepay_label_taxesFees"
-            android:text="Taxes &amp; Fees: "
-            android:padding="@dimen/activity_padding_5"
-            android:textColor="@color/colorTextBlack" />
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/outlet_details_fragment_greasepay_label_totalPayment"
-            android:background="@drawable/payment_total_bg"
-            android:text="GreasePay Total: "
-            android:textAlignment="textEnd"
+        android:layout_below="@id/outlet_details_fragment_greasePay_layout_promocode"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:background="@drawable/payment_detail_bg"
             android:gravity="end"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="@dimen/activity_padding_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="@string/payment_heading_greasepay_for_men"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+
+            <TextView
+                android:id="@+id/outlet_details_fragment_greasepay_label_pricingMen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="0"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="@dimen/activity_padding_5">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="@string/payment_heading_greasepay_for_women"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+
+            <TextView
+                android:id="@+id/outlet_details_fragment_greasepay_label_pricingWomen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="0"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="@dimen/activity_padding_5">
+
+            <TextView
+                android:id="@+id/outlet_details_fragment_greasepay_label_promoDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="Promo discount : "
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="0"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="@dimen/activity_padding_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="Taxes &amp; Fees : "
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+
+            <TextView
+                android:id="@+id/outlet_details_fragment_greasepay_label_taxesFees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="0"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="right"
             android:padding="@dimen/activity_padding_5"
-            android:textColor="@color/colorTextBlack" />
+            android:background="@drawable/payment_total_bg"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="GreasePay Total : "
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+
+            <TextView
+                android:id="@+id/outlet_details_fragment_greasepay_label_totalPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_padding_10"
+                android:text="0"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="@dimen/text_size_17" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/outlet_details_fragment_greasePay_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
         android:layout_below="@id/outlet_fragment_greasePay_layout_paymentTotal"
         android:layout_marginTop="@dimen/activity_vertical_margin" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="All sales are final and non-refundable"
-        android:gravity="bottom"
-        android:layout_below="@id/outlet_fragment_greasePay_layout_paymentTotal"
-        android:layout_toRightOf="@id/outlet_details_fragment_greasePay_checkBox"
-        android:layout_toEndOf="@id/outlet_details_fragment_greasePay_checkBox"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:textSize="18sp"
-        android:textColor="@color/colorTextBlack" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/outlet_fragment_greasePay_layout_paymentTotal"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_toEndOf="@id/outlet_details_fragment_greasePay_checkBox"
+            android:layout_toRightOf="@id/outlet_details_fragment_greasePay_checkBox"
+            android:gravity="bottom"
+            android:text="All sales are final and non-refundable"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="18sp" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/outlet_details_fragment_greasePay_button_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
         android:layout_below="@id/outlet_details_fragment_greasePay_checkBox"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/button_rounded"
         android:text="@string/outlet_details_tab_heading_greasepay"
-        android:textColor="@color/colorButtonText"
-        android:layout_marginTop="@dimen/activity_vertical_margin" />
+        android:textColor="@color/colorButtonText" />
 </RelativeLayout>
+</ScrollView>

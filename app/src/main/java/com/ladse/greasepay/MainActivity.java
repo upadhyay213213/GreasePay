@@ -34,7 +34,9 @@ import com.ladse.greasepay.home.HomePresenter;
 import com.ladse.greasepay.home.HomePresenterImpl;
 import com.ladse.greasepay.home.HomeView;
 import com.ladse.greasepay.home.model.RestaurantData;
+import com.ladse.greasepay.home.model.RestaurantRequest;
 import com.ladse.greasepay.home.utils.HomePagerAdapter;
+import com.ladse.greasepay.login.LoginActivity;
 import com.ladse.greasepay.webclient_retro.GetDataFromServer;
 import com.ladse.greasepay.webclient_retro.ServerCall;
 import com.ladse.greasepay.webclient_retro.ServiceGenerator;
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        homePresenter = new HomePresenterImpl(this);
+        homePresenter = new HomePresenterImpl(this, this);
     }
     private void init(){
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -92,10 +94,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ImageButton menuBtn = (ImageButton) toolbar.findViewById(R.id.activity_main_button_menu);
         toolbarTitle = (TextView) toolbar.findViewById(R.id.activity_main_title);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d");
-        String label = "Location, " + sdf.format(new Date());
+        setHomeTitle();
         drawer.setNavigationItemSelectedListener(this);
-        toolbarTitle.setText(label);
+
 
         ImageButton mSearchIcon = (ImageButton) toolbar.findViewById(R.id.activity_main_button_search);
 
@@ -124,13 +125,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        homePresenter.getRestaurantData(new RestaurantRequest());
+    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.nav_drawer_editProfile:
                 toolbarTitle.setText("Edit Profile");
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
                 EditProfile editProfile = new EditProfile();
                 setFragment(editProfile);
                 break;
@@ -169,12 +175,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_faq:
                 toolbarTitle.setText("FAQ");
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 FAQFragment faqFragment = new FAQFragment();
                 faqFragment.setContext(this);
                 setFragment(faqFragment);
                 break;
             case R.id.nav_settings:
+                //todo settings function
                 break;
             case R.id.nav_signOut:
                 logOut(AppSharedPreference.getAuthToken(this));
@@ -183,12 +189,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
+
     private void setFragment(Fragment fragment){
             tabLayout.setVisibility(View.GONE);
             viewPager.setVisibility(View.GONE);
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.main_fragment_frame, fragment);
-            fragmentTransaction.addToBackStack("current");
+        fragmentTransaction.replace(R.id.main_fragment_frame, fragment, fragment.getTag());
             fragmentTransaction.commit();
             mDrawerLayout.closeDrawer(GravityCompat.START);
     }
@@ -222,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onHomeScreenResponseError() {
         AlertManager.showErrorDialog(MainActivity.this,"Server not reachable");
     }
+
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void logOut(String authToken) {
         ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
@@ -230,6 +237,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
                 AlertManager.showErrorDialog(MainActivity.this,response.message());
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
             }
 
             @Override
@@ -238,22 +247,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }
         else{
-            if(fragmentManager.getBackStackEntryCount() > 0){
-                fragmentManager.popBackStack();
-            }
-            else{
+            if (tabLayout.getVisibility() == View.GONE) {
+                while (fragmentManager.getBackStackEntryCount() > 0) {
+                    fragmentManager.popBackStack();
+                }
+                setHomeTitle();
                 tabLayout.setVisibility(View.VISIBLE);
                 viewPager.setVisibility(View.VISIBLE);
+                homePresenter.getRestaurantData(new RestaurantRequest());
+            } else {
                 super.onBackPressed();
             }
 
         }
 
+    }
+
+    private void setHomeTitle() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d");
+        //todo Get location
+        String label = "Location, " + sdf.format(new Date());
+        toolbarTitle.setText(label);
     }
 }

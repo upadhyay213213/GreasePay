@@ -17,7 +17,7 @@ public class BookingListActivity extends AppCompatActivity implements BookingVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_list);
 
-        bookingPresenter=new BookingPresenterImpl(this);
+        //bookingPresenter=new BookingPresenterImpl(this);
     }
 
 

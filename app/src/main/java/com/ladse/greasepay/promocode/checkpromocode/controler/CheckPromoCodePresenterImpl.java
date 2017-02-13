@@ -9,21 +9,27 @@ import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeRequest;
 /**
  * Created by pkatya on 1/28/17.
  */
-public class CheckPromoCodePresenterImpl implements CheckPromoCodePresenter,CheckPromoCodeInteracterImpl.onValidatePromoCode {
+public class CheckPromoCodePresenterImpl implements CheckPromoCodePresenter, CheckPromoCodeInteracterImpl.onValidatePromoCode {
     private CheckPromoCodeInteracter checkPromoCodeInteracter;
     private CheckPromoCodeView checkPromoCodeView;
 
     public CheckPromoCodePresenterImpl(CheckPromoCodeView checkPromoCodeView) {
         this.checkPromoCodeView = checkPromoCodeView;
-        checkPromoCodeInteracter=new CheckPromoCodeInteracterImpl();
+        checkPromoCodeInteracter = new CheckPromoCodeInteracterImpl();
     }
 
     @Override
-    public void checkPromocodevalidation(CheckPromoCodeRequest checkPromoCodeRequest) {
-        checkPromoCodeInteracter.validateFromoCode(AppSharedPreference.getAuthToken((Context)checkPromoCodeView),checkPromoCodeRequest,this);//// TODO: 1/28/17 cast to activity
+    public void checkPromocodevalidation(Context context, CheckPromoCodeRequest checkPromoCodeRequest) {
+        checkPromoCodeInteracter.validateFromoCode(AppSharedPreference.getAuthToken(context), checkPromoCodeRequest, this);//// TODO: 1/28/17 cast to activity
 
 
     }
+
+    @Override
+    public void onPromocodeValidation(CheckPromoCodeData codeResponse) {
+        checkPromoCodeView.onPromocodeValidate(codeResponse);
+    }
+
 
     @Override
     public void onValidatePromoCodeResponseReceived(CheckPromoCodeData data) {
@@ -38,6 +44,6 @@ public class CheckPromoCodePresenterImpl implements CheckPromoCodePresenter,Chec
 
     @Override
     public void onValidatePromoCodeServerError() {
-checkPromoCodeView.onPromocodeValidateServerError();
+        checkPromoCodeView.onPromocodeValidateServerError();
     }
 }

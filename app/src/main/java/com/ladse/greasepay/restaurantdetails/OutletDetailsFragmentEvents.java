@@ -86,9 +86,10 @@ public class OutletDetailsFragmentEvents extends Fragment implements EventView{
     }
     private void setDetails(){
         EventAdapter eveAd = new EventAdapter(eventDetailsList);
-        RecyclerView.LayoutManager lMan = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager lMan = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         eventList.setLayoutManager(lMan);
         eventList.setAdapter(eveAd);
         //labelMessage.setText("success");
+
     }
 }
