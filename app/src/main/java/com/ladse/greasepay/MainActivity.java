@@ -18,14 +18,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ladse.greasepay.booking.BookingListActivity;
 import com.ladse.greasepay.common.AlertManager;
 import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.common.Model;
+import com.ladse.greasepay.constants.AppConstatnts;
+import com.ladse.greasepay.debitcard.CardDetailsActivity;
 import com.ladse.greasepay.fragments.EditProfile;
 import com.ladse.greasepay.fragments.FAQFragment;
 import com.ladse.greasepay.fragments.FavoritesFragment;
-import com.ladse.greasepay.fragments.MyGreasePayFragment;
-import com.ladse.greasepay.fragments.PaymentFragment;
 import com.ladse.greasepay.fragments.PromocodeFragment;
 import com.ladse.greasepay.fragments.SendFeedbackFragment;
 import com.ladse.greasepay.home.HomePresenter;
@@ -34,6 +35,7 @@ import com.ladse.greasepay.home.HomeView;
 import com.ladse.greasepay.home.model.RestaurantData;
 import com.ladse.greasepay.home.model.RestaurantRequest;
 import com.ladse.greasepay.home.utils.HomePagerAdapter;
+import com.ladse.greasepay.login.LoginActivity;
 import com.ladse.greasepay.webclient_retro.ServerCall;
 import com.ladse.greasepay.webclient_retro.ServiceGenerator;
 
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = drawer.getHeaderView(0);
         ImageView mDrawerProfilePic = (ImageView) headerView.findViewById(R.id.nav_drawer_profilePic);
         TextView mDrawerName = (TextView) headerView.findViewById(R.id.nav_drawer_profileName);
+        mDrawerName.setText(AppSharedPreference.getUserName(MainActivity.this));
         //todo set name and profile pic in navigation header
 
         TextView mDrawerEditProfile = (TextView) headerView.findViewById(R.id.nav_drawer_editProfile);
@@ -128,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(item.getItemId()){
             case R.id.nav_drawer_editProfile:
                 toolbarTitle.setText("Edit Profile");
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 EditProfile editProfile = new EditProfile();
                 setFragment(editProfile);
                 break;
@@ -138,8 +140,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_my_grease_pay:
                 toolbarTitle.setText("My Grease Pay");
-                MyGreasePayFragment greasePayFragment = new MyGreasePayFragment();
-                setFragment(greasePayFragment);
+                Intent intent=new Intent(MainActivity.this, BookingListActivity.class);
+                startActivity(intent);
+
                 break;
             case R.id.nav_favorite:
                 toolbarTitle.setText("Favorites");
@@ -153,8 +156,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_payment:
                 toolbarTitle.setText("Payment");
-                PaymentFragment paymentFragment = new PaymentFragment();
-                setFragment(paymentFragment);
+                Intent intent1 = new Intent(MainActivity.this, CardDetailsActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.nav_send_feedback:
                 toolbarTitle.setText("Send Feedback");
@@ -167,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_faq:
                 toolbarTitle.setText("FAQ");
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 FAQFragment faqFragment = new FAQFragment();
                 faqFragment.setContext(this);
                 setFragment(faqFragment);
@@ -227,7 +229,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         si.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
-                AlertManager.showErrorDialog(MainActivity.this,response.message());
+               Model model=response.body();
+                if(model.getSuccess().equalsIgnoreCase(AppConstatnts.ServerResponseConstants.LOGIN_SIGNUP_SUCCESS)) {
+                    AppSharedPreference.setAuthToken(" ",MainActivity.this);
+                    AppSharedPreference.setUsername(" ", MainActivity.this);
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                AlertManager.showErrorDialog(MainActivity.this,model.getMessage());
             }
 
             @Override

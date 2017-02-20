@@ -65,6 +65,7 @@ public class HomeScreenActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText(R.string.home_tab_heading_bars));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.home_tab_heading_restaurants));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorBackground));
 
         viewPager = (ViewPager) findViewById(R.id.home_screen1_viewPager);
 

@@ -32,13 +32,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CardDetailsActivity extends AppCompatActivity {
-    private EditText mCardNumber, mCardExpiry, mCvv, mName, mZip;
+    private EditText mCardNumber, mCvv, mName, mZip;
     private CheckBox mDefaultCheck, mSaveCheck;
     private Button mProceed;
     private EditText mCardExpiryMonth;
     private EditText mCardExpiryYear;
     private String errorMessage;
-    private BarBookingRequest barBookingRequest;
+    private BarBookingRequest barBookingRequest=null;
+    private String stripeToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,9 @@ public class CardDetailsActivity extends AppCompatActivity {
         mProceed = (Button) findViewById(R.id.card_details_button_proceed);
 
         Bundle bundle=getIntent().getExtras();
-        barBookingRequest= (BarBookingRequest) bundle.getSerializable(AppConstatnts.BAR_DATA);
+        if(bundle!=null) {
+            barBookingRequest = (BarBookingRequest) bundle.getSerializable(AppConstatnts.BAR_DATA);
+        }
         mProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +98,7 @@ public class CardDetailsActivity extends AppCompatActivity {
         @Override
         protected Token doInBackground(Void... params) {
             Token token = null;
-            String publishableKey = "pk_test_xqXDj6OvYwoAbl4Jpit6hcbZ";
+            String publishableKey = AppConstatnts.STRIPE_PUBLIC_KEY;
             Card card = new Card(cardNo, month, year, cvv);
 
             Stripe stripe = new Stripe();
@@ -112,8 +115,12 @@ public class CardDetailsActivity extends AppCompatActivity {
         protected void onPostExecute(Token token) {
             super.onPostExecute(token);
             if(token!=null) {
+                stripeToken=token.getId();
                 //AlertManager.showErrorDialog(CardDetailsActivity.this,token.getId());
-                 saveCardDetails(AppSharedPreference.getAuthToken(CardDetailsActivity.this), new CardRequest(mCardNumber.getText().toString(), mCardExpiry.getText().toString(), mCvv.getText().toString(), mDefaultCheck.getText().toString(), mName.getText().toString(), mZip.getText().toString()));
+                 saveCardDetails(AppSharedPreference.getAuthToken(CardDetailsActivity.this),
+                         new CardRequest(mCardNumber.getText().toString(), mCardExpiryMonth.getText().toString()+" "+mCardExpiryYear.getText().toString(),
+                                 mCvv.getText().toString(), mDefaultCheck.getText().toString(),
+                                 mName.getText().toString(), mZip.getText().toString()));
 
             }else{
                 AlertManager.showErrorDialog(CardDetailsActivity.this, String.valueOf(errorMessage));
@@ -130,10 +137,12 @@ public class CardDetailsActivity extends AppCompatActivity {
         si.enqueue(new Callback<CardResponse>() {
             @Override
             public void onResponse(Call<CardResponse> call, Response<CardResponse> response) {
-
                 AlertManager.showErrorDialog(CardDetailsActivity.this, response.message());
-                if(barBookingRequest!=null){
-
+                if(response.body().getSuccess().equalsIgnoreCase(AppConstatnts.ServerResponseConstants.LOGIN_SIGNUP_SUCCESS)) {
+                    if (barBookingRequest != null) {
+                        barBookingRequest.setStripeToken(stripeToken);
+                        makeBarBooking(barBookingRequest);
+                    }
                 }
 
 
@@ -150,5 +159,16 @@ public class CardDetailsActivity extends AppCompatActivity {
     public void makeBarBooking(BarBookingRequest barBookingRequest){
         ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
         Call<Model> si = retrofitInterface.barBooking(AppSharedPreference.getAuthToken(CardDetailsActivity.this),barBookingRequest);
+        si.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+
+            }
+        });
     }
 }

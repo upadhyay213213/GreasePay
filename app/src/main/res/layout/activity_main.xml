@@ -6,7 +6,6 @@
     android:id="@+id/activity_main_drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.ladse.greasepay.MainActivity"
     android:fitsSystemWindows="true"
     style="@style/AppTheme"
@@ -51,7 +50,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/activity_padding_5"
             >
 
                 <FrameLayout
@@ -65,14 +63,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/main_screen_tabLayout"
-                app:tabBackground="@drawable/button_rounded" />
+                app:tabBackground="@drawable/button_rounded"
+                />
 
             <android.support.v4.view.ViewPager
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/main_screen_viewPager"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:layout_below="@id/main_screen_tabLayout" />
+                android:layout_below="@id/main_screen_tabLayout"
+                />
 
 
         </RelativeLayout>

@@ -39,9 +39,9 @@ public class FavoritesFragment extends Fragment {
         // Required empty public constructor
         request = new RestaurantRequest();
 
-        //todo set latitude and longitude for favorite list
+     /*   //todo set latitude and longitude for favorite list
         request.setLatitude("");
-        request.setLongitude("");
+        request.setLongitude("");*/
     }
 
     @Override
@@ -57,6 +57,12 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getFavoriteData(AppSharedPreference.getAuthToken(getActivity()), request);
     }
 
@@ -69,6 +75,9 @@ public class FavoritesFragment extends Fragment {
             public void onResponse(Call<RestaurantResponse> call, Response<RestaurantResponse> response) {
                 RestaurantResponse restaurantResponse = response.body();
                     initAdapter(restaurantResponse.getData());
+                if(restaurantResponse.getData().size()==0){
+                    AlertManager.showErrorDialog(getActivity(),"No Favorites.");
+                }
             }
 
             @Override

@@ -4,16 +4,13 @@ package com.ladse.greasepay.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.PointerIcon;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.ladse.greasepay.R;
 import com.ladse.greasepay.common.AlertManager;
-import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.faq.FAQData;
 import com.ladse.greasepay.faq.FAQResponse;
 import com.ladse.greasepay.utils.FAQAdapter;
@@ -71,13 +68,13 @@ public class FAQFragment extends Fragment {
             @Override
             public void onResponse(Call<FAQResponse> call, Response<FAQResponse> response) {
                 FAQResponse response1 = response.body();
-                if(response1.getMessage().equals(AppConstatnts.ServerResponseConstants
-                        .LOGIN_SIGNUP_SUCCESS)){
+                faqData = response1.getData();
+                if(faqData.size()>0){
                     faqData = response1.getData();
                     prepareFaqList(faqData);
                 }
                 else{
-                    AlertManager.showErrorDialog(context, "Error");
+                    AlertManager.showErrorDialog(context, "No FAQ.");
                 }
             }
 
@@ -96,6 +93,7 @@ public class FAQFragment extends Fragment {
         while(i<dataList.size()){
           mFaqQuestions.add(dataList.get(i).getQuestion());
             listDataChild.put(dataList.get(i).getQuestion(), dataList.get(i).getAnswer());
+            i++;
         }
         adapter = new FAQAdapter(getActivity(), mFaqQuestions, listDataChild);
         faqList.setAdapter(adapter);

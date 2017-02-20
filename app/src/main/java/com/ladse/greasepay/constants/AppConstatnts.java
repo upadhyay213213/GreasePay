@@ -7,6 +7,9 @@ public class AppConstatnts {
     public static final String CLUB_DATA = "ClubData";
     public static final String BUNDLE = "bundle";
     public static final String BAR_DATA = "barData";
+    public static final String STRIPE_PUBLIC_KEY = "pk_test_xqXDj6OvYwoAbl4Jpit6hcbZ";
+    public static final String STRIPE_TEST_KEY = "pk_test_xqXDj6OvYwoAbl4Jpit6hcbZ";
+    public static final String USER_NAME = "userName";
     public static String AUTH_TOKEN="auth_token";
     public static String RESTAURANT_LIST="restaurantList";
     public static String CLUB_BAR_TYPE="bar";
