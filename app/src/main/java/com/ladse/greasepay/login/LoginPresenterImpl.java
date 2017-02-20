@@ -31,6 +31,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.Login
     @Override
     public void onSuccess(LoginSinUpResponse loginSinUpResponse) {
         AppSharedPreference.setAuthToken(loginSinUpResponse.getData().getAuthToken(),(LoginActivity)loginView);
+        AppSharedPreference.setUsername(loginSinUpResponse.getData().getLoggedUser(),(LoginActivity)loginView);
         loginView.setLoginSuccessFull(loginSinUpResponse);
 
     }

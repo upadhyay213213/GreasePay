@@ -41,7 +41,7 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPromoCodeView{
+public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPromoCodeView {
     private TextView mLabelPricing;
     private TextView mLabelDate;
     private TextView mLabelPricingMen;
@@ -62,13 +62,16 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
 
     private ImageButton incrementMen, decrementMen, incrementWomen, decrementWomen;
     private TextView mNumberMen, mNumberWomen;
-    private String mPromoDiscount="";
+    private String mPromoDiscount = "";
     private Context context;
     private DatePickerDialog dialog;
+    private String tax;
+    public BarBookingRequest barBookingRequest;
+    private String modifiedDate;
 
     public OutletDetailsFragmentGreasePay() {
         // Required empty public constructor
-        checkPromoCodePresenter=new CheckPromoCodePresenterImpl(this);
+        checkPromoCodePresenter = new CheckPromoCodePresenterImpl(this);
     }
 
 
@@ -86,7 +89,7 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         mNumberMen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_men);
         mNumberWomen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_women);
         AppSharedPreference.setAuthToken("585d520a59a67", getContext());
-        context=getContext();
+        context = getContext();
 
 
         mCalender.setOnClickListener(new View.OnClickListener() {
@@ -99,9 +102,9 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         incrementMen.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 int no = Integer.parseInt(mNumberMen.getText().toString()) + 1;
-                mNumberMen.setText(no+"");
-                totalwomenPrice=Integer.parseInt(restaurantData.getMalePersonPerFees())*no;
-                mLabelPricingMen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees())*no));
+                mNumberMen.setText(no + "");
+                totalwomenPrice = Integer.parseInt(restaurantData.getMalePersonPerFees()) * no;
+                mLabelPricingMen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees()) * no));
                 mLabelPricingTotal.setText(calculateTotalPrice());
             }
         });
@@ -109,20 +112,20 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
             @Override
             public void onClick(View view) {
                 int no = Integer.parseInt(mNumberWomen.getText().toString()) + 1;
-                mNumberWomen.setText(no+"");
-                totalwomenPrice=Integer.parseInt(restaurantData.getFemalePersonPerFees())*no;
-                mLabelPricingWomen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees())*no));
+                mNumberWomen.setText(no + "");
+                totalwomenPrice = Integer.parseInt(restaurantData.getFemalePersonPerFees()) * no;
+                mLabelPricingWomen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees()) * no));
                 mLabelPricingTotal.setText(calculateTotalPrice());
             }
         });
         decrementMen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!mNumberMen.getText().toString().equals("0")){
+                if (!mNumberMen.getText().toString().equals("0")) {
                     int no = Integer.parseInt(mNumberMen.getText().toString()) - 1;
-                    mNumberMen.setText(no+"");
-                    totalwomenPrice=Integer.parseInt(restaurantData.getMalePersonPerFees())*no;
-                    mLabelPricingMen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees())*no));
+                    mNumberMen.setText(no + "");
+                    totalwomenPrice = Integer.parseInt(restaurantData.getMalePersonPerFees()) * no;
+                    mLabelPricingMen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees()) * no));
                     mLabelPricingTotal.setText(calculateTotalPrice());
                 }
             }
@@ -130,11 +133,11 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         decrementWomen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!mNumberWomen.getText().toString().equals("0")){
+                if (!mNumberWomen.getText().toString().equals("0")) {
                     int no = Integer.parseInt(mNumberWomen.getText().toString()) - 1;
-                    mNumberWomen.setText(no+"");
-                    totalwomenPrice=Integer.parseInt(restaurantData.getFemalePersonPerFees())*no;
-                    mLabelPricingWomen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees())*no));
+                    mNumberWomen.setText(no + "");
+                    totalwomenPrice = Integer.parseInt(restaurantData.getFemalePersonPerFees()) * no;
+                    mLabelPricingWomen.setText(String.valueOf(Integer.parseInt(restaurantData.getFemalePersonPerFees()) * no));
                     mLabelPricingTotal.setText(calculateTotalPrice());
                 }
             }
@@ -148,13 +151,17 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         mLabelPricingTotal = (TextView) v.findViewById(R.id.outlet_details_fragment_greasepay_label_totalPayment);
         mPayBtn = (Button) v.findViewById(R.id.outlet_details_fragment_greasePay_button_submit);
         mPayBtn.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
-                BarBookingRequest barBookingRequest=new BarBookingRequest(null,restaurantData.getRestaurantId(),"","",restaurantData.getMalePersonPerFees(),restaurantData.getFemalePersonPerFees(),
-                        mNumberWomen.getText().toString(),mNumberWomen.getText().toString(),mLabelPricingPromo.getText().toString(),String.valueOf(totalmenPrice),String.valueOf(totalwomenPrice),String.valueOf(mPromoDiscount),mLabelPricingTax.getText().toString(),String.valueOf(totalwomenPrice));
-                Intent intent=new Intent(getActivity(), CardDetailsActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putSerializable(AppConstatnts.BAR_DATA,barBookingRequest);
+                barBookingRequest = new BarBookingRequest(null, restaurantData.getRestaurantId(), "5", String.valueOf(modifiedDate), restaurantData.getMalePersonPerFees(), restaurantData.getFemalePersonPerFees(),
+                        mNumberWomen.getText().toString(), mNumberWomen.getText().toString(), tax, String.valueOf(totalmenPrice), String.valueOf(totalwomenPrice), String.valueOf(mPromoDiscount), mLabelPricingTax.getText().toString(), String.valueOf(mLabelPricingTotal.getText().toString()));
+                String advanceBooking=restaurantData.getAdvanceBookingFees().replace("$"," ").trim();
+                barBookingRequest.setAdvanceBookingFee(advanceBooking);
+                Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(AppConstatnts.BAR_DATA, barBookingRequest);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -162,7 +169,7 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         mPromoCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    checkPromoCodePresenter.checkPromocodevalidation(getActivity(),new CheckPromoCodeRequest(restaurantData.getRestaurantId(),mPromoCode.getText().toString()));
+                    checkPromoCodePresenter.checkPromocodevalidation(getActivity(), new CheckPromoCodeRequest(restaurantData.getRestaurantId(), mPromoCode.getText().toString()));
                 }
                 return false;
 
@@ -174,9 +181,10 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
 
     private void setDate(int i, int i1, int i2) {
         mLabelDate.setText(i + "/" + i1 + "/" + i2);
-        if(dialog!=null){
+        if (dialog != null) {
             dialog.dismiss();
         }
+       // barBookingRequest.setOrderDate(String.valueOf(modifiedDate));
     }
 
     @Override
@@ -188,23 +196,22 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
     private void setValues(RestaurantData restaurantData) {
         //todo set values
         SimpleDateFormat sdf = new SimpleDateFormat("E, MMM d");
-      mLabelDate.setText(sdf.format(new Date()));
+        mLabelDate.setText(sdf.format(new Date()));
         mLabelPricingMen.setText(restaurantData.getMalePersonPerFees());
         mLabelPricingWomen.setText(restaurantData.getFemalePersonPerFees());
         mLabelPricingTax.setText(restaurantData.getTaxFees());
-        if(restaurantData.getFemaleEntryFree()&&restaurantData.getMaleEntryFree()){
+        if (restaurantData.getFemaleEntryFree() && restaurantData.getMaleEntryFree()) {
             mLabelPricingMale.setText(getString(R.string.entry_free));
             mLabelPricingFemale.setVisibility(View.GONE);
             mLabelPricingTotal.setText("0");
-            idEntryFree=true;
-        }else{
-            if(restaurantData.getMaleEntryFree()){
+            idEntryFree = true;
+        } else {
+            if (restaurantData.getMaleEntryFree()) {
                 mLabelPricingMale.setText(getString(R.string.entry_free_men));
-                mLabelPricingFemale.setText(String.valueOf(restaurantData.getFemaleEntryFree())+" "+"for female entry");
-            }
-            else if(restaurantData.getFemaleEntryFree()){
+                mLabelPricingFemale.setText(String.valueOf(restaurantData.getFemaleEntryFree()) + " " + "for female entry");
+            } else if (restaurantData.getFemaleEntryFree()) {
                 mLabelPricingMale.setText(getString(R.string.entry_free_women));
-                mLabelPricingMale.setText(String.valueOf(restaurantData.getMaleEntryFree())+" "+"for male entry");
+                mLabelPricingMale.setText(String.valueOf(restaurantData.getMaleEntryFree()) + " " + "for male entry");
             }
         }
 
@@ -223,17 +230,18 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
 
     @Override
     public void onPromocodeValidate(CheckPromoCodeData data) {
-        AlertManager.showErrorDialog(getActivity(),"Promo-code Applied");
+        AlertManager.showErrorDialog(getActivity(), "Promo-code Applied");
         mLabelPricingPromo.setText(data.getDiscount());
-        mPromoDiscount=data.getDiscount();
+        mPromoDiscount = data.getDiscount();
+
 
 
     }
 
     @Override
     public void onPromocodeValidateError(String message) {
-        AlertManager.showErrorDialog(getActivity(),message);
-        mLabelPricingPromo.setText(mLabelPricingPromo.getText()+" 0");
+        AlertManager.showErrorDialog(getActivity(), message);
+        mLabelPricingPromo.setText(mLabelPricingPromo.getText() + " 0");
 
     }
 
@@ -242,10 +250,10 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
 
     }
 
-    private String calculateTotalPrice(){
-        String tax=mLabelPricingTax.getText().toString();
-        tax=tax.replace("%","");
-        return String.valueOf((totalmenPrice+totalwomenPrice)-Double.parseDouble(tax));
+    private String calculateTotalPrice() {
+        tax = mLabelPricingTax.getText().toString();
+        tax = tax.replace("%", "");
+        return String.valueOf((totalmenPrice + totalwomenPrice) - Double.parseDouble(tax));
     }
 
     Calendar c = Calendar.getInstance();
@@ -253,15 +261,19 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
     int startMonth = c.get(Calendar.MONTH);
     int startDay = c.get(Calendar.DAY_OF_MONTH);
 
-    class StartDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+    class StartDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // TODO Auto-generated method stub
             // Use the current date as the default date in the picker
-             dialog = new DatePickerDialog(context, this, startYear, startMonth, startDay);
+            dialog = new DatePickerDialog(context, this, startYear, startMonth, startDay);
+            dialog.getWindow().setBackgroundDrawableResource(R.color.colorEdittextBackground);
             return dialog;
 
         }
+
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
             // TODO Auto-generated method stub
@@ -270,9 +282,15 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
             startMonth = monthOfYear;
             startDay = dayOfMonth;
 
-            setDate(dayOfMonth,monthOfYear+1,year);
+            SimpleDateFormat outputFormat = new SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss");
+
+            modifiedDate= "2017-03-04 00:00:00";
+
+            setDate(dayOfMonth, monthOfYear + 1, year);
 
         }
+
     }
 
 }

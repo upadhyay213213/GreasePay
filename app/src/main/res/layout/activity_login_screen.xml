@@ -3,12 +3,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".login.LoginActivity">
+    tools:context=".login.LoginActivity"
+    android:background="@color/colorBackground">
 
     <ImageButton
         android:id="@+id/login_button_fbLogin"
@@ -40,7 +41,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/prompt_email"
         android:padding="@dimen/activity_padding_15"
-        style="@style/Widget.AppCompat.EditText"
+        android:singleLine="true"
         />
 
     <EditText
@@ -49,7 +50,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/prompt_password"
         android:padding="@dimen/activity_padding_15"
-        style="@style/Base.Widget.AppCompat.EditText"/>
+        android:inputType="textPassword"
+        android:singleLine="true"/>
 
     <Button
         android:id="@+id/login_button_loginBtn"

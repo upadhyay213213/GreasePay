@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="@layout/app_bar_outlet_details_screen"
-    android:padding="@dimen/activity_padding_10">
+    android:background="@color/colorBackground">
 
     <ImageView
         android:layout_width="match_parent"

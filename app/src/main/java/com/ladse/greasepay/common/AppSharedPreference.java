@@ -23,4 +23,17 @@ public class AppSharedPreference {
         sharedPreferences=context.getSharedPreferences("pref",Context.MODE_PRIVATE);
         return sharedPreferences.getString(AppConstatnts.AUTH_TOKEN,"");
     }
+
+    public static void setUsername(String userName, Context context){
+        sharedPreferences=context.getSharedPreferences("pref",Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(AppConstatnts.USER_NAME, userName);
+        editor.commit();
+    }
+
+    public static String getUserName(Context context){
+        sharedPreferences=context.getSharedPreferences("pref",Context.MODE_PRIVATE);
+        return sharedPreferences.getString(AppConstatnts.USER_NAME,"");
+    }
 }
