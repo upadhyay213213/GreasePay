@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".login.LoginActivity"
-    android:background="@color/colorBackground">
+    tools:context=".login.LoginActivity">
 
     <ImageButton
         android:id="@+id/login_button_fbLogin"
@@ -35,23 +35,27 @@
         android:textAlignment="center"
         android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/login_edit_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/prompt_email"
-        android:padding="@dimen/activity_padding_15"
-        android:singleLine="true"
-        />
+    <android.support.design.widget.TextInputLayout
+       style="@style/EditTextInputTextStyle">
 
-    <EditText
-        android:id="@+id/login_edit_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/prompt_password"
-        android:padding="@dimen/activity_padding_15"
-        android:inputType="textPassword"
-        android:singleLine="true"/>
+        <EditText
+            android:id="@+id/login_edit_username"
+            style="@style/EditTextStyle"
+            android:hint="@string/prompt_email"
+            android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/EditTextInputTextStyle">
+
+        <EditText
+            android:id="@+id/login_edit_password"
+            style="@style/EditTextStyle"
+            android:hint="@string/prompt_password"
+            android:inputType="textPassword"
+      />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/login_button_loginBtn"
