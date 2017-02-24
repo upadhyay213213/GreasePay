@@ -20,4 +20,28 @@
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 
+    <style name="EditTextInputTextStyle" parent="Widget.Design.TextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/activity_padding_5</item>
+        <item name="colorControlNormal">@color/colorTextBlack</item>
+        <item name="colorControlActivated">@android:color/darker_gray</item>
+        <item name="colorControlHighlight">@color/colorTextBlack</item>
+
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:padding">@dimen/activity_padding_10</item>
+    </style>
+
+    <style name="CardDetailsEditText" parent="EditTextStyle">
+        <item name="android:background">@drawable/card_details_edit_bg</item>
+    </style>
+
 </resources>
+
+
+

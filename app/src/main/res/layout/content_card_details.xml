@@ -5,15 +5,15 @@
     android:id="@+id/content_card_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".debitcard.CardDetailsActivity"
-    tools:showIn="@layout/activity_card_details">
+    tools:showIn="@layout/activity_card_details"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -22,85 +22,72 @@
         android:textColor="@color/colorButtonText" />
 
     <EditText
-        android:id="@+id/card_details_edit_cardNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_padding_5"
-        android:background="@drawable/card_details_edit_bg"
+        android:id="@+id/card_details_edit_cardNumber"
         android:hint="Card Number"
         android:inputType="number"
-        android:padding="@dimen/activity_padding_5"
-        android:singleLine="true" />
+        style="@style/CardDetailsEditText"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_padding_15"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/activity_padding_15">
 
         <TextView
-            android:id="@+id/card_details_label_expiryDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/card_details_label_expiryDate"
             android:text="Exp Date"
             android:textColor="@color/colorButtonText" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:text="CVV"
-            android:textColor="@color/colorButtonText" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/card_details_label_expiryDate"
-            android:background="@android:drawable/editbox_background"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/card_details_edit_expiryMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_padding_5"
-
-                android:background="@drawable/card_details_edit_bg"
-                android:backgroundTint="@android:color/transparent"
-
-                android:hint="MM"
-                android:inputType="date"
-                android:paddingLeft="@dimen/activity_padding_5"
-                android:singleLine="true" />
-
-            <EditText
-                android:id="@+id/card_details_edit_expiryYear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_padding_5"
-
-                android:background="@drawable/card_details_edit_bg"
-
-                android:backgroundTint="@android:color/transparent"
-                android:hint="/YYYY"
-                android:inputType="date"
-                android:singleLine="true" />
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/card_details_edit_cvv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/card_details_label_expiryDate"
+            android:textColor="@color/colorButtonText"
+            android:gravity="start"/>
+<!--<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@id/card_details_label_expiryDate"
+    android:background="@android:drawable/editbox_background">-->
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_details_edit_expiryMonth"
             android:layout_marginTop="@dimen/activity_padding_5"
-            android:background="@drawable/card_details_edit_bg"
+            android:layout_below="@id/card_details_label_expiryDate"
+            android:hint="MM/YYYY"
+            android:inputType="date"
+            style="@style/CardDetailsEditText"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_details_edit_expiryYear"
+        android:layout_marginTop="@dimen/activity_padding_5"
+
+        android:hint="/YYYY"
+
+        android:background="@drawable/card_details_edit_bg"
+        android:inputType="date"
+        android:backgroundTint="@android:color/transparent"
+        android:visibility="gone"/>
+<!--</LinearLayout>-->
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_details_edit_cvv"
+            android:layout_marginTop="@dimen/activity_padding_5"
+            android:layout_below="@id/card_details_label_expiryDate"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:hint="CVV"
-            android:inputType="number"
-            android:padding="@dimen/activity_padding_5"
-            android:singleLine="true" />
+            style="@style/CardDetailsEditText"
+            android:inputType="number" />
     </RelativeLayout>
 
     <TextView
@@ -112,52 +99,43 @@
 
     <EditText
         android:id="@+id/card_details_edit_cardName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_padding_5"
-        android:background="@drawable/card_details_edit_bg"
         android:hint="Enter name on the card"
-        android:padding="@dimen/activity_padding_5"
-        android:singleLine="true" />
+        style="@style/CardDetailsEditText"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_padding_15"
-        android:singleLine="true"
         android:text="Zip Code"
         android:textColor="@color/colorButtonText" />
 
     <EditText
         android:id="@+id/card_details_edit_zipCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_padding_5"
-        android:background="@drawable/card_details_edit_bg"
         android:hint="Enter Zip code"
-        android:padding="@dimen/activity_padding_5"
-        android:singleLine="true" />
+        style="@style/CardDetailsEditText"/>
 
     <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/card_details_check_defaultCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_padding_15"
-        android:text="Make it Default for all payments" />
+        android:text="Make it Default for all payments"
+        android:layout_marginTop="@dimen/activity_padding_15" />
 
     <CheckBox
-        android:id="@+id/card_details_check_saveCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/card_details_check_saveCard"
         android:text="Save this card for future transactions" />
 
     <Button
-        android:id="@+id/card_details_button_proceed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/card_details_button_proceed"
         android:layout_marginTop="@dimen/activity_padding_10"
         android:background="@drawable/button_rounded"
-        android:text="Proceed"
-        android:textColor="@color/colorButtonText" />
+        android:textColor="@color/colorButtonText"
+        android:text="Proceed" />
 
 </LinearLayout>
