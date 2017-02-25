@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ladse.greasepay.R;
@@ -21,7 +20,6 @@ import com.ladse.greasepay.webclient_retro.ServiceGenerator;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,6 +57,7 @@ public class EditProfile extends Fragment {
                 request.setLastName(mLastName.getEditableText().toString());
                 request.setEmail(mEmail.getEditableText().toString());
                 request.setPhoneNumber(mNumber.getEditableText().toString());
+                AlertManager.showProgressDialog(getActivity());
                 editProfile(AppSharedPreference.getAuthToken(getActivity()), request);
             }
         });
@@ -79,6 +78,7 @@ public class EditProfile extends Fragment {
 
             }
         });
+        AlertManager.disMissDialog();
     }
 
 }

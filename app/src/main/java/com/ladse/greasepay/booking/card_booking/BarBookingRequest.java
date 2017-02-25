@@ -8,17 +8,19 @@ import java.io.Serializable;
 /**
  * Created by pkatya on 2/12/17.
  */
-public class BarBookingRequest implements Serializable{
-
+public class BarBookingRequest implements Serializable {
         @SerializedName("stripe_token")
         @Expose
         private String stripeToken;
         @SerializedName("bar_id")
         @Expose
         private String barId;
-        @SerializedName("person_per_fees")
+        @SerializedName("male_person_per_fees")
         @Expose
-        private String personPerFees;
+        private String malePersonPerFees;
+        @SerializedName("female_person_per_fees")
+        @Expose
+        private String femalePersonPerFees;
         @SerializedName("order_date")
         @Expose
         private String orderDate;
@@ -52,29 +54,17 @@ public class BarBookingRequest implements Serializable{
         @SerializedName("total")
         @Expose
         private String total;
-    @SerializedName("booking_type")
-    @Expose
-    private String bookinType="bar";
+        @SerializedName("advance_booking_fees")
+        @Expose
+        private String advanceBookingFees;
+        @SerializedName("booking_type")
+        @Expose
+        private String bookingType;
+        @SerializedName("event_id")
+        @Expose
+        private Integer eventId;
 
-    public String getAdvanceBookingFee() {
-        return advanceBookingFee;
-    }
-
-    public void setAdvanceBookingFee(String advanceBookingFee) {
-        this.advanceBookingFee = advanceBookingFee;
-    }
-
-    @SerializedName("advance booking fees")
-    @Expose
-    private String advanceBookingFee;
-
-
-
-
-
-
-
-    public String getStripeToken() {
+        public String getStripeToken() {
             return stripeToken;
         }
 
@@ -90,12 +80,20 @@ public class BarBookingRequest implements Serializable{
             this.barId = barId;
         }
 
-        public String getPersonPerFees() {
-            return personPerFees;
+        public String getMalePersonPerFees() {
+            return malePersonPerFees;
         }
 
-        public void setPersonPerFees(String personPerFees) {
-            this.personPerFees = personPerFees;
+        public void setMalePersonPerFees(String malePersonPerFees) {
+            this.malePersonPerFees = malePersonPerFees;
+        }
+
+        public String getFemalePersonPerFees() {
+            return femalePersonPerFees;
+        }
+
+        public void setFemalePersonPerFees(String femalePersonPerFees) {
+            this.femalePersonPerFees = femalePersonPerFees;
         }
 
         public String getOrderDate() {
@@ -186,20 +184,29 @@ public class BarBookingRequest implements Serializable{
             this.total = total;
         }
 
-    public BarBookingRequest(String stripeToken, String barId, String personPerFees, String orderDate, String maleEntryFree, String femaleEntryFree, String numberOfMen, String numberOfWomen, String promoCode, String priceForMen, String priceForWomen, String promoDiscount, String taxFees, String total) {
-        this.stripeToken = stripeToken;
-        this.barId = barId;
-        this.personPerFees = personPerFees;
-        this.orderDate = orderDate;
-        this.maleEntryFree = maleEntryFree;
-        this.femaleEntryFree = femaleEntryFree;
-        this.numberOfMen = numberOfMen;
-        this.numberOfWomen = numberOfWomen;
-        this.promoCode = promoCode;
-        this.priceForMen = priceForMen;
-        this.priceForWomen = priceForWomen;
-        this.promoDiscount = promoDiscount;
-        this.taxFees = taxFees;
-        this.total = total;
+        public String getAdvanceBookingFees() {
+            return advanceBookingFees;
+        }
+
+        public void setAdvanceBookingFees(String advanceBookingFees) {
+            this.advanceBookingFees = advanceBookingFees;
+        }
+
+        public String getBookingType() {
+            return bookingType;
+        }
+
+        public void setBookingType(String bookingType) {
+            this.bookingType = bookingType;
+        }
+
+        public Integer getEventId() {
+            return eventId;
+        }
+
+        public void setEventId(Integer eventId) {
+            this.eventId = eventId;
+        }
+
     }
-}
+

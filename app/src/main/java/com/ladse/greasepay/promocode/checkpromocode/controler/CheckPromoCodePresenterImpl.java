@@ -2,6 +2,7 @@ package com.ladse.greasepay.promocode.checkpromocode.controler;
 
 import android.content.Context;
 
+import com.ladse.greasepay.common.AlertManager;
 import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeData;
 import com.ladse.greasepay.promocode.checkpromocode.model.CheckPromoCodeRequest;
@@ -20,6 +21,7 @@ public class CheckPromoCodePresenterImpl implements CheckPromoCodePresenter, Che
 
     @Override
     public void checkPromocodevalidation(Context context,CheckPromoCodeRequest checkPromoCodeRequest) {
+        AlertManager.showProgressDialog((Context)checkPromoCodeView);
         checkPromoCodeInteracter.validateFromoCode(AppSharedPreference.getAuthToken(context), checkPromoCodeRequest, this);//// TODO: 1/28/17 cast to activity
 
 
@@ -34,16 +36,19 @@ public class CheckPromoCodePresenterImpl implements CheckPromoCodePresenter, Che
     @Override
     public void onValidatePromoCodeResponseReceived(CheckPromoCodeData data) {
         checkPromoCodeView.onPromocodeValidate(data);
+        AlertManager.disMissDialog();
     }
 
     @Override
     public void onValidatePromoCodeErrorReceived(String message) {
         checkPromoCodeView.onPromocodeValidateError(message);
+        AlertManager.disMissDialog();
 
     }
 
     @Override
     public void onValidatePromoCodeServerError() {
         checkPromoCodeView.onPromocodeValidateServerError();
+        AlertManager.disMissDialog();
     }
 }
