@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.ladse.greasepay.R;
 import com.ladse.greasepay.booking.card_booking.BarBookingRequest;
 import com.ladse.greasepay.common.AlertManager;
-import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.debitcard.CardDetailsActivity;
 import com.ladse.greasepay.home.model.RestaurantData;
@@ -81,14 +80,13 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         mLabelPricingMale = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_pricing_male);
         mLabelPricingFemale = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_pricing_female);
         mLabelDate = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_date);
-        mCalender = (ImageView) v.findViewById(R.id.outlet_details_fragment_greasePay_icon_calendar);
+       mCalender = (ImageView) v.findViewById(R.id.outlet_details_fragment_greasePay_icon_calendar);
         incrementMen = (ImageButton) v.findViewById(R.id.outlet_details_fragment_greasePay_button_menIncrement);
         decrementMen = (ImageButton) v.findViewById(R.id.outlet_details_fragment_greasePay_button_menDecrement);
         incrementWomen = (ImageButton) v.findViewById(R.id.outlet_details_fragment_greasePay_button_womenIncrement);
         decrementWomen = (ImageButton) v.findViewById(R.id.outlet_details_fragment_greasePay_button_womenDecrement);
         mNumberMen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_men);
         mNumberWomen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_women);
-        AppSharedPreference.setAuthToken("585d520a59a67", getContext());
         context = getContext();
 
 
@@ -155,10 +153,7 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
 
             @Override
             public void onClick(View v) {
-                barBookingRequest = new BarBookingRequest(null, restaurantData.getRestaurantId(), "5", String.valueOf(modifiedDate), restaurantData.getMalePersonPerFees(), restaurantData.getFemalePersonPerFees(),
-                        mNumberWomen.getText().toString(), mNumberWomen.getText().toString(), tax, String.valueOf(totalmenPrice), String.valueOf(totalwomenPrice), String.valueOf(mPromoDiscount), mLabelPricingTax.getText().toString(), String.valueOf(mLabelPricingTotal.getText().toString()));
-                String advanceBooking=restaurantData.getAdvanceBookingFees().replace("$"," ").trim();
-                barBookingRequest.setAdvanceBookingFee(advanceBooking);
+                barBookingRequest = createBarBookingRequest();
                 Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(AppConstatnts.BAR_DATA, barBookingRequest);
@@ -281,16 +276,72 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
             startYear = year;
             startMonth = monthOfYear;
             startDay = dayOfMonth;
-
+            Calendar myCalendar = Calendar.getInstance();
+            myCalendar.set(year, monthOfYear, dayOfMonth);
             SimpleDateFormat outputFormat = new SimpleDateFormat(
                     "yyyy-MM-dd HH:mm:ss");
+            modifiedDate= outputFormat.format(myCalendar.getTime());
 
-            modifiedDate= "2017-03-04 00:00:00";
+          //  modifiedDate= "2017-03-04 00:00:00";
 
             setDate(dayOfMonth, monthOfYear + 1, year);
 
         }
 
+    }
+
+    private  BarBookingRequest createBarBookingRequest(){
+
+/*
+
+        "stripe_token": "tok_19Zyx0GFeDGnC86FdfUiNsYY",
+                "bar_id": "1",
+                "male_person_per_fees": "50",
+                "female_person_per_fees": "40",
+                "order_date": "2017-01-03",
+                "male_entry_free": "1",
+                "female_entry_free": "0",
+                "number_of_men": "2",
+                "number_of_women": "2",
+                "promo_code": "dics123",
+                "price_for_men": "0",
+                "price_for_women": "100",
+                "promo_discount": "5",
+                "tax_fees": "8.35",
+                "total": "103.35",
+                "advance_booking_fees": "20",
+                "booking_type":"event", // booking_type should be “bar,event”
+                "event_id":11// optional…. When order for event then add event_id
+
+
+                 restaurantData.getRestaurantId(), "5", String.valueOf(modifiedDate), restaurantData.getMalePersonPerFees(),
+                  restaurantData.getFemalePersonPerFees(),
+                        mNumberWomen.getText().toString(), mNumberWomen.getText().toString(), tax, String.valueOf(totalmenPrice),
+                        String.valueOf(totalwomenPrice), String.valueOf(mPromoDiscount),
+                        mLabelPricingTax.getText().toString(), String.valueOf(mLabelPricingTotal.getText().toString()));
+                String advanceBooking=restaurantData.getAdvanceBookingFees().replace("$"," ").trim();
+*/
+
+        BarBookingRequest barBookingRequest=new BarBookingRequest();
+        barBookingRequest.setBarId(restaurantData.getRestaurantId());
+        barBookingRequest.setMalePersonPerFees(restaurantData.getMalePersonPerFees());
+        barBookingRequest.setFemalePersonPerFees(restaurantData.getFemalePersonPerFees());
+        barBookingRequest.setOrderDate(modifiedDate);
+        barBookingRequest.setMaleEntryFree(String.valueOf(restaurantData.getMaleEntryFree() == true ? 1: 0));
+        barBookingRequest.setFemaleEntryFree(String.valueOf(restaurantData.getFemaleEntryFree() == true ? 1: 0));
+        barBookingRequest.setNumberOfMen(mNumberWomen.getText().toString());
+        barBookingRequest.setNumberOfWomen(mNumberWomen.getText().toString());
+        barBookingRequest.setPromoCode(mPromoCode.getText().toString());
+        barBookingRequest.setPriceForMen(mLabelPricingMen.getText().toString());
+        barBookingRequest.setPriceForWomen(mLabelPricingWomen.getText().toString());
+        barBookingRequest.setPromoDiscount(String.valueOf(mPromoDiscount.replace("%"," ").trim()));
+        barBookingRequest.setTaxFees(mLabelPricingTax.getText().toString());
+        barBookingRequest.setTotal(mLabelPricingTotal.getText().toString());
+        String advanceBooking=restaurantData.getAdvanceBookingFees().replace("$"," ").trim();
+        barBookingRequest.setAdvanceBookingFees(advanceBooking);
+        barBookingRequest.setBookingType(restaurantData.getBarType());
+        barBookingRequest.setEventId(0);//set if booking is for event
+        return barBookingRequest;
     }
 
 }

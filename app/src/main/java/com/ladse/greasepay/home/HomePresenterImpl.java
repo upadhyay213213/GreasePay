@@ -2,6 +2,7 @@ package com.ladse.greasepay.home;
 
 import android.content.Context;
 
+import com.ladse.greasepay.common.AlertManager;
 import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.home.model.RestaurantData;
@@ -24,6 +25,7 @@ public class HomePresenterImpl implements HomePresenter, HomeInteractor.onRestau
 
     @Override
     public void getRestaurantData(Context context, RestaurantRequest restaurantRequest) {
+        AlertManager.showProgressDialog((Context) homeView);
         homeInteractor.getRestaurantData(AppSharedPreference.getAuthToken(context), restaurantRequest, this);
 
     }
@@ -41,11 +43,13 @@ public class HomePresenterImpl implements HomePresenter, HomeInteractor.onRestau
     @Override
     public void onRestaurantResponseSuccess(ArrayList<RestaurantData> restaurantData) {
         homeView.onHomeScreenResponseSuccess(restaurantData);
+        AlertManager.disMissDialog();
     }
 
     @Override
     public void onRestaurantResponseError() {
         homeView.onHomeScreenResponseError();
+        AlertManager.disMissDialog();
 
     }
 

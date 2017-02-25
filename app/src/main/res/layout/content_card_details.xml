@@ -49,19 +49,19 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/colorButtonText"
             android:gravity="start"/>
-<!--<LinearLayout
+<LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_below="@id/card_details_label_expiryDate"
-    android:background="@android:drawable/editbox_background">-->
+    android:background="@android:drawable/editbox_background">
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/card_details_edit_expiryMonth"
             android:layout_marginTop="@dimen/activity_padding_5"
             android:layout_below="@id/card_details_label_expiryDate"
-            android:hint="MM/YYYY"
+            android:hint="MM"
             android:inputType="date"
             style="@style/CardDetailsEditText"/>
     <EditText
@@ -75,8 +75,8 @@
         android:background="@drawable/card_details_edit_bg"
         android:inputType="date"
         android:backgroundTint="@android:color/transparent"
-        android:visibility="gone"/>
-<!--</LinearLayout>-->
+      />
+</LinearLayout>
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

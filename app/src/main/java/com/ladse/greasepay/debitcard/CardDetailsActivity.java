@@ -96,6 +96,12 @@ public class CardDetailsActivity extends AppCompatActivity {
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            AlertManager.showProgressDialog(CardDetailsActivity.this);
+        }
+
+        @Override
         protected Token doInBackground(Void... params) {
             Token token = null;
             String publishableKey = AppConstatnts.STRIPE_PUBLIC_KEY;
@@ -119,12 +125,14 @@ public class CardDetailsActivity extends AppCompatActivity {
                 //AlertManager.showErrorDialog(CardDetailsActivity.this,token.getId());
                  saveCardDetails(AppSharedPreference.getAuthToken(CardDetailsActivity.this),
                          new CardRequest(mCardNumber.getText().toString(), mCardExpiryMonth.getText().toString()+" "+mCardExpiryYear.getText().toString(),
-                                 mCvv.getText().toString(), mDefaultCheck.getText().toString(),
+                                 mCvv.getText().toString(), String.valueOf(mDefaultCheck.isChecked()),
                                  mName.getText().toString(), mZip.getText().toString()));
 
             }else{
+                AlertManager.disMissDialog();
                 AlertManager.showErrorDialog(CardDetailsActivity.this, String.valueOf(errorMessage));
             }
+
         }
 
 
@@ -137,20 +145,21 @@ public class CardDetailsActivity extends AppCompatActivity {
         si.enqueue(new Callback<CardResponse>() {
             @Override
             public void onResponse(Call<CardResponse> call, Response<CardResponse> response) {
-                AlertManager.showErrorDialog(CardDetailsActivity.this, response.message());
+                //AlertManager.showErrorDialog(CardDetailsActivity.this, response.message());
                 if(response.body().getSuccess().equalsIgnoreCase(AppConstatnts.ServerResponseConstants.LOGIN_SIGNUP_SUCCESS)) {
                     if (barBookingRequest != null) {
                         barBookingRequest.setStripeToken(stripeToken);
                         makeBarBooking(barBookingRequest);
                     }
                 }
+                AlertManager.disMissDialog();
 
 
             }
 
             @Override
             public void onFailure(Call<CardResponse> call, Throwable t) {
-
+                AlertManager.disMissDialog();
             }
         });
     }
@@ -162,12 +171,12 @@ public class CardDetailsActivity extends AppCompatActivity {
         si.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
-
+                AlertManager.disMissDialog();
             }
 
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
-
+                AlertManager.disMissDialog();
             }
         });
     }

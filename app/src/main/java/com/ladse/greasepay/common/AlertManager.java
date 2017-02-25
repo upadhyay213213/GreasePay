@@ -1,5 +1,6 @@
 package com.ladse.greasepay.common;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +12,9 @@ import com.ladse.greasepay.R;
  */
 public class AlertManager {
 
-    public static void showErrorDialog(Context context,String message){
+    private static ProgressDialog progressDialog;
+
+    public static void showErrorDialog(Context context, String message){
         new AlertDialog.Builder(context)
                 .setTitle(context.getString(R.string.app_name))
                 .setMessage(message)
@@ -22,5 +25,20 @@ public class AlertManager {
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+
+    public static void showProgressDialog(Context context){
+       progressDialog=new ProgressDialog(context);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.setTitle(context.getString(R.string.app_name));
+        progressDialog.show();
+    }
+
+    public static void disMissDialog(){
+        if(progressDialog!=null&&progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+
     }
 }

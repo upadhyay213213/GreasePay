@@ -2,8 +2,8 @@ package com.ladse.greasepay.upcomingevents;
 
 import android.content.Context;
 
+import com.ladse.greasepay.common.AlertManager;
 import com.ladse.greasepay.common.AppSharedPreference;
-import com.ladse.greasepay.restaurantdetails.OutletDetailsFragmentEvents;
 
 import java.util.ArrayList;
 
@@ -23,21 +23,25 @@ public class EventPresenterImpl implements EventPresenter, EventInteractor.OnEve
 
     @Override
     public void getUpcomingEventsList(EventRequest eventRequest) {
+        AlertManager.showProgressDialog(context);
         eventInteractor.getUpcomingEvents(AppSharedPreference.getAuthToken(context), eventRequest, this);
     }
 
     @Override
     public void onEventResponseSuccess(ArrayList<EventData> eventDataArrayList) {
         eventView.onUpcomingEventsSuccess(eventDataArrayList);
+        AlertManager.disMissDialog();
     }
 
     @Override
     public void onEventResponseError(String message) {
         eventView.onUpcomingEventsError(message);
+        AlertManager.disMissDialog();
     }
 
     @Override
     public void onEventResponseServerError() {
         eventView.onUpcomingEventServerError();
+        AlertManager.disMissDialog();
     }
 }

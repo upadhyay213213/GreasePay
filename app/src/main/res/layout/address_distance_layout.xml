@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="120dp"
-        android:id="@+id/outlet_details_screen_layout_frame"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:padding="@dimen/radius_size"
-        android:background="@drawable/details_background_rounded">
+    android:id="@+id/outlet_details_screen_layout_frame"
+    android:layout_width="200dp"
+    android:layout_height="70dp"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="120dp"
+    android:background="@drawable/details_background_rounded"
+    android:padding="@dimen/radius_size">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/textLayout"
+       android:layout_centerVertical="true">
 
         <TextView
+            android:id="@+id/outlet_details_screen_outletName"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:id="@+id/outlet_details_screen_outletName"
             android:text="Outlet name"
-            android:textSize="@dimen/text_heading_small"
-            android:layout_gravity="fill_vertical"
+            android:maxLength="20"
+            android:singleLine="true"
             android:textColor="@color/colorButtonText"
-            />
+            android:textSize="@dimen/text_heading_small_x" />
 
         <TextView
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
             android:id="@+id/outlet_details_screen_outletAddress"
-            android:text="Address"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="@dimen/radius_size"
-            android:textColor="@color/colorButtonText"
-            android:layout_below="@+id/outlet_details_screen_outletName"/>
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:id="@+id/outlet_details_screen_outletDistance"
-            android:layout_gravity="end"
-            android:paddingTop="@dimen/radius_size"
-            android:paddingLeft="@dimen/radius_size"
-            android:paddingRight="@dimen/radius_size"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:text="50 \n miles"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_toRightOf="@+id/outlet_details_screen_outletName"
-            android:background="@drawable/distance_rounded_background"
-            android:layout_alignParentRight="true"
-            />
-    </RelativeLayout>
+            android:layout_below="@+id/outlet_details_screen_outletName"
+            android:text="Address"
+            android:singleLine="true"
+            android:textColor="@color/colorButtonText" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/outlet_details_screen_outletDistance"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/activity_padding_5"
+        android:layout_toRightOf="@+id/textLayout"
+        android:background="@drawable/distance_rounded_background"
+        android:gravity="center"
+        android:text="50 \n miles"
+        android:textSize="@dimen/text_heading_small_x"
+        android:textStyle="bold" />
+</RelativeLayout>
