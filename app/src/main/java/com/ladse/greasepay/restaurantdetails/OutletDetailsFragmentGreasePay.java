@@ -4,17 +4,18 @@ package com.ladse.greasepay.restaurantdetails;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -67,6 +68,7 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
     private String tax;
     public BarBookingRequest barBookingRequest;
     private String modifiedDate;
+    private CheckBox checkBoxCTerms;
 
     public OutletDetailsFragmentGreasePay() {
         // Required empty public constructor
@@ -87,7 +89,9 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         decrementWomen = (ImageButton) v.findViewById(R.id.outlet_details_fragment_greasePay_button_womenDecrement);
         mNumberMen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_men);
         mNumberWomen = (TextView) v.findViewById(R.id.outlet_details_fragment_greasePay_no_of_women);
+        checkBoxCTerms= (CheckBox) v.findViewById(R.id.outlet_details_fragment_greasePay_checkBox);
         context = getContext();
+
 
 
         mCalender.setOnClickListener(new View.OnClickListener() {
@@ -153,12 +157,19 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
 
             @Override
             public void onClick(View v) {
-                barBookingRequest = createBarBookingRequest();
-                Intent intent = new Intent(getActivity(), CardDetailsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable(AppConstatnts.BAR_DATA, barBookingRequest);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if(checkBoxCTerms.isChecked()) {
+                    barBookingRequest = createBarBookingRequest();
+                    CardDetailsActivity cardDetailsActivity = new CardDetailsActivity();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(AppConstatnts.BAR_DATA, barBookingRequest);
+                    cardDetailsActivity.setArguments(bundle);
+                    FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                    fragmentTransaction.add(cardDetailsActivity,"cardDetails");
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }else{
+                    AlertManager.showErrorDialog(getActivity(),getActivity().getString(R.string.please_check_terms));
+                }
             }
         });
         mPromoCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -196,17 +207,17 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         mLabelPricingWomen.setText(restaurantData.getFemalePersonPerFees());
         mLabelPricingTax.setText(restaurantData.getTaxFees());
         if (restaurantData.getFemaleEntryFree() && restaurantData.getMaleEntryFree()) {
-            mLabelPricingMale.setText(getString(R.string.entry_free));
-            mLabelPricingFemale.setVisibility(View.GONE);
+            mLabelPricingFemale.setText(getString(R.string.entry_free));
+            mLabelPricingMale.setVisibility(View.GONE);
             mLabelPricingTotal.setText("0");
             idEntryFree = true;
         } else {
             if (restaurantData.getMaleEntryFree()) {
                 mLabelPricingMale.setText(getString(R.string.entry_free_men));
-                mLabelPricingFemale.setText(String.valueOf(restaurantData.getFemaleEntryFree()) + " " + "for female entry");
+                mLabelPricingFemale.setText(String.valueOf(restaurantData.getMalePersonPerFees()) + " " + "for female entry");
             } else if (restaurantData.getFemaleEntryFree()) {
                 mLabelPricingMale.setText(getString(R.string.entry_free_women));
-                mLabelPricingMale.setText(String.valueOf(restaurantData.getMaleEntryFree()) + " " + "for male entry");
+                mLabelPricingMale.setText(String.valueOf(restaurantData.getMalePersonPerFees()) + " " + "for male entry");
             }
         }
 
@@ -327,8 +338,8 @@ public class OutletDetailsFragmentGreasePay extends Fragment implements CheckPro
         barBookingRequest.setMalePersonPerFees(restaurantData.getMalePersonPerFees());
         barBookingRequest.setFemalePersonPerFees(restaurantData.getFemalePersonPerFees());
         barBookingRequest.setOrderDate(modifiedDate);
-        barBookingRequest.setMaleEntryFree(String.valueOf(restaurantData.getMaleEntryFree() == true ? 1: 0));
-        barBookingRequest.setFemaleEntryFree(String.valueOf(restaurantData.getFemaleEntryFree() == true ? 1: 0));
+        barBookingRequest.setMaleEntryFree(String.valueOf(restaurantData.getMaleEntryFree() ? 1: 0));
+        barBookingRequest.setFemaleEntryFree(String.valueOf(restaurantData.getFemaleEntryFree() ? 1: 0));
         barBookingRequest.setNumberOfMen(mNumberWomen.getText().toString());
         barBookingRequest.setNumberOfWomen(mNumberWomen.getText().toString());
         barBookingRequest.setPromoCode(mPromoCode.getText().toString());

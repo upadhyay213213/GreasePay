@@ -2,9 +2,11 @@ package com.ladse.greasepay.debitcard;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -31,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CardDetailsActivity extends AppCompatActivity {
+public class CardDetailsActivity extends Fragment {
     private EditText mCardNumber, mCvv, mName, mZip;
     private CheckBox mDefaultCheck, mSaveCheck;
     private Button mProceed;
@@ -42,44 +44,52 @@ public class CardDetailsActivity extends AppCompatActivity {
     private String stripeToken;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_details);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Card Details");
-        toolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        setSupportActionBar(toolbar);
-        initializeUI();
-    }
-
-    private void initializeUI() {
-        mCardNumber = (EditText) findViewById(R.id.card_details_edit_cardNumber);
-        mCardExpiryMonth = (EditText) findViewById(R.id.card_details_edit_expiryMonth);
-        mCardExpiryYear = (EditText) findViewById(R.id.card_details_edit_expiryYear);
-        mCvv = (EditText) findViewById(R.id.card_details_edit_cvv);
-        mName = (EditText) findViewById(R.id.card_details_edit_cardName);
-        mZip = (EditText) findViewById(R.id.card_details_edit_zipCode);
-        mDefaultCheck = (CheckBox) findViewById(R.id.card_details_check_defaultCard);
-        mSaveCheck = (CheckBox) findViewById(R.id.card_details_check_saveCard);
-        mProceed = (Button) findViewById(R.id.card_details_button_proceed);
-
-        Bundle bundle=getIntent().getExtras();
-        if(bundle!=null) {
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
             barBookingRequest = (BarBookingRequest) bundle.getSerializable(AppConstatnts.BAR_DATA);
         }
+
+       // setSupportActionBar(toolbar);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View v = inflater.inflate(R.layout.activity_card_details, container, false);
+        Toolbar toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        toolbar.setTitle("Card Details");
+        toolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        initializeUI(v);
+        return v;
+    }
+
+    private void initializeUI(View v) {
+        mCardNumber = (EditText) v.findViewById(R.id.card_details_edit_cardNumber);
+        mCardExpiryMonth = (EditText)v. findViewById(R.id.card_details_edit_expiryMonth);
+        mCardExpiryYear = (EditText) v.findViewById(R.id.card_details_edit_expiryYear);
+        mCvv = (EditText) v.findViewById(R.id.card_details_edit_cvv);
+        mName = (EditText) v.findViewById(R.id.card_details_edit_cardName);
+        mZip = (EditText) v.findViewById(R.id.card_details_edit_zipCode);
+        mDefaultCheck = (CheckBox) v.findViewById(R.id.card_details_check_defaultCard);
+        mSaveCheck = (CheckBox) v.findViewById(R.id.card_details_check_saveCard);
+        mProceed = (Button) v.findViewById(R.id.card_details_button_proceed);
+
+
         mProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //validateCardFromtripe();
-                new GetStripeToken(mCardNumber.getText().toString(), Integer.parseInt(mCardExpiryMonth.getText().toString()), Integer.parseInt(mCardExpiryYear.getText().toString()), mCvv.getText().toString()).execute();
-
+                if(mSaveCheck.isChecked()) {
+                    new GetStripeToken(mCardNumber.getText().toString(), Integer.parseInt(mCardExpiryMonth.getText().toString()), Integer.parseInt(mCardExpiryYear.getText().toString()), mCvv.getText().toString()).execute();
+                }else {
+                    AlertManager.showErrorDialog(getActivity(),getActivity().getString(R.string.please_check_save));
+                }
                 // saveCardDetails(AppSharedPreference.getAuthToken(CardDetailsActivity.this), new CardRequest(mCardNumber.getText().toString(), mCardExpiry.getText().toString(), mCvv.getText().toString(), mDefaultCheck.getText().toString(), mName.getText().toString(), mZip.getText().toString()));
             }
         });
     }
-
-
-
 
     class GetStripeToken extends AsyncTask<Void,Void,Token>{
 
@@ -98,7 +108,7 @@ public class CardDetailsActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            AlertManager.showProgressDialog(CardDetailsActivity.this);
+            AlertManager.showProgressDialog(getActivity());
         }
 
         @Override
@@ -123,14 +133,14 @@ public class CardDetailsActivity extends AppCompatActivity {
             if(token!=null) {
                 stripeToken=token.getId();
                 //AlertManager.showErrorDialog(CardDetailsActivity.this,token.getId());
-                 saveCardDetails(AppSharedPreference.getAuthToken(CardDetailsActivity.this),
+                 saveCardDetails(AppSharedPreference.getAuthToken(getActivity()),
                          new CardRequest(mCardNumber.getText().toString(), mCardExpiryMonth.getText().toString()+" "+mCardExpiryYear.getText().toString(),
-                                 mCvv.getText().toString(), String.valueOf(mDefaultCheck.isChecked()),
+                                 mCvv.getText().toString(), String.valueOf(mDefaultCheck.isChecked() ? "Yes" : "No"),
                                  mName.getText().toString(), mZip.getText().toString()));
 
             }else{
                 AlertManager.disMissDialog();
-                AlertManager.showErrorDialog(CardDetailsActivity.this, String.valueOf(errorMessage));
+                AlertManager.showErrorDialog(getActivity(), String.valueOf(errorMessage));
             }
 
         }
@@ -167,7 +177,7 @@ public class CardDetailsActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void makeBarBooking(BarBookingRequest barBookingRequest){
         ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
-        Call<Model> si = retrofitInterface.barBooking(AppSharedPreference.getAuthToken(CardDetailsActivity.this),barBookingRequest);
+        Call<Model> si = retrofitInterface.barBooking(AppSharedPreference.getAuthToken(getActivity()),barBookingRequest);
         si.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {

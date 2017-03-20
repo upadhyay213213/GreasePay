@@ -1,17 +1,14 @@
 package com.ladse.greasepay.utils;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ladse.greasepay.R;
-import com.ladse.greasepay.faq.FAQData;
 
 import java.util.HashMap;
 import java.util.List;
@@ -80,10 +77,10 @@ public class FAQAdapter extends BaseExpandableListAdapter{
         txtHeader.setText(mQuestions);
         ImageView sign = (ImageView) convertView.findViewById(R.id.faq_symbol);
         if(isExpanded){
-            sign.setImageResource(R.drawable.ic_icon_minus);
+            sign.setImageResource(R.drawable.minus);
         }
         else{
-            sign.setImageResource(R.drawable.ic_icon_plus);
+            sign.setImageResource(R.drawable.plus);
         }
         return convertView;
     }

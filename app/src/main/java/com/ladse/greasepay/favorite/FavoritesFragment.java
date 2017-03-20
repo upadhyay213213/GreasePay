@@ -1,8 +1,9 @@
-package com.ladse.greasepay.fragments;
+package com.ladse.greasepay.favorite;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,24 +51,30 @@ public class FavoritesFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_favorites, container, false);
         mFavRecycler = (RecyclerView) v.findViewById(R.id.fragment_favorite_recycler);
-
+        mFavRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         return v;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        getFavoriteData(AppSharedPreference.getAuthToken(getActivity()), request);
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getFavoriteData(AppSharedPreference.getAuthToken(getActivity()), request);
+
+
+
     }
+
+
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void getFavoriteData(String authToken, RestaurantRequest restaurantRequest) {
+
         ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
         Call<RestaurantResponse> si = retrofitInterface.getFavorite(authToken, restaurantRequest);
         si.enqueue(new Callback<RestaurantResponse>() {
@@ -78,18 +85,22 @@ public class FavoritesFragment extends Fragment {
                 if(restaurantResponse.getData().size()==0){
                     AlertManager.showErrorDialog(getActivity(),"No Favorites.");
                 }
+                AlertManager.disMissDialog();
             }
 
             @Override
             public void onFailure(Call<RestaurantResponse> call, Throwable t) {
                 AlertManager.showErrorDialog(getActivity(), "Can't fetch " +
                         "favorites");
+                AlertManager.disMissDialog();
             }
         });
+
     }
     private void initAdapter(ArrayList<RestaurantData> responseData){
         FavoritesAdapter adapter = new FavoritesAdapter(responseData, getActivity());
         mFavRecycler.setAdapter(adapter);
+
     }
 
 }

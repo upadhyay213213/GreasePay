@@ -18,17 +18,18 @@
 
             <LinearLayout
                 android:id="@+id/layoutFee"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/pricing_bg"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/radius_size">
 
                 <TextView
                     android:id="@+id/outlet_details_fragment_greasePay_pricing_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/radius_size"
+
                     android:text="Entry fee"
                     android:textColor="@color/colorButtonText"
                     android:textSize="18sp" />
@@ -37,11 +38,10 @@
                     android:id="@+id/outlet_details_fragment_greasePay_pricing_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/radius_size"
                     android:text="Entry fee"
                     android:textColor="@color/text_color_yellow_light"
                     android:textSize="18sp"
-
+                    android:layout_marginTop="@dimen/activity_padding_5"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -68,7 +68,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="@dimen/activity_padding_10"
                     android:layout_gravity="end"
-                    android:src="@drawable/ic_calendar_disp" />
+                    android:src="@drawable/calender_icon" />
 
             </LinearLayout>
         </LinearLayout>
@@ -112,7 +112,7 @@
                             android:id="@+id/outlet_details_fragment_greasePay_button_menDecrement"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/ic_icon_decrement" />
+                            android:src="@drawable/minus" />
 
                         <TextView
                             android:id="@+id/outlet_details_fragment_greasePay_no_of_men"
@@ -127,7 +127,7 @@
                             android:id="@+id/outlet_details_fragment_greasePay_button_menIncrement"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/ic_icon_increment" />
+                            android:src="@drawable/plus" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -157,7 +157,7 @@
                             android:id="@+id/outlet_details_fragment_greasePay_button_womenDecrement"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/ic_icon_decrement" />
+                            android:src="@drawable/minus" />
 
                         <TextView
                             android:id="@+id/outlet_details_fragment_greasePay_no_of_women"
@@ -172,7 +172,7 @@
                             android:id="@+id/outlet_details_fragment_greasePay_button_womenIncrement"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/ic_icon_increment" />
+                            android:src="@drawable/plus" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -204,7 +204,7 @@
                     android:layout_below="@id/outlet_details_fragment_greasePay_layout_nofopeople"
                     android:background="@drawable/edit_rounded"
                     android:focusable="false"
-                    android:focusableInTouchMode="false"
+                    android:focusableInTouchMode="true"
                     android:imeOptions="actionSend"
                     android:maxLines="1"
                     android:padding="@dimen/radius_size"

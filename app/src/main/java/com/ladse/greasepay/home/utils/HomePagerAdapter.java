@@ -13,9 +13,6 @@ import com.ladse.greasepay.home.ui.HomeScreenFragmentRestaurants;
 
 import java.util.ArrayList;
 
-/**
- * Created by Shrivats on 1/25/2017.
- */
 
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
     private int numOfTabs;

@@ -3,6 +3,7 @@ package com.ladse.greasepay.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,9 +24,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_screen);
-        initializeUI();
-        loginPresenter=new LoginPresenterImpl(this);
+        if(TextUtils.isEmpty(AppSharedPreference.getAuthToken(LoginActivity.this))){
+            setContentView(R.layout.activity_login_screen);
+            initializeUI();
+            loginPresenter=new LoginPresenterImpl(this);
+        }else{
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
+
     }
 
     private void initializeUI() {
@@ -84,6 +91,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        loginPresenter.toString();
+        if(loginPresenter!=null) {
+            loginPresenter.onDestroy();
+        }
     }
 }

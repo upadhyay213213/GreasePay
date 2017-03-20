@@ -63,12 +63,7 @@ public class HomeScreenFragmentRestaurants extends Fragment {
     public void onStart() {
         super.onStart();
         restaurantList.setHasFixedSize(true);
-        OutletFragmentAdapter oFA = new OutletFragmentAdapter(restaurantDataArrayList, new OutletFragmentAdapter.OutletListChangeListener() {
-            @Override
-            public void OnFavChangeListener(boolean isFav) {
-                //Fav icon toogle handling code goes here
-            }
-        });
+        OutletFragmentAdapter oFA = new OutletFragmentAdapter(restaurantDataArrayList);
         RecyclerView.LayoutManager layout = new LinearLayoutManager(getContext());
         restaurantList.setLayoutManager(layout);
         restaurantList.setAdapter(oFA);

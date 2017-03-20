@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@mipmap/ic_drawer_home"
+            android:icon="@drawable/home_icon"
             android:title="Home" />
         <item
             android:id="@+id/nav_my_grease_pay"
-            android:icon="@mipmap/ic_drawer_greasepay"
+            android:icon="@drawable/greasepay_icon"
             android:title="My Grease Pay" />
         <item
             android:id="@+id/nav_favorite"
-            android:icon="@mipmap/ic_drawer_favoritesicon"
+            android:icon="@drawable/favorite_icon"
             android:title="My Favorites" />
         <item
             android:id="@+id/nav_promocode"
-            android:icon="@mipmap/ic_drawer_promocode"
+            android:icon="@drawable/promo_icon"
             android:title="Promocode" />
     </group>
 
@@ -24,27 +24,27 @@
         <menu>
             <item
                 android:id="@+id/nav_payment"
-                android:icon="@mipmap/ic_drawer_payment"
+                android:icon="@drawable/payment_icon"
                 android:title="Payment" />
             <item
                 android:id="@+id/nav_send_feedback"
-                android:icon="@mipmap/ic_drawer_feedback"
+                android:icon="@drawable/feedback_icon"
                 android:title="Send Feedback" />
             <item
                 android:id="@+id/nav_invite"
-                android:icon="@mipmap/ic_drawer_invite"
+                android:icon="@drawable/add_icon"
                 android:title="Invite a friend" />
             <item
                 android:id="@+id/nav_faq"
-                android:icon="@mipmap/ic_drawer_faq"
+                android:icon="@drawable/faq_icon"
                 android:title="FAQ" />
             <item
                 android:id="@+id/nav_settings"
-                android:icon="@mipmap/ic_drawer_settings"
+                android:icon="@drawable/settings_icon"
                 android:title="Settings" />
             <item
                 android:id="@+id/nav_signOut"
-                android:icon="@mipmap/ic_drawer_signout"
+                android:icon="@drawable/signout_icon"
                 android:title="Sign Out" />
         </menu>
     </item>

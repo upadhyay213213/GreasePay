@@ -84,24 +84,6 @@ public class GetDataFromServer extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.ASYNC)
-    public void addRemoveFavorite(String authToken, AddRemoveFavoriteRequest addRemoveFavoriteRequest) {
-        ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
-        Call<Model> si = retrofitInterface.addRemoveFavorite(authToken, addRemoveFavoriteRequest);
-        si.enqueue(new Callback<Model>() {
-            @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
-                AlertManager.showErrorDialog(GetDataFromServer.this,response.message());
-            }
-
-            @Override
-            public void onFailure(Call<Model> call, Throwable t) {
-
-            }
-        });
-
-    }
-
-    @Subscribe(threadMode = ThreadMode.ASYNC)
     public void logOut(String authToken) {
         ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
         Call<Model> si = retrofitInterface.logoutFromApp(authToken);
@@ -147,6 +129,24 @@ public class GetDataFromServer extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<FAQResponse> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void addRemoveFavorite(String authToken, AddRemoveFavoriteRequest addRemoveFavoriteRequest) {
+        ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
+        Call<Model> si = retrofitInterface.addRemoveFavorite(authToken, addRemoveFavoriteRequest);
+        si.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                AlertManager.showErrorDialog(GetDataFromServer.this,response.message());
+            }
+
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
 
             }
         });

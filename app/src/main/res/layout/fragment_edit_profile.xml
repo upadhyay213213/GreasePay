@@ -16,7 +16,7 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:id="@+id/fragment_edit_button_edit_pic"
-           android:src="@mipmap/ic_icon_edit_profile"
+           android:src="@drawable/ic_icon_edit_profile"
            android:layout_centerInParent="true"
            android:background="@color/transparent"
            />

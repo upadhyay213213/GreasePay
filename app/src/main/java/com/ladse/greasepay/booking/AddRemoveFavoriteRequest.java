@@ -32,6 +32,8 @@ public class AddRemoveFavoriteRequest {
             this.action = action;
         }
 
-
-
+    public AddRemoveFavoriteRequest(String barId, String action) {
+        this.barId = barId;
+        this.action = action;
+    }
 }

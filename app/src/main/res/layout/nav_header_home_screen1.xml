@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@mipmap/ic_icon_edit_profile"
+        android:background="@drawable/ic_icon_edit_profile"
         />
 
     <TextView
@@ -48,7 +48,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_drawer_edit_profile"
+        app:srcCompat="@drawable/edit_icon"
         android:layout_alignTop="@+id/nav_drawer_editProfile"
         android:layout_toLeftOf="@+id/nav_drawer_editProfile"
         android:layout_toStartOf="@+id/nav_drawer_editProfile"

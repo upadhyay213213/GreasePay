@@ -3,7 +3,6 @@ package com.ladse.greasepay;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ladse.greasepay.booking.BookingListActivity;
@@ -24,9 +24,9 @@ import com.ladse.greasepay.common.AppSharedPreference;
 import com.ladse.greasepay.common.Model;
 import com.ladse.greasepay.constants.AppConstatnts;
 import com.ladse.greasepay.debitcard.CardDetailsActivity;
+import com.ladse.greasepay.favorite.FavoritesFragment;
 import com.ladse.greasepay.fragments.EditProfile;
 import com.ladse.greasepay.fragments.FAQFragment;
-import com.ladse.greasepay.fragments.FavoritesFragment;
 import com.ladse.greasepay.fragments.PromocodeFragment;
 import com.ladse.greasepay.fragments.SendFeedbackFragment;
 import com.ladse.greasepay.home.HomePresenter;
@@ -42,23 +42,25 @@ import com.ladse.greasepay.webclient_retro.ServiceGenerator;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeView{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeView {
     Toolbar toolbar;
     TextView toolbarTitle;
     private FragmentManager fragmentManager;
     private DrawerLayout mDrawerLayout;
     private FragmentTransaction fragmentTransaction;
     private HomePresenter homePresenter;
-    private TabLayout tabLayout;
+    //private LinearLayout tabLayout;
     private ViewPager viewPager;
+    private RelativeLayout tabBar;
+    private ArrayList<RestaurantData> restaurantData;
+    private String title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         init();
         homePresenter = new HomePresenterImpl(this);
     }
-    private void init(){
+
+    private void init() {
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -85,18 +88,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toolbarTitle.setText("Edit Profile");
+                title = "Edit Profile";
+                toolbarTitle.setText(title);
                 EditProfile editProfile = new EditProfile();
-                setFragment(editProfile);
+                setFragment(editProfile, title);
             }
         });
         ImageButton menuBtn = (ImageButton) toolbar.findViewById(R.id.activity_main_button_menu);
         toolbarTitle = (TextView) toolbar.findViewById(R.id.activity_main_title);
+        drawer.setNavigationItemSelectedListener(this);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d");
+        /*SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM d");
         String label = "Location, " + sdf.format(new Date());
         drawer.setNavigationItemSelectedListener(this);
-        toolbarTitle.setText(label);
+        toolbarTitle.setText(label);*/
 
         ImageButton mSearchIcon = (ImageButton) toolbar.findViewById(R.id.activity_main_button_search);
 
@@ -110,100 +115,120 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
-                }
-                else{
+                } else {
                     mDrawerLayout.openDrawer(GravityCompat.START);
                 }
             }
         });
-        tabLayout = (TabLayout) findViewById(R.id.main_screen_tabLayout);
+        tabBar = (RelativeLayout) findViewById(R.id.main_screen_tabLayout);
+        tabBar.setVisibility(View.VISIBLE);
         viewPager = (ViewPager) findViewById(R.id.main_screen_viewPager);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.home_tab_heading_bars));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.home_tab_heading_restaurants));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        //tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.home_tab_heading_bars));
+        // tabLayout.addTab(tabLayout.newTab().setText(R.string.tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
     }
 
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_drawer_editProfile:
-                toolbarTitle.setText("Edit Profile");
+                tabBar.setVisibility(View.GONE);
+                title = "Edit Profile";
+                toolbarTitle.setText(title);
                 EditProfile editProfile = new EditProfile();
-                setFragment(editProfile);
+                setFragment(editProfile, title);
                 break;
             case R.id.nav_home:
+                //tabBar.setVisibility(View.VISIBLE);
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
                 break;
             case R.id.nav_my_grease_pay:
+                // tabBar.setVisibility(View.GONE);
+                title = "My Grease Pay";
                 toolbarTitle.setText("My Grease Pay");
-                Intent intent=new Intent(MainActivity.this, BookingListActivity.class);
+                Intent intent = new Intent(MainActivity.this, BookingListActivity.class);
                 startActivity(intent);
 
                 break;
             case R.id.nav_favorite:
-                toolbarTitle.setText("Favorites");
+                tabBar.setVisibility(View.GONE);
+                title = "Favorites";
+
                 FavoritesFragment favoritesFragment = new FavoritesFragment();
-                setFragment(favoritesFragment);
+                setFragment(favoritesFragment, title);
                 break;
             case R.id.nav_promocode:
-                toolbarTitle.setText("Promocode");
+                tabBar.setVisibility(View.GONE);
+                title = "Promocode";
                 PromocodeFragment promocodeFragment = new PromocodeFragment();
-                setFragment(promocodeFragment);
+                setFragment(promocodeFragment, title);
                 break;
             case R.id.nav_payment:
-                toolbarTitle.setText("Payment");
-                Intent intent1 = new Intent(MainActivity.this, CardDetailsActivity.class);
-                startActivity(intent1);
+                tabBar.setVisibility(View.GONE);
+                title = "Payment";
+                CardDetailsActivity cardDetailsActivity = new CardDetailsActivity();
+                setFragment(cardDetailsActivity, title);
+                //cardDetailsActivity.setArguments(bundle);
                 break;
             case R.id.nav_send_feedback:
-                toolbarTitle.setText("Send Feedback");
+                tabBar.setVisibility(View.GONE);
+                title = "Send Feedback";
                 SendFeedbackFragment feedbackFragment = new SendFeedbackFragment();
-                setFragment(feedbackFragment);
+                setFragment(feedbackFragment, title);
                 break;
             case R.id.nav_invite:
+                tabBar.setVisibility(View.GONE);
                 toolbarTitle.setText("Invite");
 
                 break;
             case R.id.nav_faq:
-                toolbarTitle.setText("FAQ");
+                tabBar.setVisibility(View.GONE);
+                title = "FAQ";
                 FAQFragment faqFragment = new FAQFragment();
                 faqFragment.setContext(this);
-                setFragment(faqFragment);
+                setFragment(faqFragment, title);
                 break;
             case R.id.nav_settings:
+                tabBar.setVisibility(View.GONE);
                 break;
             case R.id.nav_signOut:
                 logOut(AppSharedPreference.getAuthToken(this));
                 break;
 
         }
+        toolbarTitle.setText(title);
         return false;
     }
-    private void setFragment(Fragment fragment){
-            tabLayout.setVisibility(View.GONE);
-            viewPager.setVisibility(View.GONE);
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.main_fragment_frame, fragment);
-            fragmentTransaction.addToBackStack("current");
-            fragmentTransaction.commit();
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-    }
 
+    private void setFragment(Fragment fragment, String title) {
+        //tabLayout.setVisibility(View.GONE);
+        String fragmentId = fragment.getClass().getCanonicalName();
+        viewPager.setVisibility(View.GONE);
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_fragment_frame, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
 
 
     @Override
     public void onHomeScreenResponseSuccess(ArrayList<RestaurantData> restaurantData) {
-        final HomePagerAdapter adapter = new HomePagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),restaurantData,homePresenter);
+        AlertManager.disMissDialog();
+        this.restaurantData = restaurantData;
+        final HomePagerAdapter adapter = new HomePagerAdapter(fragmentManager, 1, restaurantData, homePresenter);
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.setCurrentItem(1, true);
+
+       /* viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition(), true);
+
             }
 
             @Override
@@ -215,13 +240,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-        });
+        });*/
     }
 
     @Override
     public void onHomeScreenResponseError() {
-        AlertManager.showErrorDialog(MainActivity.this,"Server not reachable");
+        AlertManager.showErrorDialog(MainActivity.this, "Server not reachable");
     }
+
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void logOut(String authToken) {
         ServerCall retrofitInterface = ServiceGenerator.getRestWebService();
@@ -229,14 +255,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         si.enqueue(new Callback<Model>() {
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
-               Model model=response.body();
-                if(model.getSuccess().equalsIgnoreCase(AppConstatnts.ServerResponseConstants.LOGIN_SIGNUP_SUCCESS)) {
-                    AppSharedPreference.setAuthToken(" ",MainActivity.this);
+                Model model = response.body();
+                if (model.getSuccess().equalsIgnoreCase(AppConstatnts.ServerResponseConstants.LOGIN_SIGNUP_SUCCESS)) {
+                    AppSharedPreference.setAuthToken(" ", MainActivity.this);
                     AppSharedPreference.setUsername(" ", MainActivity.this);
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
-                AlertManager.showErrorDialog(MainActivity.this,model.getMessage());
+                AlertManager.showErrorDialog(MainActivity.this, model.getMessage());
             }
 
             @Override
@@ -245,27 +271,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else{
-            if(fragmentManager.getBackStackEntryCount() > 0){
-                fragmentManager.popBackStack();
-            }
-            else{
-                tabLayout.setVisibility(View.VISIBLE);
-                viewPager.setVisibility(View.VISIBLE);
+        } else {
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+                    fragmentManager.popBackStack();
+                    toolbarTitle.setText("");
+                    tabBar.setVisibility(View.VISIBLE);
+                    viewPager.setVisibility(View.VISIBLE);
+                }
+            } else {
+
                 super.onBackPressed();
             }
 
+
         }
+    }
+
+    public void removeCurrentFragment(String tag) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        Fragment currentFrag = getSupportFragmentManager().findFragmentByTag(tag);
+
+
+        String fragName = "NONE";
+
+        if (currentFrag != null)
+            fragName = currentFrag.getClass().getSimpleName();
+
+
+        if (currentFrag != null)
+            transaction.remove(currentFrag);
+
+        transaction.commit();
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        homePresenter.getRestaurantData(MainActivity.this, new RestaurantRequest());
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
-        homePresenter.getRestaurantData(MainActivity.this,new RestaurantRequest());
+       // AlertManager.showProgressDialog(this);
+
     }
 }

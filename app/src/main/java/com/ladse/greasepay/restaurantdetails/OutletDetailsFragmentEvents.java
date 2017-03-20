@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ladse.greasepay.R;
-import com.ladse.greasepay.model.EventModel;
 import com.ladse.greasepay.upcomingevents.EventData;
 import com.ladse.greasepay.upcomingevents.EventPresenter;
 import com.ladse.greasepay.upcomingevents.EventPresenterImpl;
@@ -43,6 +42,10 @@ public class OutletDetailsFragmentEvents extends Fragment implements EventView{
         View v = inflater.inflate(R.layout.outlet_details_tab_upcomingevents, container, false);
 
         eventList = (RecyclerView) v.findViewById(R.id.outlet_details_fragment_events_recyclerEvent);
+        LinearLayoutManager horizontalLayoutManagaer
+                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true);
+        eventList.setLayoutManager(horizontalLayoutManagaer);
+
         mLabelDate = (TextView) v.findViewById(R.id.outlet_details_fragment_events_label_date);
         mCalIcon = (ImageView) v.findViewById(R.id.outlet_details_fragment_events_icon_cal);
         eventDetailsList = new ArrayList<>();
@@ -86,8 +89,6 @@ public class OutletDetailsFragmentEvents extends Fragment implements EventView{
     }
     private void setDetails(){
         EventAdapter eveAd = new EventAdapter(eventDetailsList);
-        RecyclerView.LayoutManager lMan = new LinearLayoutManager(getContext());
-        eventList.setLayoutManager(lMan);
         eventList.setAdapter(eveAd);
         //labelMessage.setText("success");
     }

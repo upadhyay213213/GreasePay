@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/activity_main_button_menu"
-                android:src="@drawable/ic_drawer_bars"
+                android:src="@drawable/menu"
                 android:layout_gravity="start"
                 android:background="@color/transparent"
                 />
@@ -36,20 +36,23 @@
                 android:id="@+id/activity_main_title"
                 android:layout_gravity="center"
                 android:textSize="@dimen/text_heading_large"
-                android:textColor="@color/colorButtonText"
+                android:textColor="@color/text_color_yellow_light"
+
                 />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/activity_main_button_search"
                 android:layout_gravity="end"
-                android:src="@drawable/ic_icon_search"
+                android:src="@drawable/search"
                 android:background="@color/transparent"
+                android:visibility="gone"
                 />
         </android.support.v7.widget.Toolbar>
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             >
 
                 <FrameLayout
@@ -59,12 +62,23 @@
                     >
                 </FrameLayout>
 
-            <android.support.design.widget.TabLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:id="@+id/main_screen_tabLayout"
-                app:tabBackground="@drawable/button_rounded"
-                />
+                android:background="@color/text_color_yellow_light"
+                android:visibility="gone"
+              >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bar/Club"
+                    android:layout_centerInParent="true"
+                    android:textSize="@dimen/text_heading_large"
+                    android:textStyle="bold"
+                   />
+             </RelativeLayout>
 
             <android.support.v4.view.ViewPager
                 android:layout_width="match_parent"
@@ -74,7 +88,7 @@
                 />
 
 
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 
